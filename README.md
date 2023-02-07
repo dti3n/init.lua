@@ -4,4 +4,4 @@ Neovim setup (using packer.nvim)
 
 Requires neovim (>= 0.8)
 
-> note: require ripgrep
+> note: requires ripgrep for telescope
