@@ -48,9 +48,4 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>]])
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-
--- User commands
-vim.api.nvim_create_user_command('Nterm', 'tabe | term', {})
-vim.api.nvim_create_user_command('Hterm', 'sp | resize -6 | term', {})
-vim.api.nvim_create_user_command('Vterm', 'vsp | vertical resize -21 | term', {})
-vim.api.nvim_create_user_command('Bd', 'up | %bd | e#', {}) -- delete all hidden buffers
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")

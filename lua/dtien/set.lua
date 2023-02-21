@@ -1,25 +1,7 @@
 local o = vim.opt
 local g = vim.g
 
--- suggested by nvim-tree plugin
-g.loaded_netrw = 1
-g.loaded_netrwPlugin = 1
-
 g.mapleader = " "
-
--- o.fillchars:append({
---     horiz = '━',
---     horizup = '┻',
---     horizdown = '┳',
---     vert = '┃',
---     vertleft = '┨',
---     vertright = '┣',
---     verthoriz = '╋',
--- })
-
--- o.list = true
--- o.listchars = 'eol:↵'
--- o.listchars = 'eol:¬,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
 
 -- o.winbar = "%=%m %f"
 o.laststatus = 3
@@ -51,9 +33,21 @@ o.termguicolors = true
 
 o.scrolloff = 8
 o.signcolumn = "yes"
--- o.colorcolumn = "100"
+-- o.colorcolumn = "120"
 
--- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
--- delays and poor user experience.
+-- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
 o.updatetime = 50
+
+-- o.fillchars:append({
+--     horiz = '━',
+--     horizup = '┻',
+--     horizdown = '┳',
+--     vert = '┃',
+--     vertleft = '┨',
+--     vertright = '┣',
+--     verthoriz = '╋',
+-- })
+-- o.list = true
+-- o.listchars = 'eol:↵'
+-- o.listchars = 'eol:¬,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
 

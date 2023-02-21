@@ -2,19 +2,43 @@ local status, lsp = pcall(require, "lsp-zero")
 if (not status) then return end
 
 lsp.preset('recommended')
-lsp.setup()
+
+lsp.ensure_installed({
+    'tsserver',
+    'rust_analyzer',
+})
 
 lsp.set_preferences({
     suggest_lsp_servers = false,
+    sign_icons = {
+        error = 'E',
+        warn = 'W',
+        hint = 'H',
+        info = 'I'
+    }
 })
 
-vim.diagnostic.config({
-    virtual_text = true,
-    signs = true,
-    update_in_insert = false,
-    underline = true,
-    severity_sort = false,
-    float = true,
+-- lsp.configure('sumneko_lua', {
+--     settings = {
+--         Lua = {
+--             diagnostics = {
+--                 globals = { 'vim' }
+--             }
+--         }
+--     }
+-- })
+
+local cmp = require('cmp')
+local cmp_mappings = lsp.defaults.cmp_mappings({
+    ['<C-k>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-j>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+})
+
+lsp.setup_nvim_cmp({
+    mapping = cmp_mappings
 })
 
 -- Mappings.
@@ -25,12 +49,12 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
-local on_attach = function(client, bufnr)
+lsp.on_attach(function(client, bufnr)
     local nmap = function(keys, func, desc)
         if desc then
             desc = 'LSP: ' .. desc
         end
-        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+        vim.keymap.set('n', keys, func, { buffer = bufnr, remap = false, desc = desc })
     end
 
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
@@ -59,29 +83,11 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
-end
+end)
 
-local servers = {
-    tsserver = {},
-    -- pyright = {},
-    -- sumneko_lua = {
-    --     Lua = {
-    --         workspace = { checkThirdParty = false },
-    --         telemetry = { enable = false },
-    --     },
-}
+lsp.setup()
 
-local mason_lspconfig = require 'mason-lspconfig'
-mason_lspconfig.setup_handlers {
-    function(server_name)
-        require('lspconfig')[server_name].setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = servers[server_name],
-        }
-    end,
-}
+vim.diagnostic.config({
+    virtual_text = true
+})
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)

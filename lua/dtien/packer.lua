@@ -3,7 +3,7 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
-    -- Colorscheme
+    -- Colorschemes
     use({
         'rose-pine/neovim',
         as = 'rose-pine',
@@ -50,6 +50,11 @@ return require('packer').startup(function(use)
     use 'theprimeagen/harpoon'
     use 'nvim-tree/nvim-tree.lua'
     use 'kyazdani42/nvim-web-devicons'
+
+    use {
+        "folke/trouble.nvim",
+        config = function() require("trouble").setup { icons = false, } end
+    }
 
     use {
         'lewis6991/gitsigns.nvim',
