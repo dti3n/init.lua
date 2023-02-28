@@ -29,19 +29,11 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- Deleting to void register
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
--- Swiching tabs
-vim.keymap.set("n", "<leader>1", "1gt")
-vim.keymap.set("n", "<leader>2", "2gt")
-vim.keymap.set("n", "<leader>3", "3gt")
-vim.keymap.set("n", "<leader>4", "4gt")
-vim.keymap.set("n", "<leader>5", "5gt")
-vim.keymap.set("n", "<leader>6", "6gt")
-vim.keymap.set("n", "<leader>7", "7gt")
-vim.keymap.set("n", "<leader>8", "8gt")
-vim.keymap.set("n", "<leader>9", "9gt")
-vim.keymap.set("n", "<leader>0", ":tablast<cr>")
-vim.keymap.set("n", "<leader>tn", ":tabnext<cr>")
-vim.keymap.set("n", "<leader>tp", ":tabprev<cr>")
+-- Tab switching
+vim.keymap.set("n", [[\1]], "1gt")
+vim.keymap.set("n", [[\2]], "2gt")
+vim.keymap.set("n", [[\3]], "3gt")
+vim.keymap.set("n", [[\4]], "4gt")
 
 -- So gooooood
 vim.keymap.set("i", "<C-c>", "<Esc>")
@@ -49,3 +41,9 @@ vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>]])
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+
+-- vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+-- vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
+-- vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
+-- vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
+

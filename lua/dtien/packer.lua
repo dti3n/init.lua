@@ -5,8 +5,7 @@ return require('packer').startup(function(use)
 
     -- Colorschemes
     use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
+        'rose-pine/neovim', as = 'rose-pine',
         config = function()
             vim.cmd('colorscheme rose-pine')
         end
@@ -51,9 +50,11 @@ return require('packer').startup(function(use)
     use 'nvim-tree/nvim-tree.lua'
     use 'kyazdani42/nvim-web-devicons'
 
+    use { 'akinsho/bufferline.nvim', tag = "v3.*" }
+
     use {
         "folke/trouble.nvim",
-        config = function() require("trouble").setup { icons = false, } end
+        config = function() require("trouble").setup {} end
     }
 
     use {

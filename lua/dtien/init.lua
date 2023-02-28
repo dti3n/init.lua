@@ -1,6 +1,6 @@
 require("dtien.set")
 require("dtien.remap")
-require("dtien.tabline")
+require("dtien.utils")
 
 -------------------------------------------------
 

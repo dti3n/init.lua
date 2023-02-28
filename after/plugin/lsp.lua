@@ -10,12 +10,6 @@ lsp.ensure_installed({
 
 lsp.set_preferences({
     suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
 })
 
 -- lsp.configure('sumneko_lua', {
@@ -90,4 +84,3 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = true
 })
-

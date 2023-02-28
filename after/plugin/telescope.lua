@@ -11,11 +11,20 @@ telescope.setup {
             ".git",
         },
         mappings = {
-            n = {
-                ["q"] = actions.close
+            i = {
+                ['<C-q>'] = actions.add_to_qflist,
+            },
+           n = {
+                ["q"] = actions.close,
+                ['<C-q>'] = actions.add_to_qflist,
             },
         },
     },
+    -- pickers = {
+    --     find_files = {
+    --         theme = "dropdown",
+    --     }
+    -- },
 }
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
