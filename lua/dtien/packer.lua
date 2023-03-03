@@ -1,5 +1,4 @@
 vim.cmd [[packadd packer.nvim]]
-
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
@@ -50,11 +49,9 @@ return require('packer').startup(function(use)
     use 'nvim-tree/nvim-tree.lua'
     use 'kyazdani42/nvim-web-devicons'
 
-    use { 'akinsho/bufferline.nvim', tag = "v3.*" }
-
     use {
         "folke/trouble.nvim",
-        config = function() require("trouble").setup {} end
+        config = function() require("trouble").setup { icons = false } end
     }
 
     use {

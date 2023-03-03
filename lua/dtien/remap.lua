@@ -29,11 +29,21 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- Deleting to void register
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
--- Tab switching
-vim.keymap.set("n", [[\1]], "1gt")
-vim.keymap.set("n", [[\2]], "2gt")
-vim.keymap.set("n", [[\3]], "3gt")
-vim.keymap.set("n", [[\4]], "4gt")
+-- Swiching tabs
+vim.keymap.set("n", "<leader>1", "1gt")
+vim.keymap.set("n", "<leader>2", "2gt")
+vim.keymap.set("n", "<leader>3", "3gt")
+vim.keymap.set("n", "<leader>4", "4gt")
+vim.keymap.set("n", "<leader>5", "5gt")
+vim.keymap.set("n", "<leader>6", "6gt")
+vim.keymap.set("n", "<leader>7", "7gt")
+vim.keymap.set("n", "<leader>8", "8gt")
+vim.keymap.set("n", "<leader>9", "9gt")
+vim.keymap.set("n", "<leader>0", ":tablast<cr>")
+vim.keymap.set("n", "<leader>tn", ":tabnext<cr>")
+vim.keymap.set("n", "<leader>tp", ":tabprev<cr>")
+vim.keymap.set("n", "<leader>>", ":tabmove +1<cr>")
+vim.keymap.set("n", "<leader><", ":tabmove -1<cr>")
 
 -- So gooooood
 vim.keymap.set("i", "<C-c>", "<Esc>")

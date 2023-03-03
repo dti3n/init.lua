@@ -5,12 +5,13 @@ g.mapleader = " "
 
 o.showmode = false
 o.statusline = "[%{v:lua.vim.api.nvim_get_mode().mode}] %=%m %f%=%5l:%-4c [%L/%P]"
-
 o.laststatus = 3
+o.showtabline = 2
 o.cursorline = true
 
 o.nu = true
 o.relativenumber = true
+
 -- Tab = 4 spaces character o.tabstop = 4
 o.softtabstop = 4
 o.shiftwidth = 4

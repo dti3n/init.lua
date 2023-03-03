@@ -17,3 +17,4 @@ function set_scheme(color)
 end
 
 set_scheme()
+
