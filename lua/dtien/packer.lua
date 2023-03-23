@@ -48,6 +48,7 @@ return require('packer').startup(function(use)
     use 'theprimeagen/harpoon'
     use 'nvim-tree/nvim-tree.lua'
     use 'kyazdani42/nvim-web-devicons'
+    use 'feline-nvim/feline.nvim'
 
     use {
         "folke/trouble.nvim",
