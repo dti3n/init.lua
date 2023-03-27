@@ -15,12 +15,12 @@ telescope.setup {
         mappings = {
             i = {
                 ['<C-q>'] = actions.add_to_qflist,
-                ['<C-t>'] = trouble.open_with_trouble,
+                ['<C-a>'] = trouble.open_with_trouble,
             },
            n = {
                 ["q"] = actions.close,
                 ['<C-q>'] = actions.add_to_qflist,
-                ['<C-t>'] = trouble.open_with_trouble,
+                ['<C-a>'] = trouble.open_with_trouble,
             },
         },
     },
