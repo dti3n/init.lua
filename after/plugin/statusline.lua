@@ -124,11 +124,27 @@ component.file_name = {
     provider = {
         name = "file_info",
         opts = {
-            type = "relative-short",
+            -- type = "relative-short",
+            type = "relative",
         },
     },
     hl = {
         style = "bold",
+    },
+    left_sep = "block",
+    right_sep = "block",
+}
+
+component.position = {
+    provider = {
+        name = 'position',
+        opts = {
+            padding = {
+                line = 4,
+                col = 3
+            },
+            format = '{line},{col}',
+        },
     },
     left_sep = "block",
     right_sep = "block",
@@ -140,6 +156,7 @@ component.scroll_bar = {
         fg = "yellow",
         style = "bold",
     },
+    left_sep = "block"
 }
 
 local left = {
@@ -155,6 +172,7 @@ local middle = {
 }
 
 local right = {
+    component.position,
     component.file_type,
     component.scroll_bar,
 }
