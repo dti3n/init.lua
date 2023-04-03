@@ -16,7 +16,6 @@ telescope.setup {
             i = {
                 ['<C-q>'] = actions.add_to_qflist,
                 ['<C-a>'] = trouble.open_with_trouble,
-                ['<C-c>'] = nil
             },
             n = {
                 ["q"] = actions.close,
@@ -32,7 +31,7 @@ telescope.setup {
     -- },
 }
 
-vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = '[F]ind [F]iles' })
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
 vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = '[G]it [F]iles' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elptag' })

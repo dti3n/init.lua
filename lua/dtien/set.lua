@@ -36,7 +36,7 @@ o.signcolumn = "yes"
 o.colorcolumn = "120"
 
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
-o.updatetime = 40
+o.updatetime = 100
 
 -- o.fillchars:append({
 --     horiz = '━',
