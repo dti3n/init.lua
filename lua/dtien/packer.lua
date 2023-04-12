@@ -47,7 +47,6 @@ return require('packer').startup(function(use)
     -- Others
     use 'tpope/vim-fugitive'
     use 'theprimeagen/harpoon'
-    use 'nvim-tree/nvim-tree.lua'
     use 'kyazdani42/nvim-web-devicons'
     use 'nvim-lualine/lualine.nvim'
 
@@ -58,7 +57,17 @@ return require('packer').startup(function(use)
 
     use {
         'lewis6991/gitsigns.nvim',
-        config = function() require('gitsigns').setup {} end
+        config = function()
+            require('gitsigns').setup {
+                signs = {
+                    add = { text = '+' },
+                    change = { text = '~' },
+                    delete = { text = '_' },
+                    topdelete = { text = '‾' },
+                    changedelete = { text = '~' },
+                },
+        }
+        end
     }
 
     use {

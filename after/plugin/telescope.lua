@@ -15,13 +15,20 @@ telescope.setup {
         mappings = {
             i = {
                 ['<C-q>'] = actions.add_to_qflist,
-                ['<C-a>'] = trouble.open_with_trouble,
+                ['<C-t>'] = trouble.open_with_trouble,
+                ['<C-c>'] = false,
             },
             n = {
                 ["q"] = actions.close,
                 ['<C-q>'] = actions.add_to_qflist,
-                ['<C-a>'] = trouble.open_with_trouble,
+                ['<C-t>'] = trouble.open_with_trouble,
             },
+        },
+        layout_strategy = 'horizontal',
+        layout_config = {
+            -- prompt_position = "top",
+            height = 0.95,
+            width = 0.95
         },
     },
     -- pickers = {

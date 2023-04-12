@@ -3,16 +3,17 @@ local g = vim.g
 
 g.mapleader = " "
 
+g.netrw_banner = 0
+g.netrw_winsize = 30
+g.netrw_liststyle = 3
+
 o.showmode = false
-o.statusline = "[%{v:lua.vim.api.nvim_get_mode().mode}] %=%m %f%=%5l:%-4c [%L/%P]"
 o.laststatus = 3
 o.showtabline = 2
-o.cursorline = true
 
 o.nu = true
 o.relativenumber = true
 
--- Tab = 4 spaces character o.tabstop = 4
 o.softtabstop = 4
 o.shiftwidth = 4
 o.expandtab = true
@@ -33,20 +34,7 @@ o.termguicolors = true
 
 o.scrolloff = 8
 o.signcolumn = "yes"
-o.colorcolumn = "120"
+o.colorcolumn = "110"
 
--- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
-o.updatetime = 100
+o.updatetime = 200
 
--- o.fillchars:append({
---     horiz = '━',
---     horizup = '┻',
---     horizdown = '┳',
---     vert = '┃',
---     vertleft = '┨',
---     vertright = '┣',
---     verthoriz = '╋',
--- })
--- o.list = true
--- o.listchars = 'eol:↵'
--- o.listchars = 'eol:¬,trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'

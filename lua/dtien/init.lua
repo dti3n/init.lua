@@ -41,3 +41,23 @@ autocmd({"BufWritePre"}, {
     pattern = "*",
     command = "%s/\\s\\+$//e",
 })
+
+autocmd('FileType', {
+    pattern = 'netrw',
+    desc = 'Better mappings for netrw',
+
+    callback = function(desc)
+        local bind = function(lhs, rhs)
+            vim.keymap.set('n', lhs, rhs, { remap = true, buffer = true })
+        end
+
+        -- edit new file
+        bind('n', '%')
+
+        -- rename file
+        bind('r', 'R')
+
+        -- open file
+        bind('o', '<CR>')
+    end
+})

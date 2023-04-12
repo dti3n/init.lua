@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { silent = true })
+vim.keymap.set("n", "<leader>vn", vim.cmd.Lex, { silent = true })
 
 -- Move line up and down VISUAL modes
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -45,6 +45,7 @@ vim.keymap.set("n", "tp", ":tabprev<cr>")
 vim.keymap.set("n", "tm", ":tabmove ")
 
 -- So gooooood
+vim.keymap.set({"n", "v"} , ";", "$")
 vim.keymap.set("n", "<C-b>", "<C-6>")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>]])
