@@ -9,7 +9,7 @@ g.netrw_liststyle = 3
 
 o.showmode = false
 o.laststatus = 3
-o.showtabline = 2
+o.winbar = " %= %m %f "
 
 o.nu = true
 o.relativenumber = true

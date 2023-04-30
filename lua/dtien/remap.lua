@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<leader>vn", vim.cmd.Lex, { silent = true })
+vim.keymap.set("n", "<leader>vn", vim.cmd.Ex, { silent = true })
 
 -- Move line up and down VISUAL modes
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -40,21 +40,17 @@ vim.keymap.set("n", "<leader>7", "7gt")
 vim.keymap.set("n", "<leader>8", "8gt")
 vim.keymap.set("n", "<leader>9", "9gt")
 vim.keymap.set("n", "<leader>0", ":tablast<cr>")
-vim.keymap.set("n", "tn", ":tabnext<cr>")
-vim.keymap.set("n", "tp", ":tabprev<cr>")
-vim.keymap.set("n", "tm", ":tabmove ")
 
 -- So gooooood
-vim.keymap.set({"n", "v"} , ";", "$")
-vim.keymap.set("n", "<C-b>", "<C-6>")
+vim.keymap.set("n", "<C-t>", "<C-6>")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set('t', [[<C-\>]], [[<C-\><C-n>]])
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
--- vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
--- vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
--- vim.keymap.set("n", "<leader>j", "<cmd>lnext<CR>zz")
--- vim.keymap.set("n", "<leader>k", "<cmd>lprev<CR>zz")
+-- vim.keymap.set("n", "<C-n>", "<cmd>cnext<CR>zz")
+-- vim.keymap.set("n", "<C-p>", "<cmd>cprev<CR>zz")
+-- vim.keymap.set("n", "<C-j>", "<cmd>lnext<CR>zz")
+-- vim.keymap.set("n", "<C-k>", "<cmd>lprev<CR>zz")
 

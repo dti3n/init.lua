@@ -4,7 +4,7 @@ if (not status) then return end
 color.setup({
     disable_italics = true,
     disable_background = true,
-    disable_float_background = true,
+    disable_float_background = false,
     -- highlight_groups = {
     --     StatusLine = { fg = "love", bg = "love", blend = 10 },
     --     StatusLineNC = { fg = "subtle", bg = "surface" },

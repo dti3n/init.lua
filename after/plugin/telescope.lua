@@ -4,8 +4,6 @@ if (not status) then return end
 local actions = require('telescope.actions')
 local builtin = require("telescope.builtin")
 
-local trouble = require("trouble.providers.telescope")
-
 telescope.setup {
     defaults = {
         file_ignore_patterns = {
@@ -14,14 +12,17 @@ telescope.setup {
         },
         mappings = {
             i = {
+                ['<Esc>'] = actions.close,
+                ['<C-j>'] = actions.move_selection_next,
+                ['<C-k>'] = actions.move_selection_previous,
                 ['<C-q>'] = actions.add_to_qflist,
-                ['<C-t>'] = trouble.open_with_trouble,
-                ['<C-c>'] = false,
+                ['<A-q>'] = actions.add_selected_to_qflist,
+                ['<C-c>'] = false
             },
             n = {
-                ["q"] = actions.close,
+                ['q'] = actions.close,
                 ['<C-q>'] = actions.add_to_qflist,
-                ['<C-t>'] = trouble.open_with_trouble,
+                ['<A-q>'] = actions.add_selected_to_qflist,
             },
         },
         layout_strategy = 'horizontal',

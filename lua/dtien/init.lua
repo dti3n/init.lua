@@ -10,7 +10,11 @@ require("dtien.tabline")
 
 vim.api.nvim_create_autocmd("TermOpen", { command = "startinsert", pattern = "*" })
 
-vim.api.nvim_create_autocmd("BufEnter", { callback = function() vim.opt.formatoptions = vim.opt.formatoptions - { "c","r","o" } end, })
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        vim.opt.formatoptions = vim.opt.formatoptions - { "c","r","o" }
+    end
+})
 
 vim.api.nvim_create_user_command('Nterm', 'tabe | term', {})
 vim.api.nvim_create_user_command('Vterm', 'vsp | vertical resize -21 | term', {})
@@ -53,6 +57,7 @@ autocmd('FileType', {
 
         -- edit new file
         bind('n', '%')
+        bind('a', '%')
 
         -- rename file
         bind('r', 'R')

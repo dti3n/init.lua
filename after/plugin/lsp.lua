@@ -54,6 +54,8 @@ lsp.on_attach(function(client, bufnr)
         vim.keymap.set('n', keys, func, { buffer = bufnr, remap = false, desc = desc })
     end
 
+    client.server_capabilities.semanticTokensProvider = nil
+
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
