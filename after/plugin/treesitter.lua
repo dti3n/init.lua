@@ -2,7 +2,7 @@ local status, treesitter_configs = pcall(require, "nvim-treesitter.configs")
 if (not status) then return end
 
 treesitter_configs.setup {
-    ensure_installed = { "help", "lua", "javascript", "typescript", "tsx", "rust", "python", "go" },
+    ensure_installed = { "vimdoc", "lua", "javascript", "typescript", "tsx", "rust", "python" },
     sync_install = false,
     auto_install = false,
     highlight = {
@@ -63,9 +63,13 @@ treesitter_configs.setup {
             enable = true,
             swap_next = {
                 ['<leader>a'] = '@parameter.inner',
+                -- ['<leader>c'] = '@class.outer',
+                -- ['<leader>m'] = '@function.outer',
             },
             swap_previous = {
                 ['<leader>A'] = '@parameter.inner',
+                -- ['<leader>C'] = '@class.outer',
+                -- ['<leader>M'] = '@function.outer',
             },
         },
     },

@@ -1,6 +1,6 @@
 ## nvim-config
 
-Neovim setup (using packer.nvim)
+Neovim setup (using lazy.nvim)
 
 Requires neovim (>= 0.8)
 
