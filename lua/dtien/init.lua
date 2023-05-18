@@ -56,7 +56,6 @@ autocmd('FileType', {
         end
 
         -- edit new file
-        bind('n', '%')
         bind('a', '%')
 
         -- rename file

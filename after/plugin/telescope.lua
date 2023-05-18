@@ -13,8 +13,6 @@ telescope.setup {
         mappings = {
             i = {
                 ['<Esc>'] = actions.close,
-                ['<C-j>'] = actions.move_selection_next,
-                ['<C-k>'] = actions.move_selection_previous,
                 ['<C-q>'] = actions.add_to_qflist,
                 ['<A-q>'] = actions.add_selected_to_qflist,
                 ['<C-c>'] = false
@@ -28,8 +26,8 @@ telescope.setup {
         layout_strategy = 'horizontal',
         layout_config = {
             -- prompt_position = "top",
-            height = 0.95,
-            width = 0.95
+            height = 0.90,
+            width = 0.90
         },
     },
     -- pickers = {
