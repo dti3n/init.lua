@@ -7,39 +7,38 @@ return {
         local builtin = require('telescope.builtin')
         require('telescope').setup {
             defaults = {
-                file_ignore_patterns = {
-                    "node_modules",
-                    ".git",
-                },
+                -- file_ignore_patterns = {
+                --     "node_modules",
+                -- },
                 mappings = {
                     i = {
-                        ['<Esc>'] = actions.close,
-                        ['<C-q>'] = actions.add_to_qflist,
-                        ['<A-q>'] = actions.add_selected_to_qflist,
                         ['<C-c>'] = false
                     },
                     n = {
                         ['q'] = actions.close,
-                        ['<C-q>'] = actions.add_to_qflist,
-                        ['<A-q>'] = actions.add_selected_to_qflist,
                     },
                 },
-                layout_strategy = 'horizontal',
-                layout_config = {
-                    -- prompt_position = "top",
-                    height = 0.90,
-                    width = 0.90
-                },
+                -- layout_strategy = 'horizontal',
+                -- layout_config = {
+                --     prompt_position = "top",
+                --     height = 0.90,
+                --     width = 0.90
+                -- },
             },
-            -- pickers = {
-            --     find_files = {
-            --         theme = "dropdown",
-            --     }
-            -- },
+            pickers = {
+                find_files = {
+                    previewer = false,
+                    theme = "dropdown",
+                },
+                git_files = {
+                    previewer = false,
+                    theme = "dropdown",
+                }
+            },
         }
 
         vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
-        vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = '[G]it [F]iles' })
+        vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = '[G]it [F]iles' })
         vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffers' })
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elptag' })
         vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind words by [G]rep' })

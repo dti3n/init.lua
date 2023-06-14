@@ -1,47 +1,3 @@
-local lang_maps = {
-    cpp = { build = "g++ % -o %:r", exec = "./%:r" },
-    java = { build = "javac %", exec = "java %:r" },
-    go = { build = "go build", exec = "go run %" },
-    typescript = { exec = "tsc" },
-    javascript = { exec = "node %" },
-    python = { exec = "python3 %" },
-    rust = { exec = "cargo run" },
-}
-
-for lang, data in pairs(lang_maps) do
-    if data.build ~= nil then
-        vim.api.nvim_create_autocmd(
-            "FileType",
-            { command = "nnoremap <Leader>b :!" .. data.build .. "<CR>", pattern = lang }
-        )
-    end
-
-    vim.api.nvim_create_autocmd(
-        "FileType",
-        { command = "nnoremap <Leader>e :split<CR>:terminal " .. data.exec .. "<CR>", pattern = lang }
-    )
-end
-
--------------------------------------------------
-
--- vim.api.nvim_create_autocmd("InsertEnter", { command = "set norelativenumber", pattern = "*" })
--- vim.api.nvim_create_autocmd("InsertLeave", { command = "set relativenumber", pattern = "*" })
-
-vim.api.nvim_create_autocmd("TermOpen", { command = "startinsert", pattern = "*" })
-
-vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function()
-        vim.opt.formatoptions = vim.opt.formatoptions - { "c","r","o" }
-    end
-})
-
-vim.api.nvim_create_user_command('Nterm', 'tabe | term', {})
-vim.api.nvim_create_user_command('Vterm', 'vsp | vertical resize -21 | term', {})
-vim.api.nvim_create_user_command('Hterm', 'sp | resize -6 | term', {})
-vim.api.nvim_create_user_command('Bd', 'up | %bd | e#', {}) -- delete all hidden buffers
-
--------------------------------------------------
-
 local augroup = vim.api.nvim_create_augroup
 MyGroup = augroup('', {})
 
@@ -65,13 +21,20 @@ autocmd({"BufWritePre"}, {
     command = "%s/\\s\\+$//e",
 })
 
-autocmd('FileType', {
+autocmd("TermOpen", {
+    pattern = "*",
+    command = "startinsert | set cursorline",
+})
+
+autocmd("BufEnter", { callback = function() vim.opt.formatoptions = vim.opt.formatoptions - { "c","r","o" } end })
+
+autocmd("FileType", {
     pattern = 'netrw',
     desc = 'Better mappings for netrw',
 
     callback = function(desc)
         local bind = function(lhs, rhs)
-            vim.keymap.set('n', lhs, rhs, { remap = true, buffer = true })
+            vim.keymap.set('n', lhs, rhs, { remap = true, buffer = true, silent = true })
         end
 
         -- edit new file
@@ -82,5 +45,9 @@ autocmd('FileType', {
 
         -- open file
         bind('o', '<CR>')
+
+        -- quit netrw
+        bind('q', vim.cmd.bd)
     end
 })
+

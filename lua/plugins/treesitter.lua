@@ -1,6 +1,11 @@
 return {
     'nvim-treesitter/nvim-treesitter',
-    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects', },
+    -- event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        'JoosepAlviste/nvim-ts-context-commentstring',
+        'windwp/nvim-ts-autotag',
+    },
     config = function()
         require('nvim-treesitter.configs').setup {
             ensure_installed = { "vimdoc", "lua", "javascript", "typescript", "tsx", "rust", "python" },
@@ -10,8 +15,8 @@ return {
                 enable = true,
                 additional_vim_regex_highlighting = false,
             },
-            indent = { enable = true,
-                disable = { 'python' },
+            indent = {
+                enable = true,
             },
             autotag = {
                 enable = true,
@@ -24,6 +29,10 @@ return {
                     scope_incremental = '<c-h>',
                     node_decremental = '<c-s>',
                 },
+            },
+            context_commentstring = {
+                enable = true,
+                enable_autocmd = false,
             },
             textobjects = {
                 select = {
@@ -76,5 +85,4 @@ return {
         }
     end
 }
-
 

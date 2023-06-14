@@ -1,5 +1,4 @@
 local fn = vim.fn
-local M = {}
 local active_tab = 'TabLineSel'
 local inactive_tab = 'TabLine'
 local default_name = '[No Name]'

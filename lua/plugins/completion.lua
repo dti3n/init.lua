@@ -1,5 +1,4 @@
 return {
-    -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
         'hrsh7th/cmp-nvim-lsp',
@@ -14,6 +13,10 @@ return {
         luasnip.config.setup {}
 
         cmp.setup {
+            window = {
+                completion = cmp.config.window.bordered(),
+                documentation = cmp.config.window.bordered(),
+            },
             snippet = {
                 expand = function(args)
                     luasnip.lsp_expand(args.body)
@@ -49,8 +52,8 @@ return {
                 end, { 'i', 's' }),
             },
             sources = {
-                { name = 'nvim_lsp' },
-                { name = 'luasnip' },
+                { name = 'nvim_lsp', keyword_length = 2, max_item_count = 10 },
+                { name = 'luasnip', keyword_length = 3, max_item_count = 3 },
             },
         }
     end
