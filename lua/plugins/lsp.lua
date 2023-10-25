@@ -96,6 +96,19 @@ return {
             --     require("rust-tools").setup {}
             -- end
 
+            ['solargraph'] = function()
+                require'lspconfig'.solargraph.setup{
+                    settings = {
+                        solargraph = {
+                            -- commandPath = '/Users/kassioborges/.asdf/shims/solargraph',
+                            -- root_dir = require('lspconfig').util.root_pattern("Gemfile", ".git"),
+                            diagnostics = false,
+                            completion = true
+                        }
+                    },
+                }
+            end
+
         }
 
     end

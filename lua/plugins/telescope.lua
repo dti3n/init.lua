@@ -25,16 +25,16 @@ return {
                 --     width = 0.90
                 -- },
             },
-            pickers = {
-                find_files = {
-                    previewer = false,
-                    theme = "dropdown",
-                },
-                git_files = {
-                    previewer = false,
-                    theme = "dropdown",
-                }
-            },
+            -- pickers = {
+            --     find_files = {
+            --         previewer = false,
+            --         theme = "dropdown",
+            --     },
+            --     git_files = {
+            --         previewer = false,
+            --         theme = "dropdown",
+            --     }
+            -- },
         }
 
         vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })

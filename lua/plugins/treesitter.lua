@@ -3,12 +3,11 @@ return {
     -- event = { "BufReadPost", "BufNewFile" },
     dependencies = {
         'nvim-treesitter/nvim-treesitter-textobjects',
-        'JoosepAlviste/nvim-ts-context-commentstring',
-        'windwp/nvim-ts-autotag',
+        'JoosepAlviste/nvim-ts-context-commentstring', 'windwp/nvim-ts-autotag',
     },
     config = function()
         require('nvim-treesitter.configs').setup {
-            ensure_installed = { "vimdoc", "lua", "javascript", "typescript", "tsx", "rust", "python" },
+            ensure_installed = { "vimdoc", "lua", "javascript", "typescript", "tsx", "rust", "python", "ruby" },
             sync_install = false,
             auto_install = false,
             highlight = {
@@ -20,6 +19,10 @@ return {
             },
             autotag = {
                 enable = true,
+                -- enable_rename = true,
+                -- enable_close = true,
+                -- enable_close_on_slash = true,
+                -- filetypes = { "all" },
             },
             incremental_selection = {
                 enable = true,

@@ -6,6 +6,7 @@ local lang_maps = {
     javascript = { exec = "node %" },
     python = { exec = "python3 %" }, -- or { exec = "python %"}
     rust = { exec = "cargo run" },
+    ruby = { exec = "ruby ./%" },
 }
 
 for lang, data in pairs(lang_maps) do
