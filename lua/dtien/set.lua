@@ -3,9 +3,6 @@ local g = vim.g
 
 g.mapleader = " "
 
-g.netrw_banner = 0
-g.netrw_winsize = 30
-
 o.showmode = false
 -- o.statusline = "[%{v:lua.vim.api.nvim_get_mode().mode}] %f %m %= %y %5l:%-4c [%L/%P]"
 
@@ -15,7 +12,7 @@ o.showmode = false
 o.laststatus = 3
 
 o.nu = true
--- o.relativenumber = true
+o.relativenumber = true
 
 o.tabstop = 4
 o.softtabstop = 4

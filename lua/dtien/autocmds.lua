@@ -51,7 +51,8 @@ autocmd("FileType", {
     end
 })
 
--- autocmd("BufEnter", {
---     pattern = { "*.erb", "*.eruby" },
---     command = "set syntax=html",
--- })
+autocmd("BufEnter", {
+    pattern = { "*.erb", "*.eruby" },
+    command = "set filetype=html",
+})
+

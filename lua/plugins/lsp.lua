@@ -1,6 +1,6 @@
 return {
     'neovim/nvim-lspconfig',
-    event = { "BufReadPre", "BufNewFile" },
+    -- event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         { 'williamboman/mason.nvim', config = true },
         'williamboman/mason-lspconfig.nvim',
@@ -84,8 +84,10 @@ return {
             ['tailwindcss'] = function()
                 require'lspconfig'.tailwindcss.setup {
                     root_dir = require('lspconfig').util.root_pattern(
+                        'tailwind.config.ejs',
                         'tailwind.config.js',
                         'tailwind.config.ts',
+                        'postcss.config.ejs',
                         'postcss.config.js',
                         'postcss.config.ts'
                     ),
