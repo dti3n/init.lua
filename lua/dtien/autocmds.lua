@@ -23,33 +23,10 @@ autocmd({"BufWritePre"}, {
 
 autocmd("TermOpen", {
     pattern = "*",
-    command = "startinsert | set cursorline",
+    command = "--[[ startinsert |  ]]set cursorline",
 })
 
 autocmd("BufEnter", { callback = function() vim.opt.formatoptions = vim.opt.formatoptions - { "c","r","o" } end })
-
-autocmd("FileType", {
-    pattern = 'netrw',
-    desc = 'Better mappings for netrw',
-
-    callback = function(desc)
-        local bind = function(lhs, rhs)
-            vim.keymap.set('n', lhs, rhs, { remap = true, buffer = true, silent = true })
-        end
-
-        -- edit new file
-        bind('a', '%')
-
-        -- rename file
-        bind('r', 'R')
-
-        -- open file
-        bind('o', '<CR>')
-
-        -- quit netrw
-        bind('q', vim.cmd.bd)
-    end
-})
 
 autocmd("BufEnter", {
     pattern = { "*.erb", "*.eruby" },

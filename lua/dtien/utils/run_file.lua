@@ -1,10 +1,10 @@
 local lang_maps = {
     cpp = { build = "g++ % -o %:r", exec = "./%:r" },
     java = { build = "javac %", exec = "java ./%:r" },
-    go = { build = "go build", exec = "go run %" },
+    go = { build = "go build", exec = "go run ./%" },
     typescript = { exec = "tsc" },
-    javascript = { exec = "node %" },
-    python = { exec = "python3 %" }, -- or { exec = "python %"}
+    javascript = { exec = "node ./%" },
+    python = { exec = "python3 ./%" }, -- or { exec = "python %"}
     rust = { exec = "cargo run" },
     ruby = { exec = "ruby ./%" },
 }

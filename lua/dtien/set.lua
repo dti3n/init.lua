@@ -1,15 +1,16 @@
 local o = vim.opt
 local g = vim.g
 
+-- need to put this at top
 g.mapleader = " "
 
-o.showmode = false
+-- o.showmode = false
 -- o.statusline = "[%{v:lua.vim.api.nvim_get_mode().mode}] %f %m %= %y %5l:%-4c [%L/%P]"
 
 -- o.showtabline = 3
 -- o.cursorline = true
 -- o.winbar = "%= %m %f"
-o.laststatus = 3
+-- o.laststatus = 3
 
 o.nu = true
 o.relativenumber = true

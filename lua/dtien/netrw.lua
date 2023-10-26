@@ -1,6 +1,31 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.g.netrw_banner = 0
-vim.g.netrw_winsize = 30
+-- vim.g.netrw_banner = 0
+-- vim.g.netrw_winsize = 30
+-- vim.g.netrw_liststyle = 3
+-- vim.keymap.set("n", "<leader>vn", vim.cmd.Lex)
 
-
+-- remap for nvim-tree-like keybinds
+-- autocmd("FileType", {
+--     pattern = 'netrw',
+--     desc = 'Better mappings for netrw',
+--
+--     callback = function(desc)
+--         local bind = function(lhs, rhs)
+--             vim.keymap.set('n', lhs, rhs, { remap = true, buffer = true, silent = true })
+--         end
+--
+--         -- edit new file
+--         bind('a', '%')
+--
+--         -- rename file
+--         bind('r', 'R')
+--
+--         -- open file
+--         bind('o', '<CR>')
+--
+--         -- quit netrw
+--         bind('q', vim.cmd.bd)
+--     end
+-- })
+--
