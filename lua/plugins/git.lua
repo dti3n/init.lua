@@ -5,7 +5,7 @@ return {
         keys = {
             { "<leader>gs", vim.cmd.Git },
             { "gh", "<cmd>diffget //2<CR>"},
-            { "gl", "<cmd>diffget //2<CR>"},
+            { "gl", "<cmd>diffget //3<CR>"},
         }
     },
 

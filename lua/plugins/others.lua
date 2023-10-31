@@ -1,5 +1,5 @@
 return {
-    { "nvim-tree/nvim-web-devicons", lazy = true },
+    { "nvim-tree/nvim-web-devicons", enabled = false, lazy = true },
 
     { "windwp/nvim-autopairs", enabled = false, opts = {} },
 
@@ -7,7 +7,19 @@ return {
         "kylechui/nvim-surround",
         event = "VeryLazy",
         version = "*",
-        opts = {}
+        config = function()
+            require("nvim-surround").setup ({
+                 surrounds = {
+                    ["e"] = {
+                        add = function()
+                            return { { "<% " }, { " %>" } }
+                        end,
+                    }
+                }
+            })
+
+            -- vim.keymap.set({ "n", "v" }, "<leader>ye", "g@iwe")
+        end
     },
 
     {
@@ -16,6 +28,16 @@ return {
         lazy = false,
         enabled = true,
         opts = {
+            renderer = {
+                icons = {
+                    show = {
+                        file = false,
+                        folder = false,
+                        folder_arrow = true,
+                        git = true,
+                    }
+                }
+            },
             view = {
                 adaptive_size = true,
             },
@@ -74,7 +96,13 @@ return {
 
     {
         "tpope/vim-rails",
-        lazy = false
-    }
+        lazy = false,
+        keys = {
+            { "<leader>rc", vim.cmd.Econtroller },
+            { "<leader>rv", vim.cmd.Eview },
+            { "<leader>rm", vim.cmd.Emodel },
+        }
+    },
+
 }
 

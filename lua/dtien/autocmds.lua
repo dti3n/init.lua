@@ -31,6 +31,7 @@ autocmd("BufEnter", { callback = function() vim.opt.formatoptions = vim.opt.form
 
 autocmd("BufEnter", {
     pattern = { "*.erb", "*.eruby" },
+    -- command = "set filetype=html | set syntax=html",
     command = "set filetype=html",
 })
 
