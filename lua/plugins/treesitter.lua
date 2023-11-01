@@ -2,8 +2,9 @@ return {
     'nvim-treesitter/nvim-treesitter',
     -- event = { "BufReadPost", "BufNewFile" },
     dependencies = {
+        { 'windwp/nvim-ts-autotag', config = true },
         'nvim-treesitter/nvim-treesitter-textobjects',
-        'JoosepAlviste/nvim-ts-context-commentstring', 'windwp/nvim-ts-autotag',
+        'JoosepAlviste/nvim-ts-context-commentstring',
     },
     config = function()
         require('nvim-treesitter.configs').setup {
@@ -16,13 +17,6 @@ return {
             },
             indent = {
                 enable = true,
-            },
-            autotag = {
-                enable = true,
-                -- enable_rename = true,
-                -- enable_close = true,
-                -- enable_close_on_slash = true,
-                -- filetypes = { "all" },
             },
             incremental_selection = {
                 enable = true,
