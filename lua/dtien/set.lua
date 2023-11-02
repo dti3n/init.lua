@@ -4,8 +4,6 @@ local g = vim.g
 -- need to put this at top
 g.mapleader = " "
 
-vim.g['closetag_filenames'] = '*.html,*.erb'
-
 -- o.showmode = false
 -- o.statusline = "[%{v:lua.vim.api.nvim_get_mode().mode}] %f %m %= %y %5l:%-4c [%L/%P]"
 

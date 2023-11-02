@@ -1,7 +1,7 @@
 return {
     "folke/trouble.nvim",
     opts = {
-        icons = true,
+        icons = false,
     },
     keys = {
         { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>" },
