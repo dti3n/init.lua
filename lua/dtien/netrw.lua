@@ -1,11 +1,13 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
 -- vim.g.netrw_banner = 0
 -- vim.g.netrw_winsize = 30
 -- vim.g.netrw_liststyle = 3
 -- vim.keymap.set("n", "<leader>vn", vim.cmd.Lex)
-
--- remap for nvim-tree-like keybinds
+--
+-- -- remap for nvim-tree-like keybinds
+-- local autocmd = vim.api.nvim_create_autocmd
 -- autocmd("FileType", {
 --     pattern = 'netrw',
 --     desc = 'Better mappings for netrw',

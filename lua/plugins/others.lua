@@ -51,7 +51,7 @@ return {
         config = function()
             require('lualine').setup {
                 options = {
-                    icons_enabled = true,
+                    icons_enabled = false,
                     theme = 'auto',
                     component_separators = { left = '', right = ''},
                     section_separators = { left = '', right = ''},
@@ -96,9 +96,9 @@ return {
         "tpope/vim-rails",
         lazy = false,
         keys = {
-            { "<leader>rc", vim.cmd.Econtroller },
-            { "<leader>rv", vim.cmd.Eview },
-            { "<leader>rm", vim.cmd.Emodel },
+            { "\\c", vim.cmd.Econtroller },
+            { "\\v", vim.cmd.Eview },
+            { "\\m", vim.cmd.Emodel },
         }
     },
 

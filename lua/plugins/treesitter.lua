@@ -2,15 +2,15 @@ return {
     'nvim-treesitter/nvim-treesitter',
     -- event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-        { 'windwp/nvim-ts-autotag', config = true },
         'nvim-treesitter/nvim-treesitter-textobjects',
         'JoosepAlviste/nvim-ts-context-commentstring',
+        { 'windwp/nvim-ts-autotag', config = true },
     },
     config = function()
         require('nvim-treesitter.configs').setup {
             ensure_installed = { "vimdoc", "lua", "javascript", "typescript", "tsx", "rust", "python", "ruby", "html", "embedded_template" },
-            sync_install = false,
             auto_install = false,
+            sync_install = false,
             highlight = {
                 enable = true,
                 additional_vim_regex_highlighting = false,
