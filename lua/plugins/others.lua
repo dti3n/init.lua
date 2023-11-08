@@ -1,5 +1,5 @@
 return {
-    { "nvim-tree/nvim-web-devicons", enabled = false, lazy = true },
+    { "nvim-tree/nvim-web-devicons", enabled = true, lazy = true },
 
     { "windwp/nvim-autopairs", enabled = false, opts = {} },
 
@@ -26,16 +26,16 @@ return {
         lazy = false,
         enabled = true,
         opts = {
-            renderer = {
-                icons = {
-                    show = {
-                        file = false,
-                        folder = false,
-                        folder_arrow = true,
-                        git = true,
-                    }
-                }
-            },
+            -- renderer = {
+            --     icons = {
+            --         show = {
+            --             file = false,
+            --             folder = false,
+            --             folder_arrow = true,
+            --             git = true,
+            --         }
+            --     }
+            -- },
             view = {
                 adaptive_size = true,
             },
@@ -91,16 +91,5 @@ return {
             }
         end
     },
-
-    {
-        "tpope/vim-rails",
-        lazy = false,
-        keys = {
-            { "\\c", vim.cmd.Econtroller },
-            { "\\v", vim.cmd.Eview },
-            { "\\m", vim.cmd.Emodel },
-        }
-    },
-
 }
 
