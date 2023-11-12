@@ -7,6 +7,7 @@ return {
             variant = 'auto',
             dark_variant = 'main',
             disable_italics = true,
+            disable_background = true,
         })
         vim.cmd[[colorscheme rose-pine]]
     end

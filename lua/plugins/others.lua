@@ -26,16 +26,16 @@ return {
         lazy = false,
         enabled = true,
         opts = {
-            -- renderer = {
-            --     icons = {
-            --         show = {
-            --             file = false,
-            --             folder = false,
-            --             folder_arrow = true,
-            --             git = true,
-            --         }
-            --     }
-            -- },
+            renderer = {
+                icons = {
+                    show = {
+                        file = false,
+                        folder = false,
+                        folder_arrow = true,
+                        git = true,
+                    }
+                }
+            },
             view = {
                 adaptive_size = true,
             },
@@ -71,7 +71,9 @@ return {
                 sections = {
                     lualine_a = {'mode'},
                     lualine_b = {'branch', 'diff', 'diagnostics'},
-                    lualine_c = {'filename'},
+                    lualine_c = {
+                        { 'filename', path =  1 }
+                    },
                     lualine_x = {'encoding', 'fileformat', 'filetype'},
                     lualine_y = {'progress'},
                     lualine_z = {'location'}

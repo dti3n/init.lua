@@ -51,15 +51,20 @@ return {
         end
 
         -- local servers = {
+        --     -- lua_ls = {
+        --     --     Lua = {
+        --     --         workspace = { checkThirdParty = false },
+        --     --         telemetry = { enable = false },
+        --     --     },
+        --     -- },
         --     rust_analyzer = {},
         --     tsserver = {},
-        --     tailwindcss = {},
-        --     lua_ls = {
-        --         Lua = {
-        --             workspace = { checkThirdParty = false },
-        --             telemetry = { enable = false },
+        --     solargraph = {
+        --         solargraph = {
+        --             root_dir = require("lspconfig.util").root_pattern("Gemfile", ".git")(fname)
+        --                 or require("lspconfig.util").path.dirname(vim.api.nvim_buf_get_name(0)),
         --         },
-        --     },
+        --     }
         -- }
 
         local cmp_lsp = require('cmp_nvim_lsp')
@@ -94,23 +99,21 @@ return {
                 }
             end,
 
+            ['solargraph'] = function()
+                require'lspconfig'.solargraph.setup {
+                    settings = {
+                        solargraph = {
+                            root_dir =
+                                require("lspconfig.util").root_pattern("Gemfile", ".git")(fname)
+                                or require("lspconfig.util").path.dirname(vim.api.nvim_buf_get_name(0)),
+                        },
+                    }
+                }
+            end,
+            --
             -- ["rust_analyzer"] = function ()
             --     require("rust-tools").setup {}
             -- end
-
-            -- ['solargraph'] = function()
-            --     require'lspconfig'.solargraph.setup{
-            --         settings = {
-            --             solargraph = {
-            --                 -- commandPath = '/Users/kassioborges/.asdf/shims/solargraph',
-            --                 -- root_dir = require('lspconfig').util.root_pattern("Gemfile", ".git"),
-            --                 diagnostics = false,
-            --                 completion = true
-            --             }
-            --         },
-            --     }
-            -- end
-
         }
 
     end
