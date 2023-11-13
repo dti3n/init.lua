@@ -38,6 +38,9 @@ return {
             },
             view = {
                 adaptive_size = true,
+                signcolumn = 'no',
+                number = true,
+                relativenumber = true,
             },
         },
         keys = {
