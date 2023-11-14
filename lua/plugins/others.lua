@@ -50,7 +50,7 @@ return {
 
     {
         "nvim-lualine/lualine.nvim",
-        enabled = false,
+        enabled = true,
         config = function()
             require('lualine').setup {
                 options = {
@@ -73,7 +73,7 @@ return {
                 },
                 sections = {
                     lualine_a = {'mode'},
-                    lualine_b = {'branch', 'diff', 'diagnostics'},
+                    lualine_b = {'branch', 'diff'},
                     lualine_c = {
                         { 'filename', path =  1 }
                     },

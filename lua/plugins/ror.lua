@@ -6,6 +6,7 @@ return {
             { "\\c", vim.cmd.Econtroller },
             { "\\v", vim.cmd.Eview },
             { "\\m", vim.cmd.Emodel },
+            { "\\r", vim.cmd.Rails },
         }
     },
 

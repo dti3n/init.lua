@@ -99,18 +99,6 @@ return {
                 }
             end,
 
-            ['solargraph'] = function()
-                require'lspconfig'.solargraph.setup {
-                    settings = {
-                        solargraph = {
-                            root_dir =
-                                require("lspconfig.util").root_pattern("Gemfile", ".git")(fname)
-                                or require("lspconfig.util").path.dirname(vim.api.nvim_buf_get_name(0)),
-                        },
-                    }
-                }
-            end,
-            --
             -- ["rust_analyzer"] = function ()
             --     require("rust-tools").setup {}
             -- end

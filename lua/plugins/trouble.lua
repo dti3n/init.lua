@@ -5,5 +5,6 @@ return {
     },
     keys = {
         { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>" },
+        { "<leader>xl", "<cmd>TroubleToggle loclist<cr>" },
     }
 }

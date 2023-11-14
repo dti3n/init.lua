@@ -4,16 +4,15 @@ local g = vim.g
 -- need to put this at top
 g.mapleader = " "
 
--- o.showmode = false
 -- o.statusline = "[%{v:lua.vim.api.nvim_get_mode().mode}] %f %m %= %y %5l:%-4c [%L/%P]"
-
 -- o.showtabline = 3
--- o.cursorline = true
--- o.winbar = "%= %m %f"
 -- o.laststatus = 3
+-- o.winbar = "%= %m %f"
+-- o.cursorline = true
 
+o.showmode = false
 o.nu = true
-o.relativenumber = true
+o.rnu = true
 
 o.tabstop = 4
 o.softtabstop = 4
