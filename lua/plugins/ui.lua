@@ -30,8 +30,8 @@ return {
         priority = 1200,
         config = function()
             require('incline').setup({
-                window = { margin = { vertical = 0, horizontal = 0 } },
-                hide = { cursorline = false },
+                window = { margin = { vertical = 0, horizontal = 1 } },
+                hide = { cursorline = true },
                 render = function(props)
                     local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')
                     local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
