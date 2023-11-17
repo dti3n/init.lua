@@ -34,9 +34,9 @@ return {
                 end
             })
 
-            vim.cmd[[:highlight GitSignsAdd guibg=none]]
-            vim.cmd[[:highlight GitSignsChange guibg=none]]
-            vim.cmd[[:highlight GitSignsDelete guibg=none]]
+            -- vim.cmd[[:highlight GitSignsAdd guibg=none]]
+            -- vim.cmd[[:highlight GitSignsChange guibg=none]]
+            -- vim.cmd[[:highlight GitSignsDelete guibg=none]]
         end,
     },
 }
