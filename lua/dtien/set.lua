@@ -35,7 +35,7 @@ o.termguicolors = true
 
 o.scrolloff = 8
 o.signcolumn = "yes"
-o.colorcolumn = "130"
+o.colorcolumn = "120"
 o.updatetime = 200
 
 -- o.fillchars:append({

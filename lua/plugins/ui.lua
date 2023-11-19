@@ -33,7 +33,9 @@ return {
                 window = { margin = { vertical = 0, horizontal = 0 } },
                 hide = { cursorline = true },
                 render = function(props)
-                    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')
+                    -- relative path (use :t for only the filename)
+                    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':.')
+
                     local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
                     local modified = vim.api.nvim_buf_get_option(props.buf, "modified") and "[+] " or ""
                     local buffer = {
@@ -47,5 +49,4 @@ return {
             })
         end
     },
-
 }

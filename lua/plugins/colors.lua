@@ -1,6 +1,27 @@
 return {
     {
+        "rebelot/kanagawa.nvim",
+        enabled = false,
+        priority = 1000,
+        config = function()
+            require('kanagawa').setup({
+                commentStyle = { italic = false },
+                functionStyle = { italic = false, bold = false },
+                keywordStyle = { italic = false },
+                statementStyle = { italic = false },
+                typeStyle = { italic = false },
+                colors = {
+                    theme = {
+                        all = { ui = { bg_gutter = 'none' } },
+                    },
+                },
+            })
+            vim.cmd[[colorscheme kanagawa]]
+        end
+    },
+    {
         "ellisonleao/gruvbox.nvim",
+        enabled = true,
         priority = 1000 ,
         config = function()
             require("gruvbox").setup({
@@ -34,8 +55,7 @@ return {
     },
     {
         'rose-pine/neovim',
-        enabled = true,
-        lazy = true,
+        enabled = false,
         name = 'rose-pine',
         priority = 1000,
         config = function()
@@ -45,7 +65,7 @@ return {
                 disable_italics = true,
                 disable_background = false,
             })
-            -- vim.cmd[[colorscheme rose-pine]]
+            vim.cmd[[colorscheme rose-pine]]
         end
     }
 }
