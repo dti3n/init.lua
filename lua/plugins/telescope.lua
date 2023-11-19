@@ -22,11 +22,12 @@ return {
                     },
                 },
                 -- layout_strategy = 'horizontal',
-                -- layout_config = {
-                --     prompt_position = "top",
-                --     height = 0.90,
-                --     width = 0.90
-                -- },
+                -- sorting_strategy = "ascending",
+                layout_config = {
+                    -- prompt_position = "top",
+                    height = 0.90,
+                    width = 0.90
+                },
             },
             -- pickers = {
             --     find_files = {

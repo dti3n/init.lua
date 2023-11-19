@@ -29,9 +29,8 @@ autocmd("TermOpen", {
 
 autocmd("BufEnter", { callback = function() vim.opt.formatoptions = vim.opt.formatoptions - { "c","r","o" } end })
 
--- autocmd("BufEnter", {
---     pattern = { "*.erb", "*.eruby" },
---     -- command = "set filetype=html | set syntax=html",
---     command = "set filetype=html",
--- })
+autocmd("BufEnter", {
+    pattern = { "*.yml" },
+    command = "set filetype=yaml",
+})
 
