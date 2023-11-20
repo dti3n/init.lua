@@ -24,7 +24,7 @@ return {
         "nvim-tree/nvim-tree.lua",
         version = "*",
         lazy = false,
-        enabled = true,
+        enabled = false,
         opts = {
             renderer = {
                 icons = {
