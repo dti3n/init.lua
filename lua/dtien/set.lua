@@ -7,16 +7,16 @@ g.mapleader = " "
 -- o.statusline = "[%{v:lua.vim.api.nvim_get_mode().mode}] %f %m %= %y %5l:%-4c [%L/%P]"
 -- o.showtabline = 3
 -- o.laststatus = 3
--- o.winbar = "%= %m %f"
 -- o.cursorline = true
+o.winbar = "%= %m %f %="
 
 o.showmode = false
 o.nu = true
 o.rnu = true
 
-o.tabstop = 4
-o.softtabstop = 4
-o.shiftwidth = 4
+o.tabstop = 2
+o.softtabstop = 2
+o.shiftwidth = 2
 o.expandtab = true
 
 o.smartindent = true

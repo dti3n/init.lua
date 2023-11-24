@@ -1,6 +1,8 @@
 return {
     { "nvim-tree/nvim-web-devicons", enabled = true, lazy = true },
 
+    { 'tpope/vim-sleuth' },
+
     {
         "folke/trouble.nvim",
         opts = {
