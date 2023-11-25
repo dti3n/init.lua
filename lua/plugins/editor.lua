@@ -136,10 +136,10 @@ return {
                             ['q'] = actions.close,
                         },
                     },
-                    -- layout_strategy = 'horizontal',
-                    -- sorting_strategy = "ascending",
+                    layout_strategy = 'horizontal',
+                    sorting_strategy = "ascending",
                     layout_config = {
-                        -- prompt_position = "top",
+                        prompt_position = "top",
                         height = 0.90,
                         width = 0.90
                     },
@@ -184,4 +184,39 @@ return {
             },
         },
     },
+
+    {
+        'VonHeikemen/fine-cmdline.nvim',
+        enabled = false,
+        dependencies = {
+            { 'MunifTanjim/nui.nvim' }
+        },
+        config = function()
+            require('fine-cmdline').setup({
+                cmdline = {
+                    enable_keymaps = true,
+                    smart_history = true,
+                    prompt = ' : '
+                },
+                popup = {
+                    position = {
+                        row = '40%',
+                        col = '50%',
+                    },
+                    size = {
+                        width = '60%',
+                    },
+                    border = {
+                        style = 'rounded',
+                    },
+                },
+                hooks = {
+                    after_mount = function(input)
+                        vim.keymap.set('i', '<Esc>', '<cmd>stopinsert<cr>', { buffer = input.bufnr })
+                    end,
+                },
+            })
+            vim.api.nvim_set_keymap('n', ':', '<cmd>FineCmdline<CR>', { noremap = true })
+        end,
+    }
 }

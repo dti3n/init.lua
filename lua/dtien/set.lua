@@ -8,7 +8,8 @@ g.mapleader = " "
 -- o.showtabline = 3
 -- o.laststatus = 3
 -- o.cursorline = true
-o.winbar = "%= %m %f %="
+-- o.cmdheight = 0
+-- o.winbar = "%= %m %f %="
 
 o.showmode = false
 o.nu = true

@@ -19,33 +19,34 @@ return {
                     lualine_y = {'progress'},
                     lualine_z = {'location'}
                 },
+                inactive_sections = {
+                    lualine_c = { { 'filename', path =  1 } },
+                },
             }
         end
     },
 
     {
         "b0o/incline.nvim",
-        enabled = false,
+        enabled = true,
         event = "BufReadPre",
         priority = 1200,
         config = function()
             require('incline').setup({
                 window = { margin = { vertical = 0, horizontal = 0 } },
                 hide = { cursorline = true },
-                render = function(props)
-                    -- relative path (use :t for only the filename)
-                    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':.')
-
-                    local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
-                    local modified = vim.api.nvim_buf_get_option(props.buf, "modified") and "[+] " or ""
-                    local buffer = {
-                        { modified },
-                        { ft_icon, guifg = ft_color },
-                        { " " },
-                        { filename },
-                    }
-                    return buffer
-                end
+                -- render = function(props)
+                --     local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':.') -- relative path (use :t for only the filename)
+                --     local ft_icon, ft_color = require("nvim-web-devicons").get_icon_color(filename)
+                --     local modified = vim.api.nvim_buf_get_option(props.buf, "modified") and "[] " or ""
+                --     local buffer = {
+                --         { modified },
+                --         { ft_icon, guifg = ft_color },
+                --         { " " },
+                --         { filename },
+                --     }
+                --     return buffer
+                -- end
             })
         end
     },
