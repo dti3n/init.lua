@@ -62,7 +62,11 @@ return {
                 show_hidden_files = true,
 
                 devicons = {
-                    enable = true,
+                    enable = false,
+                },
+
+                ignore = {
+                    "node_modules"
                 },
 
                 float = { winblend = 0 },
