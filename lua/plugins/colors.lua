@@ -50,7 +50,7 @@ return {
                 dim_inactive = false,
                 transparent_mode = false,
             })
-            -- vim.cmd[[colorscheme gruvbox]]
+            vim.cmd[[colorscheme gruvbox]]
         end
     },
     {
@@ -61,11 +61,11 @@ return {
         config = function()
             require('rose-pine').setup({
                 variant = 'auto',
-                dark_variant = 'moon',
+                dark_variant = 'main',
                 disable_italics = true,
                 disable_background = false,
             })
-            -- vim.cmd[[colorscheme rose-pine]]
+            vim.cmd[[colorscheme rose-pine]]
         end
     }
 }

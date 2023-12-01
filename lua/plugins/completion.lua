@@ -30,7 +30,7 @@ return {
                 ['<C-j>'] = cmp.mapping.scroll_docs(4),
                 ['<C-Space>'] = cmp.mapping.complete {},
                 ['<CR>'] = cmp.mapping.confirm {
-                    behavior = cmp.ConfirmBehavior.Replace,
+                    behavior = cmp.ConfirmBehavior.Insert, -- Replace is so bad
                     select = true,
                 },
                 ['<Tab>'] = cmp.mapping(function(fallback)
