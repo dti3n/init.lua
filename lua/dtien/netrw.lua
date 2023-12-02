@@ -3,10 +3,9 @@ vim.g.loaded_netrwPlugin = 1
 
 -- vim.g.netrw_banner = 0
 -- vim.g.netrw_winsize = 30
--- vim.g.netrw_liststyle = 3
--- vim.keymap.set("n", "<leader>vn", vim.cmd.Lex)
+-- vim.keymap.set("n", "<leader>vn", vim.cmd.Ex)
 --
--- -- remap for nvim-tree-like keybinds
+-- -- open file with o and add file with a
 -- local autocmd = vim.api.nvim_create_autocmd
 -- autocmd("FileType", {
 --     pattern = 'netrw',

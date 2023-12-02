@@ -4,5 +4,5 @@ require("dtien.lazy")
 require("dtien.remaps")
 require("dtien.autocmds")
 require("dtien.utils")
-require("dtien.tabline")
+-- require("dtien.tabline")
 

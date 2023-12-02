@@ -41,47 +41,25 @@ return {
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
             end, '[W]orkspace [L]ist Folders')
 
-            -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-            --     if vim.lsp.buf.format then
-            --         vim.lsp.buf.format()
-            --     elseif vim.lsp.buf.formatting then
-            --         vim.lsp.buf.formatting()
-            --     end
-            -- end, { desc = 'Format current buffer with LSP' })
+            vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+                if vim.lsp.buf.format then
+                    vim.lsp.buf.format()
+                elseif vim.lsp.buf.formatting then
+                    vim.lsp.buf.formatting()
+                end
+            end, { desc = 'Format current buffer with LSP' })
         end
-
-        -- local servers = {
-        --     -- lua_ls = {
-        --     --     Lua = {
-        --     --         workspace = { checkThirdParty = false },
-        --     --         telemetry = { enable = false },
-        --     --     },
-        --     -- },
-        --     rust_analyzer = {},
-        --     tsserver = {},
-        --     solargraph = {
-        --         solargraph = {
-        --             root_dir = require("lspconfig.util").root_pattern("Gemfile", ".git")(fname)
-        --                 or require("lspconfig.util").path.dirname(vim.api.nvim_buf_get_name(0)),
-        --         },
-        --     }
-        -- }
 
         local cmp_lsp = require('cmp_nvim_lsp')
         local capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
         local mason_lspconfig = require 'mason-lspconfig'
 
-        -- mason_lspconfig.setup {
-        --     ensure_installed = vim.tbl_keys(servers),
-        -- }
-
         mason_lspconfig.setup_handlers {
             function(server_name) -- default handler (optional)
                 require('lspconfig')[server_name].setup {
                     capabilities = capabilities,
                     on_attach = on_attach,
-                    -- settings = servers[server_name],
                 }
             end,
 

@@ -15,9 +15,9 @@ o.showmode = false
 o.nu = true
 o.rnu = true
 
-o.tabstop = 2
-o.softtabstop = 2
-o.shiftwidth = 2
+o.tabstop = 4
+o.softtabstop = 4
+o.shiftwidth = 4
 o.expandtab = true
 
 o.smartindent = true
@@ -37,7 +37,7 @@ o.termguicolors = true
 o.scrolloff = 8
 o.signcolumn = "yes"
 o.colorcolumn = "120"
-o.updatetime = 200
+o.updatetime = 100
 
 -- o.fillchars:append({
 --     horiz = '━',
