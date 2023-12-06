@@ -5,14 +5,14 @@ return {
         priority = 1000,
         config = function()
             require('kanagawa').setup({
+                commentStyle = { italic = false },
+                keywordStyle = { italic = false },
                 transparent = false,
                 colors = { theme = { all = { ui = { bg_gutter = 'none' } }, }, },
             })
             vim.cmd[[colorscheme kanagawa]]
         end
     },
-
-    { "nvim-tree/nvim-web-devicons", enabled = true, lazy = true },
 
     { "tpope/vim-sleuth" },
 
