@@ -61,11 +61,11 @@ return {
 
             vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu, { desc = 'Harpoon: Toggle quick-menu' })
 
-            vim.keymap.set("n", [[\1]], function() ui.nav_file(1) end, { desc = 'Harpoon: Marked-file 1' })
-            vim.keymap.set("n", [[\2]], function() ui.nav_file(2) end, { desc = 'Harpoon: Marked-file 2' })
-            vim.keymap.set("n", [[\3]], function() ui.nav_file(3) end, { desc = 'Harpoon: Marked-file 3' })
-            vim.keymap.set("n", [[\4]], function() ui.nav_file(4) end, { desc = 'Harpoon: Marked-file 4' })
-            vim.keymap.set("n", [[\5]], function() ui.nav_file(5) end, { desc = 'Harpoon: Marked-file 5' })
+            vim.keymap.set("n", "<leader>1", function() ui.nav_file(1) end, { desc = 'Harpoon: Marked-file 1' })
+            vim.keymap.set("n", "<leader>2", function() ui.nav_file(2) end, { desc = 'Harpoon: Marked-file 2' })
+            vim.keymap.set("n", "<leader>3", function() ui.nav_file(3) end, { desc = 'Harpoon: Marked-file 3' })
+            vim.keymap.set("n", "<leader>4", function() ui.nav_file(4) end, { desc = 'Harpoon: Marked-file 4' })
+            vim.keymap.set("n", "<leader>5", function() ui.nav_file(5) end, { desc = 'Harpoon: Marked-file 5' })
         end
     },
 

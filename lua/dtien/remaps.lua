@@ -28,11 +28,11 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- Swiching tabs
-vim.keymap.set("n", "<leader>1", "1gt")
-vim.keymap.set("n", "<leader>2", "2gt")
-vim.keymap.set("n", "<leader>3", "3gt")
-vim.keymap.set("n", "<leader>4", "4gt")
-vim.keymap.set("n", "<leader>5", "5gt")
+vim.keymap.set("n", "\\1", "1gt")
+vim.keymap.set("n", "\\2", "2gt")
+vim.keymap.set("n", "\\3", "3gt")
+vim.keymap.set("n", "\\4", "4gt")
+vim.keymap.set("n", "\\5", "5gt")
 
 -- So gooooood
 vim.keymap.set("n", "<C-t>", "<C-6>")
