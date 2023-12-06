@@ -12,7 +12,7 @@ return {
                     section_separators = { left = '', right = '' },
                 },
                 sections = {
-                    lualine_a = {},
+                    lualine_a = { function() return vim.api.nvim_get_mode().mode end },
                     lualine_b = { 'branch', 'diff' },
                     lualine_c = { { 'filename', path =  1 } },
                     lualine_x = { 'encoding', 'fileformat', 'filetype' },
@@ -37,11 +37,23 @@ return {
                 hide = { cursorline = true },
                 render = function(props)
                     local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':.') -- relative path (use :t for only the filename)
-                    local modified = vim.api.nvim_buf_get_option(props.buf, "modified") and "[+]" or ""
-                    local buffer = { { modified }, { " " }, { filename } }
+                    local modified = vim.api.nvim_buf_get_option(props.buf, "modified") and "[+] " or ""
+                    local buffer = { { modified }, { filename } }
                     return buffer
                 end
             })
         end
+    },
+
+    {
+        "folke/zen-mode.nvim",
+        cmd = "ZenMode",
+        opts = {
+            plugins = {
+                gitsigns = true,
+                tmux = true,
+            },
+        },
+        keys = { { "\\z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
     },
 }
