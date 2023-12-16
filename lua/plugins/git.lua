@@ -30,7 +30,7 @@ return {
                 linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
                 word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
 
-                current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+                current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d %H:%M> - <summary>',
 
                 on_attach = function(bufnr)
                     local gs = package.loaded.gitsigns
@@ -42,10 +42,6 @@ return {
                     vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame)
                 end
             })
-
-            -- vim.cmd[[:highlight GitSignsAdd guibg=none]]
-            -- vim.cmd[[:highlight GitSignsChange guibg=none]]
-            -- vim.cmd[[:highlight GitSignsDelete guibg=none]]
         end,
     },
 }
