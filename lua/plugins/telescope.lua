@@ -2,7 +2,8 @@ return {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     dependencies = {
-        'nvim-lua/plenary.nvim'
+        'nvim-lua/plenary.nvim',
+        'nvim-tree/nvim-web-devicons',
     },
     config = function()
         local actions = require('telescope.actions')
@@ -19,6 +20,8 @@ return {
                         ['<C-c>'] = false,
                         ['<C-j>'] = actions.move_selection_next,
                         ['<C-k>'] = actions.move_selection_previous,
+                        ['<C-q>'] = actions.send_to_qflist,
+                        ['<M-q>'] = actions.add_selected_to_qflist,
                     },
                     n = {
                         ['q'] = actions.close,
@@ -52,6 +55,7 @@ return {
         vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymap' })
         vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
         vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
+        vim.keymap.set('n', '<leader>qf', builtin.quickfix, { desc = '[?] [Q]uick[F]ix' })
         vim.keymap.set('n', '<leader>ps', function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
         end, { desc = '[P]roject [S]earch'})

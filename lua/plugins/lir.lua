@@ -8,7 +8,6 @@ return {
                 require("lir.git_status").setup { show_ignored = false }
             end
         },
-        "nvim-tree/nvim-web-devicons",
     },
     config = function()
         local actions = require'lir.actions'
@@ -19,7 +18,7 @@ return {
             show_hidden_files = true,
 
             devicons = {
-                enable = true,
+                enable = false,
             },
 
             ignore = {

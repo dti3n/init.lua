@@ -14,7 +14,12 @@ return {
         end
     },
 
-    { "tpope/vim-sleuth" },
+    {
+        'mbbill/undotree',
+        keys = {
+            { "<leader>u", "<cmd>UndotreeToggle<cr>" },
+        }
+    },
 
     {
 
@@ -37,15 +42,6 @@ return {
                 post_hook = nil,
             })
         end
-    },
-
-    {
-        "folke/trouble.nvim",
-        opts = { icons = false, },
-        keys = {
-            { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>" },
-            { "<leader>xl", "<cmd>TroubleToggle loclist<cr>" },
-        }
     },
 
     {
