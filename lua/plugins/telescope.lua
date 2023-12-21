@@ -4,10 +4,21 @@ return {
     dependencies = {
         'nvim-lua/plenary.nvim',
         'nvim-tree/nvim-web-devicons',
+        {
+            'folke/trouble.nvim',
+            opts = { icons = false },
+            keys = {
+                { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>" },
+                { "<leader>xl", "<cmd>TroubleToggle loclist<cr>" },
+            },
+        }
     },
     config = function()
         local actions = require('telescope.actions')
         local builtin = require('telescope.builtin')
+
+        local trouble = require("trouble.providers.telescope")
+
         require('telescope').setup {
             defaults = {
                 file_ignore_patterns = {
@@ -22,9 +33,11 @@ return {
                         ['<C-k>'] = actions.move_selection_previous,
                         ['<C-q>'] = actions.send_to_qflist,
                         ['<M-q>'] = actions.add_selected_to_qflist,
+                        ["<C-t>"] = trouble.open_with_trouble,
                     },
                     n = {
                         ['q'] = actions.close,
+                        ["<C-t>"] = trouble.open_with_trouble,
                     },
                 },
                 layout_strategy = 'horizontal',
@@ -55,7 +68,6 @@ return {
         vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymap' })
         vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
         vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
-        vim.keymap.set('n', '<leader>qf', builtin.quickfix, { desc = '[?] [Q]uick[F]ix' })
         vim.keymap.set('n', '<leader>ps', function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
         end, { desc = '[P]roject [S]earch'})
