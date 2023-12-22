@@ -12,6 +12,15 @@ return {
     },
 
     {
+        "sindrets/diffview.nvim",
+        opts = {},
+        keys = {
+            { "\\df", "<cmd>DiffviewToggleFiles<cr>" },
+            { "\\dh", "<cmd>DiffviewFileHistory<cr>" },
+        },
+    },
+
+    {
         'lewis6991/gitsigns.nvim',
         event = { "BufReadPre", "BufNewFile" },
         config = function()

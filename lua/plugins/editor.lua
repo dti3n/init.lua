@@ -7,12 +7,32 @@ return {
             require('kanagawa').setup({
                 commentStyle = { italic = false },
                 keywordStyle = { italic = false },
-                transparent = false,
-                colors = { theme = { all = { ui = { bg_gutter = 'none' } }, }, },
             })
             vim.cmd[[colorscheme kanagawa]]
         end
     },
+
+    {
+        'nmac427/guess-indent.nvim',
+        enabled = true,
+        config = function()
+            require('guess-indent').setup({
+                auto_cmd = false,  -- Set to false to disable automatic execution
+                override_editorconfig = false, -- Set to true to override settings set by .editorconfig
+                filetype_exclude = {  -- A list of filetypes for which the auto command gets disabled
+                    "netrw",
+                    "tutor",
+                },
+                buftype_exclude = {  -- A list of buffer types for which the auto command gets disabled
+                    "help",
+                    "nofile",
+                    "terminal",
+                    "prompt",
+                },
+            })
+        end
+    },
+
 
     {
         'mbbill/undotree',
@@ -27,8 +47,8 @@ return {
         version = "*",
         opts = {
             surrounds = {
-                ["="] = { add = function() return { { "<% " }, { " %>" } } end },
-                ["e"] = { add = function() return { { "<%= " }, { " %>" } } end },
+                ["e"] = { add = function() return { { "<% " }, { " %>" } } end },
+                ["="] = { add = function() return { { "<%= " }, { " %>" } } end },
             }
         }
     },
@@ -68,6 +88,7 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
+        enabled = false,
         opts = {
             indent = { char = " " },
             scope = {
