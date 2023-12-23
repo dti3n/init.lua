@@ -8,7 +8,12 @@ return {
             { '<leader>gh', '<CMD>Git log --oneline -- %<CR>', silent = true },
             { "gh", "<cmd>diffget //2<CR>"},
             { "gl", "<cmd>diffget //3<CR>"},
-        }
+        },
+        config = function()
+            -- :help fugitive#statusline()
+            -- why i don't know anything about it ?
+            vim.o.statusline = '%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P'
+        end
     },
 
     {
