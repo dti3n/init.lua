@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+rm -rdf ~/.local/share/nvim/
+rm -rdf ~/.local/state/nvim/
+
+echo 'nvim clean up -> done'
+

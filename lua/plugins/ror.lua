@@ -1,17 +1,20 @@
 return {
     {
         "tpope/vim-rails",
-        lazy = false,
+        ft = { 'ruby', 'eruby' },
         keys = {
             { "\\c", vim.cmd.Econtroller },
             { "\\v", vim.cmd.Eview },
             { "\\m", vim.cmd.Emodel },
-            { "\\r", vim.cmd.Rails },
         }
     },
 
-    {
-        "slim-template/vim-slim",
-        lazy = false
-    }
+    -- {
+    --     "tpope/vim-haml",
+    -- }
+    --
+    -- {
+    --     "slim-template/vim-slim",
+    --     ft = 'slim',
+    -- }
 }

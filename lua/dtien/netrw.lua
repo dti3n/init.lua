@@ -1,10 +1,14 @@
-vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
 
 -- vim.g.netrw_banner = 0
+-- vim.g.netrw_altfile = 1
 -- vim.g.netrw_winsize = 30
--- vim.keymap.set("n", "<leader>vn", vim.cmd.Ex)
 --
+-- vim.keymap.set("n", "<leader>vn", ":Explore<cr>")
+-- vim.keymap.set("n", "<leader>vl", ":Lexplore %:p:h<cr>")
+--
+-- -- these remaps feel pretty good to use
 -- -- open file with o and add file with a
 -- local autocmd = vim.api.nvim_create_autocmd
 -- autocmd("FileType", {
@@ -19,14 +23,7 @@ vim.g.loaded_netrwPlugin = 1
 --         -- edit new file
 --         bind('a', '%')
 --
---         -- rename file
---         bind('r', 'R')
---
 --         -- open file
 --         bind('o', '<CR>')
---
---         -- quit netrw
---         bind('q', vim.cmd.bd)
 --     end
 -- })
---
