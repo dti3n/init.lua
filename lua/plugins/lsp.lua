@@ -8,10 +8,12 @@ return {
     },
     config = function()
         local opts = { noremap = true, silent = true }
-        vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-        vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-        vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-        vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+
+        -- vim.diagnostic.config({
+        --     underline = {severity = {min = vim.diagnostic.severity.WARN}},
+        --     virtual_text = {severity = {min = vim.diagnostic.severity.WARN}},
+        --     signs = {severity = {min = vim.diagnostic.severity.WARN}},
+        -- })
 
         local on_attach = function(client, bufnr)
             local nmap = function(keys, func, desc)
@@ -48,6 +50,9 @@ return {
                     vim.lsp.buf.formatting()
                 end
             end, { desc = 'Format current buffer with LSP' })
+
+            -- doing both format & range format
+            vim.keymap.set({ 'n', 'v' }, '\\f', vim.lsp.buf.format, { silent = true, buffer = bufnr })
         end
 
         local cmp_lsp = require('cmp_nvim_lsp')
@@ -77,9 +82,6 @@ return {
                 }
             end,
 
-            -- ["rust_analyzer"] = function ()
-            --     require("rust-tools").setup {}
-            -- end
         }
 
     end

@@ -4,32 +4,35 @@ return {
         lazy = false,
         keys = {
             { '<leader>gs', vim.cmd.Git, silent = true },
-            { '<leader>gl', '<CMD>Git log --oneline<CR>', silent = true },
-            { '<leader>gh', '<CMD>Git log --oneline -- %<CR>', silent = true },
+            { '<leader>gl', "<cmd>Git log --oneline<cr>", silent = true },
+            { '<leader>gL', "<cmd>Git log --oneline %<cr>", silent = true },
             { "gh", "<cmd>diffget //2<CR>"},
             { "gl", "<cmd>diffget //3<CR>"},
         },
-        config = function()
-            -- :help fugitive#statusline()
-            -- why i don't know anything about it ?
-            vim.o.statusline = '%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P'
-        end
+        -- config = function()
+        --     -- :help fugitive#statusline()
+        --     vim.o.statusline = '%f %h%m%r %{FugitiveStatusline()}%=%-14.(%l,%c%V%) %L/%P'
+        -- end
     },
 
     {
         "sindrets/diffview.nvim",
+        lazy = false,
         opts = {},
         keys = {
             { "\\df", "<cmd>DiffviewToggleFiles<cr>" },
             { "\\dh", "<cmd>DiffviewFileHistory<cr>" },
+            { "\\dH", "<cmd>DiffviewFileHistory %<cr>" },
         },
     },
 
     {
         'lewis6991/gitsigns.nvim',
-        event = { "BufReadPre", "BufNewFile" },
+        enabled = true,
         config = function()
             require('gitsigns').setup({
+                max_file_length = 2000, -- Disable if file is longer than this (in lines)
+
                 signs = {
                     add = { text = '+' },
                     change = { text = '~' },

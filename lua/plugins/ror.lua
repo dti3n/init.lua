@@ -6,12 +6,13 @@ return {
             { "\\c", vim.cmd.Econtroller },
             { "\\v", vim.cmd.Eview },
             { "\\m", vim.cmd.Emodel },
-            { "\\r", vim.cmd.Rails },
+            { "\\t", vim.cmd.Eunittest },
+            { "\\r", vim.cmd.Runner },
         }
     },
 
     {
         "slim-template/vim-slim",
-        lazy = false
+        ft = 'slim',
     }
 }

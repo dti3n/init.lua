@@ -2,27 +2,17 @@ return {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
     dependencies = {
-        'nvim-lua/plenary.nvim',
-        'nvim-tree/nvim-web-devicons',
-        {
-            'folke/trouble.nvim',
-            opts = { icons = false },
-            keys = {
-                { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>" },
-                { "<leader>xl", "<cmd>TroubleToggle loclist<cr>" },
-            },
-        }
+        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons",
     },
     config = function()
         local actions = require('telescope.actions')
         local builtin = require('telescope.builtin')
 
-        local trouble = require("trouble.providers.telescope")
-
         require('telescope').setup {
             defaults = {
                 file_ignore_patterns = {
-                    "node_modules",
+                    -- "node_modules",
                 },
                 mappings = {
                     i = {
@@ -33,11 +23,9 @@ return {
                         ['<C-k>'] = actions.move_selection_previous,
                         ['<C-q>'] = actions.send_to_qflist,
                         ['<M-q>'] = actions.add_selected_to_qflist,
-                        ["<C-t>"] = trouble.open_with_trouble,
                     },
                     n = {
                         ['q'] = actions.close,
-                        ["<C-t>"] = trouble.open_with_trouble,
                     },
                 },
                 layout_strategy = 'horizontal',
@@ -49,10 +37,6 @@ return {
                 },
             },
             -- pickers = {
-            --     find_files = {
-            --         previewer = false,
-            --         theme = "dropdown",
-            --     },
             --     git_files = {
             --         previewer = false,
             --         theme = "dropdown",
@@ -68,8 +52,19 @@ return {
         vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymap' })
         vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
         vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
+
         vim.keymap.set('n', '<leader>ps', function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
         end, { desc = '[P]roject [S]earch'})
+
+        vim.keymap.set('n', '<leader>fw', function()
+            word = vim.fn.expand('<cword>')
+            builtin.grep_string({ search = word })
+        end, { desc = '[F]ind [W]ord'})
+
+        vim.keymap.set('n', '<leader>fW', function()
+            word = vim.fn.expand('<cWORD>')
+            builtin.grep_string({ search = word })
+        end, { desc = '[F]ind [W]ORD'})
     end
 }
