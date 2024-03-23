@@ -1,5 +1,6 @@
 return {
     'nvim-telescope/telescope.nvim',
+    event = 'VimEnter',
     branch = '0.1.x',
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -14,10 +15,10 @@ return {
                 file_ignore_patterns = {
                     -- "node_modules",
                 },
+                -- selection_caret = "󰼛 ",
+                -- prompt_prefix = "󱞩 ",
                 mappings = {
                     i = {
-                        ['<C-u>'] = false,
-                        ['<C-d>'] = false,
                         ['<C-c>'] = false,
                         ['<C-j>'] = actions.move_selection_next,
                         ['<C-k>'] = actions.move_selection_previous,
@@ -28,24 +29,46 @@ return {
                         ['q'] = actions.close,
                     },
                 },
-                layout_strategy = 'horizontal',
-                sorting_strategy = "ascending",
-                layout_config = {
-                    prompt_position = "top",
-                    height = 0.90,
-                    width = 0.90
-                },
+                -- -- layout_strategy = 'horizontal',
+                -- -- sorting_strategy = "ascending",
+                -- layout_config = {
+                --     -- prompt_position = "top",
+                --     height = 0.90,
+                --     width = 0.90
+                -- },
             },
-            -- pickers = {
-            --     git_files = {
-            --         previewer = false,
-            --         theme = "dropdown",
-            --     }
-            -- },
+            pickers = {
+                find_files = {
+                    previewer = false,
+                    theme = "dropdown",
+                },
+                git_files = {
+                    previewer = false,
+                    theme = "dropdown",
+                }
+            },
         }
 
+        local is_inside_work_tree = {}
+
+        local project_files = function()
+            local opts = {} -- define here if you want to define something
+
+            local cwd = vim.fn.getcwd()
+            if is_inside_work_tree[cwd] == nil then
+                vim.fn.system("git rev-parse --is-inside-work-tree")
+                is_inside_work_tree[cwd] = vim.v.shell_error == 0
+            end
+
+            if is_inside_work_tree[cwd] then
+                require("telescope.builtin").git_files(opts)
+            else
+                require("telescope.builtin").find_files(opts)
+            end
+        end
+
         vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
-        vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = '[G]it [F]iles' })
+        vim.keymap.set('n', '<C-p>', project_files, { desc = 'Project Files: git_files or find_files (fallback)' })
         vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffers' })
         vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elptag' })
         vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind words by [G]rep' })

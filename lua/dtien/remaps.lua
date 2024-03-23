@@ -12,8 +12,8 @@ vim.keymap.set("n", "<C-Down>", ":resize -3<CR>")
 vim.keymap.set("n", "J", "mzJ`z")
 
 -- Keep cursor in the middle
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+-- vim.keymap.set("n", "n", "nzzzv", { noremap = true })
+-- vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 
@@ -54,3 +54,5 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
+vim.keymap.set("n", "<leader>=e", "i<% %><Esc><Left><Left>i<Space>")
+vim.keymap.set("n", "<leader>==", "i<%= %><Esc><Left><Left>i<Space>")

@@ -1,7 +1,7 @@
 ## nvim-config
 
-Neovim setup (using lazy.nvim)
+My Neovim setup (with lazy.nvim)
 
-Requires neovim (>= 0.8)
+Requires neovim (>= 0.9)
 
 > note: requires ripgrep for telescope

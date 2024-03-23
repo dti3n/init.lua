@@ -3,9 +3,10 @@ return {
         'tpope/vim-fugitive',
         lazy = false,
         keys = {
-            { '<leader>gs', vim.cmd.Git, silent = true },
-            { '<leader>gl', "<cmd>Git log --oneline<cr>", silent = true },
-            { '<leader>gL', "<cmd>Git log --oneline %<cr>", silent = true },
+            { "<leader>gs", vim.cmd.Git, silent = true },
+            { "<leader>gb", "<cmd>Git blame<cr>", silent = true },
+            { "<leader>gl", "<cmd>Git log --oneline<cr>", silent = true },
+            { "<leader>gL", "<cmd>Git log --oneline %<cr>", silent = true },
             { "gh", "<cmd>diffget //2<CR>"},
             { "gl", "<cmd>diffget //3<CR>"},
         },
@@ -26,39 +27,39 @@ return {
         },
     },
 
-    {
-        'lewis6991/gitsigns.nvim',
-        enabled = true,
-        config = function()
-            require('gitsigns').setup({
-                max_file_length = 2000, -- Disable if file is longer than this (in lines)
-
-                signs = {
-                    add = { text = '+' },
-                    change = { text = '~' },
-                    delete = { text = '_' },
-                    topdelete = { text = '‾' },
-                    changedelete = { text = '~' },
-                    untracked    = { text = '┆' },
-                },
-
-                signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-                numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
-                linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-                word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
-
-                current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d %H:%M> - <summary>',
-
-                on_attach = function(bufnr)
-                    local gs = package.loaded.gitsigns
-
-                    vim.keymap.set('n', '<leader>hu', gs.prev_hunk, { buffer = bufnr })
-                    vim.keymap.set('n', '<leader>hd', gs.next_hunk, { buffer = bufnr })
-                    vim.keymap.set('n', '<leader>hp', gs.preview_hunk, { buffer = bufnr })
-                    vim.keymap.set('n', '<leader>hb', function() gs.blame_line { full = true } end)
-                    vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame)
-                end
-            })
-        end,
-    },
+    -- {
+    --     'lewis6991/gitsigns.nvim',
+    --     enabled = false,
+    --     config = function()
+    --         require('gitsigns').setup({
+    --             max_file_length = 2000, -- Disable if file is longer than this (in lines)
+    --
+    --             signs = {
+    --                 add = { text = '+' },
+    --                 change = { text = '~' },
+    --                 delete = { text = '_' },
+    --                 topdelete = { text = '‾' },
+    --                 changedelete = { text = '~' },
+    --                 untracked    = { text = '┆' },
+    --             },
+    --
+    --             signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+    --             numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+    --             linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+    --             word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+    --
+    --             current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d %H:%M> - <summary>',
+    --
+    --             on_attach = function(bufnr)
+    --                 local gs = package.loaded.gitsigns
+    --
+    --                 vim.keymap.set('n', '<leader>hu', gs.prev_hunk, { buffer = bufnr })
+    --                 vim.keymap.set('n', '<leader>hd', gs.next_hunk, { buffer = bufnr })
+    --                 vim.keymap.set('n', '<leader>hp', gs.preview_hunk, { buffer = bufnr })
+    --                 vim.keymap.set('n', '<leader>hb', function() gs.blame_line { full = true } end)
+    --                 vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame)
+    --             end
+    --         })
+    --     end,
+    -- },
 }
