@@ -4,14 +4,6 @@ local g = vim.g
 -- need to put this at top
 g.mapleader = " "
 
--- o.statusline = "[%{v:lua.vim.api.nvim_get_mode().mode}] %f %m %= %y %5l:%-4c [%L/%P]"
--- o.statusline = "%y %f %m %= [%5l:%-4c] [%L]"
--- o.showtabline = 3
--- o.cursorline = true
--- o.cmdheight = 0
--- o.laststatus = 3
--- o.winbar = "%= %m %f %="
-
 o.inccommand = "split"
 
 o.guicursor = ""
@@ -37,8 +29,6 @@ o.smartcase = true
 
 o.swapfile = false
 o.backup = false
-o.undodir = os.getenv("HOME") .. "/.vim/undodir"
-o.undofile = true
 
 o.termguicolors = true
 
