@@ -1,0 +1,26 @@
+{
+    "comment": {
+        "prefix": "##",
+        "body": [
+            "# ${1:A one-line summary.}",
+            "#",
+            "# @param",
+            "# @return"
+        ],
+        "description": "A Ruby comment block including short summary, description, param, return, and example."
+    },
+    "@param": {
+        "prefix": "@param",
+        "body": [
+            "@param ${1:name} [${2:Type}] ${3:Description.}$0"
+        ],
+        "description": "Documents a single method parameter (either regular or keyword) with a given name, type and optional description."
+    },
+    "@return": {
+        "prefix": "@return",
+        "body": [
+            "@return [${1:Types}] ${2:Description}$0"
+        ],
+        "description": "Describes the return value (and type or types) of a method. You can list multiple return tags for a method in the case where a method has distinct return cases. In this case, each case should begin with “if …”."
+    }
+}

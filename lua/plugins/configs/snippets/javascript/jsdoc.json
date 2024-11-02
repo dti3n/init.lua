@@ -1,0 +1,35 @@
+{
+    "comment": {
+        "prefix": "/**",
+        "body": [
+            "/**",
+            " * ${1:What it does}",
+            " *",
+            " * @param",
+            " * @returns",
+            " */"
+        ],
+        "description": "A full JSDoc comment with description, parameters, return, and example."
+    },
+    "type": {
+        "prefix": "@type",
+        "body": [
+            "/** @type ${1:typeName}$0 */"
+        ],
+        "description": "Documents the type of the object."
+    },
+    "param": {
+        "prefix": "@param",
+        "body": [
+            "@param {${1:type}} ${2:paramName} - ${3:paramDescription}$0"
+        ],
+        "description": "Provides the name, type, and description of a function parameter. Synonysm of @arg and @argument."
+    },
+    "returns": {
+        "prefix": "@returns",
+        "body": [
+            "@returns {${1:type}} ${2:description}$0"
+        ],
+        "description": "Documents the value a function returns. Synonysm of @return."
+    }
+}

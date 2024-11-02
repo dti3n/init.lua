@@ -1,0 +1,58 @@
+{
+	"name": "my-snippets",
+	"contributes": {
+		"snippets": [
+            {
+                "language": [
+                    "plaintext",
+                    "markdown",
+                    "tex",
+                    "html",
+                    "global",
+                    "all"
+                ],
+                "path": "./global.json"
+            },
+			{
+				"language": [
+					"javascript",
+					"typescript",
+					"javascriptreact",
+					"typescriptreact"
+				],
+				"path": "./javascript/jsdoc.json"
+			},
+			{
+				"language": [
+					"javascriptreact",
+					"typescriptreact"
+				],
+				"path": "./javascript/react.json"
+			},
+            {
+                "language": "ruby",
+                "path": "./ruby/ruby.json"
+            },
+			{
+				"language": "ruby",
+				"path": "./ruby/rdoc.json"
+			},
+			{
+				"language": "eruby",
+				"path": "./ruby/erb.json"
+			},
+            {
+                "language": "gdscript",
+                "path": "./gdscript.json"
+            },
+            {
+                "language": "go",
+                "path": "./go.json"
+            },
+            {
+                "language": "php",
+                "path": "./php/phpdoc.json"
+            }
+		]
+	}
+}

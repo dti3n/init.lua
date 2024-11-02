@@ -1,0 +1,14 @@
+{
+    "Exception block": {
+        "prefix": "begin",
+        "body": ["begin", "\t$1", "rescue ${2:StandardError} => e", "\t$0", "end"]
+    },
+    "Insert do |variable| … end block": {
+        "prefix": "do",
+        "body": ["do |${1:variable}|", "\t$0", "end"]
+    },
+    "Insert map multiline block": {
+        "prefix": "map",
+        "body": ["map do |${1:e}|", "\t$0", "end"]
+    }
+}

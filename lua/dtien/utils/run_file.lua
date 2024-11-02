@@ -13,13 +13,13 @@ for lang, data in pairs(lang_maps) do
     if data.build ~= nil then
         vim.api.nvim_create_autocmd("FileType", {
             pattern = lang,
-            command = "nnoremap \\b :!" .. data.build .. "<CR>"
+            command = "nnoremap \\b :!" .. data.build .. "<CR>",
         })
     end
 
     vim.api.nvim_create_autocmd("FileType", {
         pattern = lang,
-        command = "nnoremap \\e :split<CR>:terminal " .. data.exec .. "<CR>"
+        command = "nnoremap \\e :split<CR>:terminal " .. data.exec .. "<CR>",
     })
 
     -- if data.build ~= nil then
@@ -38,4 +38,3 @@ for lang, data in pairs(lang_maps) do
     --     end
     -- })
 end
-
