@@ -10,6 +10,10 @@ require("nvim-treesitter.configs").setup({
         "ruby",
         "php",
         "bash",
+
+        -- for autotag to works
+        "html",
+        "embedded_template",
     },
 
     auto_install = false,
@@ -17,7 +21,8 @@ require("nvim-treesitter.configs").setup({
 
     highlight = {
         enable = true,
-        additional_vim_regex_highlighting = { "ruby", "php", "markdown" },
+        -- additional_vim_regex_highlighting = { "ruby", "php", "markdown" },
+        additional_vim_regex_highlighting = false,
         disable = function(lang, buf)
             local max_filesize = 100 * 1024 -- 0.1 MB
             local ok, stats =
@@ -42,6 +47,7 @@ require("nvim-treesitter.configs").setup({
             node_decremental = "<c-s>",
         },
     },
+
     textobjects = {
         select = {
             enable = true,

@@ -16,6 +16,12 @@ autocmd("TextYankPost", {
     end,
 })
 
+-- autocmd({ "BufWritePre" }, {
+--     group = MyGroup,
+--     pattern = "*",
+--     command = "%s/\\s\\+$//e",
+-- })
+
 autocmd("LspAttach", {
     group = my_group,
     callback = function(event)

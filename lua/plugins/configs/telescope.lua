@@ -17,48 +17,36 @@ require("telescope").setup({
                 ["<C-c>"] = false,
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
+                ["<C-y>"] = require("telescope.actions.layout").toggle_preview,
             },
             n = {
                 ["q"] = actions.close,
+                ["<C-y>"] = require("telescope.actions.layout").toggle_preview,
             },
         },
+
+        -- preview = {
+        --     hide_on_startup = true, -- hide previewer when picker starts
+        -- },
     },
+
+    -- pickers = {
+    --     find_files = {
+    --         -- theme = "dropdown",
+    --         previewer = false,
+    --     },
+    --     git_files = {
+    --         -- theme = "dropdown",
+    --         previewer = false,
+    --     },
+    -- },
 })
 
-local is_inside_work_tree = {}
-
-local project_files = function()
-    local opts = {}
-
-    local cwd = vim.fn.getcwd()
-    if is_inside_work_tree[cwd] == nil then
-        vim.fn.system("git rev-parse --is-inside-work-tree")
-        is_inside_work_tree[cwd] = vim.v.shell_error == 0
-    end
-
-    if is_inside_work_tree[cwd] then
-        require("telescope.builtin").git_files(opts)
-    else
-        require("telescope.builtin").find_files(opts)
-    end
-end
-
-vim.keymap.set(
-    "n",
-    "<C-p>",
-    project_files,
-    { desc = "Project Files: use git_files or fallback to find_files" }
-)
-
-vim.keymap.set(
-    "n",
-    "<leader>ff",
-    builtin.find_files,
-    { desc = "[F]ind [F]iles" }
-)
-vim.keymap.set("n", "<leader>fF", function()
+vim.keymap.set("n", "<C-p>", builtin.find_files)
+vim.keymap.set("n", "<leader>ft", builtin.git_files)
+vim.keymap.set("n", "<leader>ff", function()
     builtin.find_files({ hidden = true })
-end, { desc = "[F]ind [F]iles (include hidden files)" })
+end)
 
 vim.keymap.set(
     "n",
@@ -66,25 +54,28 @@ vim.keymap.set(
     builtin.buffers,
     { desc = "[F]ind [B]uffers" }
 )
+
 vim.keymap.set(
     "n",
     "<leader>fh",
     builtin.help_tags,
     { desc = "[F]ind [H]elptag" }
 )
+
 vim.keymap.set(
     "n",
     "<leader>fg",
     builtin.live_grep,
     { desc = "[F]ind words by [G]rep" }
 )
-vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymap" })
+
 vim.keymap.set(
     "n",
     "<leader>fd",
     builtin.diagnostics,
     { desc = "[F]ind [D]iagnostics" }
 )
+
 vim.keymap.set(
     "n",
     "<leader>?",
@@ -92,12 +83,18 @@ vim.keymap.set(
     { desc = "[?] Find recently opened files" }
 )
 
+-- Find keymaps
+vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymap" })
+
 -- Find marks (see :help marks)
 vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "[F]ind [M]arks" })
 
 vim.keymap.set("n", "<leader>ps", function()
     local ok, err = pcall(function()
-        builtin.grep_string({ search = vim.fn.input("Grep > ") })
+        builtin.grep_string({
+            search = vim.fn.input("Grep > "),
+            previewer = true,
+        })
     end)
     if not ok then
         print("Error during grep: " .. err)

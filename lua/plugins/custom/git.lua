@@ -18,7 +18,6 @@ return {
 
     {
         "sindrets/diffview.nvim",
-        lazy = true,
         opts = {},
         keys = {
             { "\\df", "<cmd>DiffviewToggleFiles<cr>" },

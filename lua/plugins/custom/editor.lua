@@ -78,24 +78,10 @@ return {
 
     {
         "Wansmer/treesj",
-        cmd = { "TreeToggle", "TreeSplit", "TreeJoin" },
-        config = function()
-            require("treesj").setup({ use_default_keymaps = false })
-
-            local usercmd = vim.api.nvim_create_user_command
-
-            usercmd("TreeToggle", function()
-                require("treesj").toggle({ split = { recursive = true } })
-            end, {})
-
-            usercmd("TreeSplit", function()
-                require("treesj").split({ split = { recursive = true } })
-            end, {})
-
-            usercmd("TreeJoin", function()
-                require("treesj").join({ join = { recursive = true } })
-            end, {})
-        end,
+        keys = {
+            { "\\jt", "<cmd>TSJToggle<cr>", desc = "treesj [J]oin [T]oggle" },
+        },
+        opts = { use_default_keymaps = false, max_join_length = 150 },
     },
 
     {
@@ -113,23 +99,23 @@ return {
             vim.keymap.set("n", "<leader>m", function()
                 harpoon:list():append()
                 print("[Harpoon] mark: " .. vim.fn.expand("%:t"))
-            end)
+            end, { desc = "harpoon mark" })
 
             vim.keymap.set("n", "<C-e>", function()
                 harpoon.ui:toggle_quick_menu(harpoon:list())
-            end)
+            end, { desc = "harpoon quick menu" })
 
             for i = 1, 5 do
                 vim.keymap.set("n", "<leader>" .. i, function()
                     harpoon:list():select(i)
-                end)
+                end, { desc = "harpoon select mark " .. i })
             end
         end,
     },
 
     {
         "Exafunction/codeium.vim",
-        cmd = { "CodeiumEnable" },
+        -- cmd = { "CodeiumEnable" },
         config = function()
             vim.keymap.set("i", "<tab>", function()
                 return vim.fn["codeium#Accept"]()
@@ -137,36 +123,31 @@ return {
         end,
     },
 
-    -- "echasnovski/mini.statusline",
-    -- enabled = false,
-    -- config = function()
-    --     local statusline = require("mini.statusline")
-    --     statusline.setup({ use_icons = false })
-    --
-    --     statusline.section_location = function()
-    --         return "%3l:%-2v|%L"
-    --     end
-    --
-    --     statusline.section_fileinfo = function()
-    --         local filetype = vim.bo.filetype
-    --         local encoding = vim.bo.fileencoding or vim.bo.encoding
-    --         local format = vim.bo.fileformat
-    --         return string.format("%s %s[%s]", filetype, encoding, format)
-    --     end
-    --
-    --     statusline.section_lsp = function()
-    --         return ""
-    --     end
-    --
-    --     statusline.section_diagnostics = function()
-    --         return ""
-    --     end
-    -- end,
+    {
+        "rest-nvim/rest.nvim",
+        ft = { "http" },
+    },
 
-    -- {
-    --     "rest-nvim/rest.nvim",
-    --     ft = { "http" },
-    -- },
+    {
+        "echasnovski/mini.statusline",
+        enabled = true,
+        config = function()
+            local statusline = require("mini.statusline")
+            statusline.setup({ use_icons = false })
+            statusline.section_location = function()
+                return "%2l:%-2v %L"
+            end
+            statusline.section_diagnostics = function()
+                return ""
+            end
+            statusline.section_lsp = function()
+                return ""
+            end
+            statusline.section_git = function()
+                return ""
+            end
+        end,
+    },
 
     -- {
     --     "lukas-reineke/indent-blankline.nvim",

@@ -4,6 +4,8 @@ local g = vim.g
 -- need to put this at top
 g.mapleader = " "
 
+o.statusline = [[%f %h%w%m%r%=%-14.(%l,%c%V%) %L %P%<]]
+
 o.inccommand = "split"
 o.showmode = false
 
