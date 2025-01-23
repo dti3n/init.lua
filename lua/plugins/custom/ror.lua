@@ -2,11 +2,11 @@ return {
     {
         "tpope/vim-rails",
         ft = { "ruby", "eruby", "haml", "slim" },
-        keys = {
-            { "\\c", vim.cmd.Econtroller },
-            { "\\v", vim.cmd.Eview },
-            { "\\m", vim.cmd.Emodel },
-        },
+        config = function()
+            vim.keymap.set("n", "\\c", "<cmd>Econtroller<CR>")
+            vim.keymap.set("n", "\\v", "<cmd>Eview<CR>")
+            vim.keymap.set("n", "\\m", "<cmd>Emodel<CR>")
+        end,
     },
 
     -- {

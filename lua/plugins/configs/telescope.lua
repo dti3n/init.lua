@@ -42,6 +42,12 @@ require("telescope").setup({
     -- },
 })
 
+-- -- working with rest
+-- require("telescope").load_extension("rest")
+-- vim.keymap.set("n", "<leader>fe", function()
+--     require("telescope").extensions.rest.select_env()
+-- end)
+
 vim.keymap.set("n", "<C-p>", builtin.find_files)
 vim.keymap.set("n", "<leader>ft", builtin.git_files)
 vim.keymap.set("n", "<leader>ff", function()

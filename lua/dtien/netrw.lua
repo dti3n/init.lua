@@ -28,6 +28,9 @@ autocmd("FileType", {
         -- edit new file
         bind("a", "%")
 
+        -- open quickmap-help
+        bind("?", ":help netrw-quickmap<CR>")
+
         -- -- open file
         -- bind("o", "<CR>")
     end,

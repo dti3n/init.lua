@@ -3,7 +3,6 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local my_group = augroup("MyGroup", {})
 local yank_group = augroup("HighlightYank", {})
-local term_open_group = augroup("CustomTermOpen", {})
 
 autocmd("TextYankPost", {
     group = yank_group,
@@ -16,22 +15,38 @@ autocmd("TextYankPost", {
     end,
 })
 
--- autocmd({ "BufWritePre" }, {
---     group = MyGroup,
---     pattern = "*",
---     command = "%s/\\s\\+$//e",
--- })
+autocmd({ "BufWritePre" }, {
+    group = MyGroup,
+    pattern = "*",
+    command = "%s/\\s\\+$//e",
+})
 
 autocmd("LspAttach", {
     group = my_group,
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
 
+        vim.diagnostic.config({
+            float = { border = "single" },
+        })
+
         local nmap = function(keys, func, desc)
             if desc then
                 desc = "LSP: " .. desc
             end
             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "" })
+        end
+
+        local inmap = function(keys, func, desc)
+            if desc then
+                desc = "LSP: " .. desc
+            end
+            vim.keymap.set(
+                { "i", "n" },
+                keys,
+                func,
+                { buffer = event.buf, desc = "" }
+            )
         end
 
         nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -51,8 +66,13 @@ autocmd("LspAttach", {
             "[W]orkspace [S]ymbols"
         )
 
-        nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-        nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+        nmap("K", function()
+            vim.lsp.buf.hover({ border = "single" })
+        end, "Hover Documentation")
+
+        inmap("<C-h>", function()
+            vim.lsp.buf.signature_help({ border = "single" })
+        end, "Signature Documentation")
 
         nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
         nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
@@ -85,20 +105,24 @@ autocmd("LspAttach", {
             vim.lsp.buf.format,
             { silent = true, buffer = bufnr }
         )
-    end,
-})
 
-autocmd("TermOpen", {
-    group = term_open_group,
-    callback = function()
-        local o = vim.opt
-        o.cursorline = true
-        o.number = false
-        o.relativenumber = false
+        -- if client and client.server_capabilities.documentHighlightProvider then
+        --     vim.api.nvim_buf_create_user_command(
+        --         event.buf,
+        --         "DocumentHl",
+        --         function(_)
+        --             vim.cmd(
+        --                 [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
+        --             )
+        --             vim.cmd(
+        --                 [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
+        --             )
+        --             vim.cmd(
+        --                 [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
+        --             )
+        --         end,
+        --         { desc = "Enable Document Highlight" }
+        --     )
+        -- end
     end,
-})
-
-autocmd("BufEnter", {
-    pattern = { "*.blade.php" },
-    command = "set filetype=php",
 })

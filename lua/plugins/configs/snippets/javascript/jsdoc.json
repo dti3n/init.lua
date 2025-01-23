@@ -9,7 +9,7 @@
             " * @returns",
             " */"
         ],
-        "description": "A full JSDoc comment with description, parameters, return, and example."
+        "description": "A full JSDoc comment with description, parameters, return."
     },
     "type": {
         "prefix": "@type",

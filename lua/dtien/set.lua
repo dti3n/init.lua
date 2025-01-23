@@ -4,7 +4,10 @@ local g = vim.g
 -- need to put this at top
 g.mapleader = " "
 
-o.statusline = [[%f %h%w%m%r%=%-14.(%l,%c%V%) %L %P%<]]
+-- why? see :h sql-completion
+g.omni_sql_no_default_maps = 1
+
+-- o.statusline = [[%<%f %h%w%m%r%=%-14.(%l,%c%V%) %L %P]]
 
 o.inccommand = "split"
 o.showmode = false

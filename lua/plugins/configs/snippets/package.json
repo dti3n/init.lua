@@ -1,7 +1,7 @@
 {
-	"name": "my-snippets",
-	"contributes": {
-		"snippets": [
+    "name": "my-snippets",
+    "contributes": {
+        "snippets": [
             {
                 "language": [
                     "plaintext",
@@ -13,37 +13,38 @@
                 ],
                 "path": "./global.json"
             },
-			{
-				"language": [
-					"javascript",
-					"typescript",
-					"javascriptreact",
-					"typescriptreact"
-				],
-				"path": "./javascript/jsdoc.json"
-			},
-			{
-				"language": [
-					"javascriptreact",
-					"typescriptreact"
-				],
-				"path": "./javascript/react.json"
-			},
+            {
+                "language": [
+                    "javascript",
+                    "javascriptreact"
+                ],
+                "path": "./javascript/jsdoc.json"
+            },
+            {
+                "language": [
+                    "typescript",
+                    "typescriptreact"
+                ],
+                "path": "./javascript/tsdoc.json"
+            },
+            {
+                "language": [
+                    "javascriptreact",
+                    "typescriptreact"
+                ],
+                "path": "./javascript/react.json"
+            },
             {
                 "language": "ruby",
                 "path": "./ruby/ruby.json"
             },
-			{
-				"language": "ruby",
-				"path": "./ruby/rdoc.json"
-			},
-			{
-				"language": "eruby",
-				"path": "./ruby/erb.json"
-			},
             {
-                "language": "gdscript",
-                "path": "./gdscript.json"
+                "language": "ruby",
+                "path": "./ruby/rdoc.json"
+            },
+            {
+                "language": "eruby",
+                "path": "./ruby/erb.json"
             },
             {
                 "language": "go",
@@ -53,6 +54,6 @@
                 "language": "php",
                 "path": "./php/phpdoc.json"
             }
-		]
-	}
+        ]
+    }
 }

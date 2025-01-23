@@ -59,3 +59,26 @@ vim.keymap.set({ "n", "v" }, "\\tr", function()
     end
     vim.api.nvim_win_set_cursor(0, curpos)
 end, { silent = true })
+
+vim.keymap.set("n", "<up>", "gk")
+vim.keymap.set("n", "<down>", "gj")
+
+vim.keymap.set("n", "j", function(...)
+    local count = vim.v.count
+
+    if count == 0 then
+        return "gj"
+    else
+        return "j"
+    end
+end, { expr = true })
+
+vim.keymap.set("n", "k", function(...)
+    local count = vim.v.count
+
+    if count == 0 then
+        return "gk"
+    else
+        return "k"
+    end
+end, { expr = true })

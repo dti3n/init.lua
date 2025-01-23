@@ -9,11 +9,9 @@ return {
         },
         completion = {
             menu = { border = "single" },
-            documentation = { window = { border = "single" } },
             accept = { auto_brackets = { enabled = false } },
             list = { selection = { preselect = false, auto_insert = false } },
         },
-        signature = { window = { border = "single" } },
         sources = {
             default = { "lsp", "path", "snippets", "buffer" },
             cmdline = {},

@@ -33,6 +33,23 @@ return {
                         -- single_file_support = false
                     })
                 end,
+
+                tailwindcss = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.tailwindcss.setup({
+                        capabilities = capabilities,
+                        filetypes = {
+                            "html",
+                            "css",
+                            "javascript",
+                            "javascriptreact",
+                            "typescript",
+                            "typescriptreact",
+                            "vue",
+                            "svelte",
+                        },
+                    })
+                end,
             })
         end,
     },

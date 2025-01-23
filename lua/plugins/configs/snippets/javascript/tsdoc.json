@@ -1,0 +1,37 @@
+{
+    "comment": {
+        "prefix": "/**",
+        "body": [
+            "/**",
+            " * ${1:What it does}",
+            " *",
+            " * @param",
+            " * @returns",
+            " */"
+        ],
+        "description": "A full TSDoc comment with description, parameters, return."
+    },
+    "param": {
+        "prefix": "@param",
+        "body": [
+            "@param ${1:paramName} - ${2:paramDescription}$0"
+        ],
+        "description": "Provides the name, and description of a function parameter. Synonysm of @arg and @argument."
+    },
+    "comment simple": {
+        "prefix": "/*",
+        "body": [
+            "/**",
+            " * ${1:Comment.}$0",
+            " */"
+        ],
+        "description": "A simple TSDoc comment."
+    },
+    "returns": {
+        "prefix": "@returns",
+        "body": [
+            "@returns ${1:Type and description of the returned object.}"
+        ],
+        "description": "The @returns tag can be used to document the return value of a function. At most one @returns tag should be present in a comment."
+    }
+}
