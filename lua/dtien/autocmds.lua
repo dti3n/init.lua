@@ -15,20 +15,32 @@ autocmd("TextYankPost", {
     end,
 })
 
-autocmd({ "BufWritePre" }, {
-    group = MyGroup,
-    pattern = "*",
-    command = "%s/\\s\\+$//e",
-})
+-- autocmd({ "BufWritePre" }, {
+--     group = MyGroup,
+--     pattern = "*",
+--     command = "%s/\\s\\+$//e",
+-- })
 
 autocmd("LspAttach", {
     group = my_group,
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
+        -- client.server_capabilities.semanticTokensProvider = nil
 
-        vim.diagnostic.config({
-            float = { border = "single" },
-        })
+        local diagnostic_opts = { float = { border = "single" } }
+        -- if client.name == "solargraph" then
+        --     diagnostic_opts = {
+        --         float = { border = "single" },
+        --         underline = {
+        --             severity = { min = vim.diagnostic.severity.WARN },
+        --         },
+        --         virtual_text = {
+        --             severity = { min = vim.diagnostic.severity.WARN },
+        --         },
+        --         signs = true,
+        --     }
+        -- end
+        vim.diagnostic.config(diagnostic_opts)
 
         local nmap = function(keys, func, desc)
             if desc then
@@ -126,3 +138,10 @@ autocmd("LspAttach", {
         -- end
     end,
 })
+
+-- -- Don't have `o` | `O` add a comment
+-- autocmd("BufEnter", {
+--     callback = function()
+--         vim.opt.formatoptions = vim.opt.formatoptions - { "c", "r", "o" }
+--     end,
+-- })

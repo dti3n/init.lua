@@ -24,29 +24,17 @@ require("telescope").setup({
                 ["<C-y>"] = require("telescope.actions.layout").toggle_preview,
             },
         },
-
-        -- preview = {
-        --     hide_on_startup = true, -- hide previewer when picker starts
-        -- },
     },
 
-    -- pickers = {
-    --     find_files = {
-    --         -- theme = "dropdown",
-    --         previewer = false,
-    --     },
-    --     git_files = {
-    --         -- theme = "dropdown",
-    --         previewer = false,
-    --     },
-    -- },
+    pickers = {
+        find_files = {
+            previewer = false,
+        },
+        git_files = {
+            previewer = false,
+        },
+    },
 })
-
--- -- working with rest
--- require("telescope").load_extension("rest")
--- vim.keymap.set("n", "<leader>fe", function()
---     require("telescope").extensions.rest.select_env()
--- end)
 
 vim.keymap.set("n", "<C-p>", builtin.find_files)
 vim.keymap.set("n", "<leader>ft", builtin.git_files)

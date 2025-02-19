@@ -9,12 +9,13 @@ return {
         end,
     },
 
-    -- {
-    --     "tpope/vim-haml",
-    -- }
-    --
-    -- {
-    --     "slim-template/vim-slim",
-    --     ft = 'slim',
-    -- }
+    {
+        "tpope/vim-haml",
+        ft = "haml",
+    },
+
+    {
+        "slim-template/vim-slim",
+        ft = "slim",
+    },
 }
