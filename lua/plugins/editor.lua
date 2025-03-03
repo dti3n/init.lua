@@ -17,24 +17,6 @@ return {
     },
 
     {
-        "kylechui/nvim-surround",
-        version = "*",
-        config = function()
-            require("nvim-surround").setup({
-                aliases = { ["b"] = "`", },
-                surrounds = {
-                    ["b"] = { add = function() return { { "`" }, { "`" } } end },
-                    ["c"] = { add = function() return { { "{/* " }, { " */}" } } end },
-                }
-            })
-            local v_chars = {"(", ")", "[", "]", "{", "}", "'", "\""}
-            for _, char in pairs(v_chars) do
-                vim.keymap.set("v", char, "<Plug>(nvim-surround-visual)"..char)
-            end
-        end
-    },
-
-    {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
         config = function()

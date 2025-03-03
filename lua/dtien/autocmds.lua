@@ -20,15 +20,3 @@ autocmd({"BufWritePre"}, {
     pattern = "*",
     command = "%s/\\s\\+$//e",
 })
-
--- autocmd("TermOpen", {
---     pattern = "*",
---     command = "startinsert | set cursorline",
--- })
-
--- autocmd("BufEnter", { callback = function() vim.opt.formatoptions = vim.opt.formatoptions - { "c","r","o" } end })
--- autocmd("BufEnter", {
---     pattern = { "*.yml" },
---     command = "set filetype=yaml",
--- })
-
