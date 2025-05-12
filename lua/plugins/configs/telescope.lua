@@ -27,12 +27,12 @@ require("telescope").setup({
     },
 
     pickers = {
-        find_files = {
-            previewer = false,
-        },
-        git_files = {
-            previewer = false,
-        },
+        -- find_files = {
+        --     previewer = false,
+        -- },
+        -- git_files = {
+        --     previewer = false,
+        -- },
     },
 })
 

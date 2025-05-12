@@ -3,9 +3,8 @@ return {
         "neovim/nvim-lspconfig",
         -- event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            -- mason.nvim must be loaded before dependants
-            { "mason-org/mason.nvim", version = "1.11.0", config = true },
-            { "mason-org/mason-lspconfig.nvim", version = "1.32.0" },
+            "mason-org/mason.nvim",
+            "mason-org/mason-lspconfig.nvim",
             "hrsh7th/nvim-cmp",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-path",
@@ -21,48 +20,41 @@ return {
                 cmp_lsp.default_capabilities()
             )
 
+            -- see :h vim.lsp.config
+            vim.lsp.config("ts_ls", {
+                capabilities = capabilities,
+                root_markers = {
+                    ".git",
+                    "tsconfig.json",
+                    "jsconfig.json",
+                    "package.json",
+                },
+                -- single_file_support = false
+            })
+
+            vim.lsp.config("tailwindcss", {
+                capabilities = capabilities,
+                filetypes = {
+                    "html",
+                    "css",
+                    "javascript",
+                    "javascriptreact",
+                    "typescript",
+                    "typescriptreact",
+                    "vue",
+                    "svelte",
+                },
+            })
+
             local mason = require("mason")
             local mason_lspconfig = require("mason-lspconfig")
-
+            mason.setup({})
             mason_lspconfig.setup({
-                handlers = {
-                    function(server_name) -- default handler (optional)
-                        require("lspconfig")[server_name].setup({
-                            capabilities = capabilities,
-                        })
-                    end,
-
-                    ts_ls = function()
-                        local lspconfig = require("lspconfig")
-                        lspconfig.ts_ls.setup({
-                            capabilities = capabilities,
-                            root_dir = lspconfig.util.root_pattern(
-                                ".git",
-                                "tsconfig.json",
-                                "jsconfig.json",
-                                "package.json"
-                            ),
-                            -- single_file_support = false
-                        })
-                    end,
-
-                    tailwindcss = function()
-                        local lspconfig = require("lspconfig")
-                        lspconfig.tailwindcss.setup({
-                            capabilities = capabilities,
-                            filetypes = {
-                                "html",
-                                "css",
-                                "javascript",
-                                "javascriptreact",
-                                "typescript",
-                                "typescriptreact",
-                                "vue",
-                                "svelte",
-                            },
-                        })
-                    end,
-                },
+                -- automatic_enable = false
+                -- automatic_enable = {
+                --     "ts_ls",
+                --     "ruby_lsp,"
+                -- }
             })
 
             -- completion ==========

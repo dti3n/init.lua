@@ -11,20 +11,20 @@ usercmd("YankPathToClipboard", function()
     print("Yanked file path to clipboard: " .. file_path)
 end, { desc = "Yank the full path of the current file to the clipboard" })
 
-usercmd("TrimTrailspace", function()
-    local curpos = vim.api.nvim_win_get_cursor(0)
-    vim.cmd([[keeppatterns %s/\s\+$//e]])
-    vim.api.nvim_win_set_cursor(0, curpos)
-end, { desc = "Highlight trailing whitespaces" })
-
-usercmd("HlTrail", function()
-    vim.fn.matchadd("errorMsg", [[\s\+$]])
-end, { desc = "Highlight trailing whitespaces" })
-
-usercmd("NoHlTrail", function()
-    vim.fn.clearmatches()
-end, { desc = "Clear highlighted trailing whitespaces" })
-
+-- usercmd("TrimTrailspace", function()
+--     local curpos = vim.api.nvim_win_get_cursor(0)
+--     vim.cmd([[keeppatterns %s/\s\+$//e]])
+--     vim.api.nvim_win_set_cursor(0, curpos)
+-- end, { desc = "Highlight trailing whitespaces" })
+--
+-- usercmd("HlTrail", function()
+--     vim.fn.matchadd("errorMsg", [[\s\+$]])
+-- end, { desc = "Highlight trailing whitespaces" })
+--
+-- usercmd("NoHlTrail", function()
+--     vim.fn.clearmatches()
+-- end, { desc = "Clear highlighted trailing whitespaces" })
+--
 -- usercmd("FindAndReplace", function(opts)
 --     vim.api.nvim_command(string.format("cdo s/%s/%s", opts.fargs[1], opts.fargs[2]))
 --     vim.api.nvim_command("cfdo update")

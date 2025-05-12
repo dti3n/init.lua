@@ -16,13 +16,13 @@ return {
         -- save location (including connection strings + saved queries)
         -- (default): ~/.local/share/db_ui
         -- (example): vim.g.db_ui_save_location = "~/personal/db_ui_queries"
-        vim.g.db_ui_save_location = "~/personal/db_ui_queries"
+        vim.g.db_ui_save_location = "~/personal/db_ui"
 
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = { "sql", "mysql" },
-            callback = function()
-                vim.opt_local.commentstring = "-- %s"
-            end,
-        })
+        -- vim.api.nvim_create_autocmd("FileType", {
+        --     pattern = { "sql", "mysql" },
+        --     callback = function()
+        --         vim.opt_local.commentstring = "-- %s"
+        --     end,
+        -- })
     end,
 }

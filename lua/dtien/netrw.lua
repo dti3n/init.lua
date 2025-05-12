@@ -3,12 +3,12 @@
 
 vim.g.netrw_banner = 0
 vim.g.netrw_altfile = 1
--- vim.g.netrw_winsize = 30
+vim.g.netrw_winsize = 30
 vim.g.netrw_hide = 0
 
 vim.keymap.set("n", "-", ":Explore<cr>")
-vim.keymap.set("n", "<leader>vn", ":Explore<cr>")
-vim.keymap.set("n", "<leader>vl", ":Lexplore %:p:h<cr>")
+-- vim.keymap.set("n", "<leader>vn", ":Explore<cr>")
+-- vim.keymap.set("n", "<leader>vl", ":Lexplore %:p:h<cr>")
 
 local autocmd = vim.api.nvim_create_autocmd
 autocmd("FileType", {

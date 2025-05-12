@@ -1,5 +1,6 @@
 return {
     "mfussenegger/nvim-lint",
+    enabled = false,
     cmd = { "Spell" },
     config = function()
         local lint = require("lint")
