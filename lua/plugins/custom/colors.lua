@@ -1,45 +1,45 @@
 return {
     {
-        "rose-pine/neovim",
-        name = "rose-pine",
+        "ellisonleao/gruvbox.nvim",
         priority = 1000,
         enabled = true,
         lazy = false,
         config = function()
-            require("rose-pine").setup({
-                styles = {
-                    bold = true,
-                    italic = false,
-                    transparency = true,
+            require("gruvbox").setup({
+                italic = {
+                    strings = false,
+                    emphasis = false,
+                    comments = false,
+                    operators = false,
+                    folds = true,
                 },
-                highlight_groups = {
-                    Directory = { fg = "#68998a" },
-                    StatusLine = { fg = "subtle", bg = "overlay", blend = 20 },
-                    StatusLineNC = { fg = "subtle", bg = "overlay", blend = 20 },
-                    ColorColumn = { fg = "subtle", bg = "overlay", blend = 20 },
-                },
+                transparent_mode = true,
             })
-            vim.cmd("colorscheme rose-pine-moon")
+            vim.cmd([[colorscheme gruvbox]])
         end,
     },
 
     -- {
-    --     "ellisonleao/gruvbox.nvim",
+    --     "rose-pine/neovim",
+    --     name = "rose-pine",
     --     priority = 1000,
     --     enabled = false,
     --     lazy = false,
     --     config = function()
-    --         require("gruvbox").setup({
-    --             italic = {
-    --                 strings = false,
-    --                 emphasis = false,
-    --                 comments = false,
-    --                 operators = false,
-    --                 folds = true,
+    --         require("rose-pine").setup({
+    --             styles = {
+    --                 bold = true,
+    --                 italic = false,
+    --                 transparency = true,
     --             },
-    --             transparent_mode = true,
+    --             highlight_groups = {
+    --                 Directory = { fg = "#68998a" },
+    --                 StatusLine = { fg = "subtle", bg = "overlay", blend = 20 },
+    --                 StatusLineNC = { fg = "subtle", bg = "overlay", blend = 20 },
+    --                 ColorColumn = { fg = "subtle", bg = "overlay", blend = 20 },
+    --             },
     --         })
-    --         vim.cmd([[colorscheme gruvbox]])
+    --         vim.cmd("colorscheme rose-pine-moon")
     --     end,
     -- },
 
@@ -140,5 +140,52 @@ return {
     --         vim.g.sonokai_transparent_background = 1
     --         vim.cmd("colorscheme sonokai")
     --     end,
+    -- },
+
+    -- {
+    --     "catppuccin/nvim",
+    --     name = "catppuccin",
+    --     priority = 1000,
+    --     config = function()
+    --         require("catppuccin").setup({
+    --             transparent_background = true,
+    --             flavour = "mocha",
+    --             background = {
+    --                 light = "latte",
+    --                 dark = "mocha",
+    --             },
+    --             color_overrides = {
+    --                 mocha = {
+    --                     rosewater = "#ffffff",
+    --                     flamingo = "#ffffff",
+    --                     red = "#ffdd33",
+    --                     maroon = "#ffffff",
+    --                     pink = "#ffdd33",
+    --                     mauve = "#ffdd33",
+    --                     peach = "#96a6c8",
+    --                     yellow = "#899b92",
+    --                     green = "#73c936",
+    --                     teal = "#88b992",
+    --                     sky = "#cc8c3c",
+    --                     sapphire = "#96a6c8",
+    --                     blue = "#778899",
+    --                     lavender = "#778899",
+    --                     text = "#eae3d5",
+    --                     subtext1 = "#d5c9b7",
+    --                     subtext0 = "#bfb3a5",
+    --                     overlay2 = "#aca195",
+    --                     overlay1 = "#958b7e",
+    --                     overlay0 = "#6f6660",
+    --                     surface2 = "#585858",
+    --                     surface1 = "#4b4b4b",
+    --                     surface0 = "#353535",
+    --                     base = "#181818",
+    --                     mantle = "#1d2021",
+    --                     crust = "#1d2021",
+    --                 }
+    --             }
+    --         })
+    --         vim.cmd([[colorscheme catppuccin]])
+    --     end
     -- },
 }

@@ -7,8 +7,14 @@ vim.g.netrw_winsize = 30
 vim.g.netrw_hide = 0
 
 vim.keymap.set("n", "-", ":Explore<cr>")
--- vim.keymap.set("n", "<leader>vn", ":Explore<cr>")
--- vim.keymap.set("n", "<leader>vl", ":Lexplore %:p:h<cr>")
+
+vim.api.nvim_create_user_command("LexploreTree", function()
+  local original_style = vim.g.netrw_liststyle or 0
+  vim.g.netrw_liststyle = 3
+  vim.cmd("Lexplore %:p:h")
+  vim.g.netrw_liststyle = original_style
+end, {})
+vim.keymap.set("n", "<leader>vl", ":LexploreTree<cr>")
 
 local autocmd = vim.api.nvim_create_autocmd
 autocmd("FileType", {

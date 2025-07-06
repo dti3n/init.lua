@@ -1,8 +1,22 @@
 {
-    "reactFunctionComponent": {
-        "prefix": "rfc",
+    "reactArrowFunctionComponent": {
+        "prefix": "rafc",
         "body": [
             "const ${1:${TM_FILENAME_BASE}} = () => {",
+            "  return (",
+            "    <div>${1:first}</div>",
+            "  )",
+            "}",
+            "",
+            "export default ${1:first}",
+            ""
+        ],
+        "description": ""
+    },
+    "reactArrowFunctionComponent": {
+        "prefix": "rfc",
+        "body": [
+            "function ${1:${TM_FILENAME_BASE}}() {",
             "  return (",
             "    <div>${1:first}</div>",
             "  )",

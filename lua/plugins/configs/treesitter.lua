@@ -21,7 +21,7 @@ require("nvim-treesitter.configs").setup({
 
     highlight = {
         enable = true,
-        additional_vim_regex_highlighting = { "ruby", "php", "markdown" },
+        additional_vim_regex_highlighting = false,
         disable = function(lang, buf)
             local max_filesize = 100 * 1024 -- 0.1 MB
             local ok, stats =

@@ -8,9 +8,18 @@ require("telescope").setup({
             ".node_modules/",
         },
 
+        layout_config = {
+            width = 0.95,
+            height = 0.95,
+            -- horizontal = {
+            --     preview_width = 0.5,
+            -- },
+        },
+
         preview = {
             filesize_limit = 0.1, -- MB
         },
+
 
         mappings = {
             i = {
@@ -26,14 +35,14 @@ require("telescope").setup({
         },
     },
 
-    pickers = {
-        -- find_files = {
-        --     previewer = false,
-        -- },
-        -- git_files = {
-        --     previewer = false,
-        -- },
-    },
+    -- pickers = {
+    --     find_files = {
+    --         previewer = false,
+    --     },
+    --     git_files = {
+    --         previewer = false,
+    --     },
+    -- },
 })
 
 vim.keymap.set("n", "<C-p>", builtin.find_files)
