@@ -38,6 +38,14 @@ vim.keymap.set("n", "\\3", "3gt")
 vim.keymap.set("n", "\\4", "4gt")
 vim.keymap.set("n", "\\5", "5gt")
 
+-- Add surrounds
+vim.keymap.set("v", "'", [[:<C-u>normal!`>a'<Esc>`<i'<Esc>]])
+vim.keymap.set("v", '"', [[:<C-u>normal!`>a"<Esc>`<i"<Esc>]])
+vim.keymap.set("v", "`", [[:<C-u>normal!`>a`<Esc>`<i`<Esc>]])
+vim.keymap.set("v", "{", [[:<C-u>normal!`>a}<Esc>`<i{<Esc>]])
+vim.keymap.set("v", "[", [[:<C-u>normal!`>a]<Esc>`<i[<Esc>]])
+vim.keymap.set("v", "(", [[:<C-u>normal!`>a)<Esc>`<i(<Esc>]])
+
 -- So gooooood
 vim.keymap.set("n", "<C-t>", "<C-6>")
 vim.keymap.set("i", "<C-c>", "<Esc>")
@@ -45,7 +53,7 @@ vim.keymap.set("t", [[<C-\>]], [[<C-\><C-n>]])
 vim.keymap.set("n", "Q", "<nop>")
 -- vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "\\x", "<cmd>silent !chmod +x %<CR>")
+vim.keymap.set("n", "\\x", "<cmd>!chmod +x %<CR>")
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
@@ -65,22 +73,13 @@ end, { silent = true })
 vim.keymap.set("n", "<up>", "gk")
 vim.keymap.set("n", "<down>", "gj")
 
--- vim.keymap.set("n", "j", function(...)
---     local count = vim.v.count
---
---     if count == 0 then
---         return "gj"
+-- function _G.RgFindFiles(cmdarg, _cmdcomplete)
+--     local fnames = vim.fn.systemlist('rg --files --hidden --color=never --glob="!.git"')
+--     if #cmdarg == 0 then
+--         return fnames
 --     else
---         return "j"
+--         return vim.fn.matchfuzzy(fnames, cmdarg)
 --     end
--- end, { expr = true })
+-- end
 --
--- vim.keymap.set("n", "k", function(...)
---     local count = vim.v.count
---
---     if count == 0 then
---         return "gk"
---     else
---         return "k"
---     end
--- end, { expr = true })
+-- vim.o.findfunc = 'v:lua.RgFindFiles'

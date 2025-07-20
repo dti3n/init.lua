@@ -1,6 +1,6 @@
 {
     "reactArrowFunctionComponent": {
-        "prefix": "rafc",
+        "prefix": "rfca",
         "body": [
             "const ${1:${TM_FILENAME_BASE}} = () => {",
             "  return (",
@@ -14,7 +14,7 @@
         "description": ""
     },
     "reactArrowFunctionComponent": {
-        "prefix": "rfc",
+        "prefix": "rfcn",
         "body": [
             "function ${1:${TM_FILENAME_BASE}}() {",
             "  return (",

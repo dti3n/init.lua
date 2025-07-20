@@ -21,6 +21,12 @@ autocmd("TextYankPost", {
 --     command = "%s/\\s\\+$//e",
 -- })
 
+-- autocmd("BufEnter", {
+--     callback = function()
+--         vim.opt.formatoptions = vim.opt.formatoptions - { "c", "r", "o" }
+--     end,
+-- })
+
 autocmd("LspAttach", {
     group = my_group,
     callback = function(event)
@@ -28,18 +34,6 @@ autocmd("LspAttach", {
         -- client.server_capabilities.semanticTokensProvider = nil
 
         local diagnostic_opts = { float = { border = "single" } }
-        -- if client.name == "solargraph" then
-        --     diagnostic_opts = {
-        --         float = { border = "single" },
-        --         underline = {
-        --             severity = { min = vim.diagnostic.severity.WARN },
-        --         },
-        --         virtual_text = {
-        --             severity = { min = vim.diagnostic.severity.WARN },
-        --         },
-        --         signs = true,
-        --     }
-        -- end
         vim.diagnostic.config(diagnostic_opts)
 
         local nmap = function(keys, func, desc)
@@ -66,17 +60,7 @@ autocmd("LspAttach", {
 
         nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
         nmap("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-        nmap("gr", require("telescope.builtin").lsp_references)
-        nmap(
-            "<leader>ds",
-            require("telescope.builtin").lsp_document_symbols,
-            "[D]ocument [S]ymbols"
-        )
-        nmap(
-            "<leader>ws",
-            require("telescope.builtin").lsp_dynamic_workspace_symbols,
-            "[W]orkspace [S]ymbols"
-        )
+        nmap("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
 
         nmap("K", function()
             vim.lsp.buf.hover({ border = "single" })
@@ -88,6 +72,12 @@ autocmd("LspAttach", {
 
         nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
         nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
+
+        nmap(
+            "<leader>ws",
+            vim.lsp.buf.workspace_symbol,
+            "[W]orkspace [A]dd Folder"
+        )
         nmap(
             "<leader>wa",
             vim.lsp.buf.add_workspace_folder,
@@ -138,10 +128,3 @@ autocmd("LspAttach", {
         -- end
     end,
 })
-
--- -- Don't have `o` | `O` add a comment
--- autocmd("BufEnter", {
---     callback = function()
---         vim.opt.formatoptions = vim.opt.formatoptions - { "c", "r", "o" }
---     end,
--- })

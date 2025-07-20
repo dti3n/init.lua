@@ -16,16 +16,11 @@
             {
                 "language": [
                     "javascript",
-                    "javascriptreact"
-                ],
-                "path": "./javascript/jsdoc.json"
-            },
-            {
-                "language": [
+                    "javascriptreact",
                     "typescript",
                     "typescriptreact"
                 ],
-                "path": "./javascript/tsdoc.json"
+                "path": "./javascript/jsdoc.json"
             },
             {
                 "language": [
@@ -49,10 +44,6 @@
             {
                 "language": "go",
                 "path": "./go.json"
-            },
-            {
-                "language": "php",
-                "path": "./php/phpdoc.json"
             }
         ]
     }

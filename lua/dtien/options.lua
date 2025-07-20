@@ -51,7 +51,28 @@ o.textwidth = 80 -- see :help gq
 
 o.updatetime = 100
 
-o.iskeyword:append("-")
--- o.path:append("**")
+o.wildignore:append("**/node_modules/**,.git/**,**/dist/**,**/vendor/**,*.log")
+o.path:append("**") -- see :help starstar
 
 o.fixeol = false
+
+-- colors
+
+local hi = function(group, opts)
+    vim.api.nvim_set_hl(0, group, opts)
+end
+
+vim.cmd("colorscheme retrobox")
+
+hi("Normal", { bg = "none" })
+hi("NormalFloat", { bg = "none" })
+
+hi("Statusline", { bg = "#504945", bold = false })
+hi("SignColumn", { bg = "none" })
+hi("ColorColumn", { bg = "#504945" })
+hi("WinSeparator", { bg = "none" })
+
+hi("DiffAdd", { bold = true, fg = "none", bg = "#2e4b2e" })
+hi("DiffDelete", { bold = true, fg = "none", bg = "#4c1e15" })
+hi("DiffChange", { bold = true, fg = "none", bg = "#45565c" })
+hi("DiffText", { bold = true, fg = "none", bg = "#996d74" })
