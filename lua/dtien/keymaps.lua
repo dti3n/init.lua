@@ -73,13 +73,24 @@ end, { silent = true })
 vim.keymap.set("n", "<up>", "gk")
 vim.keymap.set("n", "<down>", "gj")
 
--- function _G.RgFindFiles(cmdarg, _cmdcomplete)
---     local fnames = vim.fn.systemlist('rg --files --hidden --color=never --glob="!.git"')
---     if #cmdarg == 0 then
---         return fnames
---     else
---         return vim.fn.matchfuzzy(fnames, cmdarg)
---     end
--- end
---
--- vim.o.findfunc = 'v:lua.RgFindFiles'
+vim.keymap.set("n", "<C-j>", "<CMD>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<CMD>cprev<CR>zz")
+
+vim.keymap.set("n", "<C-p>", ":<C-u>find<space>")
+vim.keymap.set("n", "<leader>ps", function()
+    vim.ui.input({ prompt = "grep > " }, function(pattern)
+        if pattern then
+            vim.cmd("silent grep! " .. vim.fn.shellescape(pattern))
+            vim.cmd("copen")
+        end
+    end)
+end, { desc = "Project Search" })
+vim.keymap.set("n", "<leader>bs", function()
+    vim.ui.input({ prompt = "vimgrep > " }, function(pattern)
+        if pattern then
+            vim.cmd(
+                "silent vimgrep " .. vim.fn.escape(pattern, "/\\") .. " % | cw"
+            )
+        end
+    end)
+end, { desc = "Buffer Search" })

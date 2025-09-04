@@ -15,6 +15,21 @@
             },
             {
                 "language": [
+                    "html",
+                    "htmlangular",
+                    "jade",
+                    "pug",
+                    "eruby",
+                    "javascriptreact",
+                    "typescriptreact",
+                    "htmldjango",
+                    "astro",
+                    "blade"
+                ],
+                "path": "./html.json"
+            },
+            {
+                "language": [
                     "javascript",
                     "javascriptreact",
                     "typescript",

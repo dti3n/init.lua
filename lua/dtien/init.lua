@@ -1,6 +1,6 @@
 require("dtien.options")
 require("dtien.netrw")
 require("dtien.keymaps")
+require("dtien.find")
+require("dtien.cmd")
 require("dtien.lazy")
-require("dtien.autocmds")
-require("dtien.usercmds")

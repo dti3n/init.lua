@@ -3,8 +3,6 @@
         "prefix": "/**",
         "body": [
             "/**",
-            " * ${1:What it does}",
-            " *",
             " * @param",
             " * @returns",
             " */"
@@ -21,12 +19,12 @@
     "param": {
         "prefix": "@param",
         "body": [
-            "@param {${1:type}} ${2:paramName} - ${3:paramDescription}$0"
+            "@param {${1:type}} ${2:paramName}"
         ],
         "description": "Provides the name, type, and description of a function parameter. Synonysm of @arg and @argument."
     },
     "returns": {
-        "prefix": "@returns",
+        "prefix": ["@return", "@returns"],
         "body": [
             "@returns {${1:type}} ${2:description}$0"
         ],

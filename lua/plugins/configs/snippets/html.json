@@ -1,0 +1,37 @@
+{
+    "div": {
+        "prefix": "div",
+        "body": ["<div>", "\t$1", "</div>"],
+        "description": "HTML - Defines a section in a document"
+    },
+    "button": {
+        "prefix": "btn",
+        "body": "<button type=\"$1\">$2</button>$3",
+        "description": "HTML - Defines a push button"
+    },
+    "p": {
+        "prefix": "p",
+        "body": ["<p>", "\t$1", "</p>"],
+        "description": "HTML - Defines a paragraph"
+    },
+    "a": {
+        "prefix": "a",
+        "body": "<a href=\"$1\">$2</a>$3",
+        "description": "HTML - Defines a hyperlink"
+    },
+    "img": {
+        "prefix": "img",
+        "body": "<img src=\"$1\" alt=\"$2\">$3",
+        "description": "HTML - Defines an image"
+    },
+    "h1": {
+        "prefix": "h1",
+        "body": ["<h1>", "\t$1", "</h1>"],
+        "description": "HTML - Defines a top-level heading"
+    },
+    "ul": {
+        "prefix": "ul",
+        "body": ["<ul>", "\t<li>$1</li>", "</ul>"],
+        "description": "HTML - Defines an unordered list"
+    }
+}

@@ -54,6 +54,14 @@ o.updatetime = 100
 o.wildignore:append("**/node_modules/**,.git/**,**/dist/**,**/vendor/**,*.log")
 o.path:append("**") -- see :help starstar
 
+if vim.fn.executable("rg") == 1 then
+    o.grepprg =
+        'rg --vimgrep --hidden --color=never --glob="!.git" --glob="!**/node_modules/**" --glob="!**/dist/**" --glob="!**/vendor/**" --glob="!*.log"'
+else
+    o.grepprg =
+        'grep -HRIn $* . --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=vendor --exclude="*.log"'
+end
+
 o.fixeol = false
 
 -- colors
