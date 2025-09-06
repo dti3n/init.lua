@@ -41,36 +41,39 @@ _G.CustomFind = CustomFind
 vim.opt.findfunc = "v:lua.CustomFind"
 
 -- autocommands for cmdline completion + cache reset
--- note: comment this out when working on a very large project
-local cmd_autocomplete_group =
-    vim.api.nvim_create_augroup("CmdlineAutocompletion", { clear = true })
-
-vim.api.nvim_create_autocmd({ "CmdlineChanged", "CmdlineLeave" }, {
-    group = cmd_autocomplete_group,
-    pattern = "*",
-    callback = function(ev)
-        local function should_enable_autocomplete()
-            local cmdline_cmd = vim.fn.split(vim.fn.getcmdline(), " ")[1]
-            return cmdline_cmd == "find" -- or cmdline_cmd == "help"
-        end
-
-        if ev.event == "CmdlineChanged" and should_enable_autocomplete() then
-            vim.opt.wildmode = "noselect:lastused,full"
-            vim.opt.pumheight = 20
-            vim.fn.wildtrigger()
-        end
-
-        if ev.event == "CmdlineLeave" then
-            vim.opt.wildmode = "full"
-            vim.opt.pumheight = 0
-        end
-    end,
-})
-
+local augroup = vim.api.nvim_create_augroup
+local cmd_group = augroup("CmdAuthcompleteGroup", { clear = true })
 vim.api.nvim_create_autocmd("CmdlineEnter", {
     group = cmd_autocomplete_group,
     pattern = ":",
     callback = function()
+        vim.opt.wildmode = "noselect:lastused,full"
+        vim.opt.pumheight = 8
         files_cache = {}
+    end,
+})
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+    group = cmd_autocomplete_group,
+    pattern = ":",
+    callback = function()
+        vim.opt.wildmode = "full"
+        vim.opt.pumheight = 0
+    end,
+})
+vim.api.nvim_create_autocmd("CmdlineChanged", {
+    group = cmd_autocomplete_group,
+    pattern = ":",
+    callback = function()
+        local function should_enable_autocomplete()
+            local cmdline_cmd = vim.fn.split(vim.fn.getcmdline(), " ")[1]
+            return (
+                cmdline_cmd == "find"
+                or cmdline_cmd == "sf"
+                or cmdline_cmd == "sfind"
+            )
+        end
+        if should_enable_autocomplete() then
+            vim.fn.wildtrigger()
+        end
     end,
 })
