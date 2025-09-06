@@ -76,21 +76,32 @@ vim.keymap.set("n", "<down>", "gj")
 vim.keymap.set("n", "<C-j>", "<CMD>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<CMD>cprev<CR>zz")
 
-vim.keymap.set("n", "<C-p>", ":<C-u>find<space>")
+vim.keymap.set("n", "<leader>f", ":<C-u>find<space>")
 vim.keymap.set("n", "<leader>ps", function()
-    vim.ui.input({ prompt = "grep > " }, function(pattern)
+    vim.ui.input({ prompt = "ps > " }, function(pattern)
         if pattern then
-            vim.cmd("silent grep! " .. vim.fn.shellescape(pattern))
+            vim.cmd("silent grep! '" .. pattern .. "'")
             vim.cmd("copen")
         end
     end)
 end, { desc = "Project Search" })
 vim.keymap.set("n", "<leader>bs", function()
-    vim.ui.input({ prompt = "vimgrep > " }, function(pattern)
+    vim.ui.input({ prompt = "bs > " }, function(pattern)
         if pattern then
-            vim.cmd(
-                "silent vimgrep " .. vim.fn.escape(pattern, "/\\") .. " % | cw"
-            )
+            vim.cmd("silent grep! '" .. pattern .. "' %")
+            vim.cmd("copen")
         end
     end)
 end, { desc = "Buffer Search" })
+
+-- runs command then sends output to the scratch buffer
+vim.keymap.set("n", "<space>c", function()
+    vim.ui.input({ prompt = "cmd > " }, function(c)
+        if c and c ~= "" then
+            vim.cmd("noswapfile vnew")
+            vim.bo.buftype = "nofile"
+            vim.bo.bufhidden = "wipe"
+            vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.fn.systemlist(c))
+        end
+    end)
+end)
