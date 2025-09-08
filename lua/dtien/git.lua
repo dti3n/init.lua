@@ -39,6 +39,7 @@ local function git_status_to_qf()
             title = "Git Status",
             items = qf_entries,
         })
+        vim.cmd("copen")
     else
         print("No files to add to quickfix")
     end
@@ -52,17 +53,11 @@ vim.keymap.set(
 )
 
 vim.keymap.set("n", "<leader>gs", function()
-    local full = vim.fn.systemlist({ "git", "status" })
-    local short = vim.fn.systemlist({ "git", "status", "-s" })
-
+    local output = vim.fn.systemlist({ "git", "status", "-s" })
     local lines = {}
-    vim.list_extend(lines, short)
-    table.insert(lines, "")
-    table.insert(lines, "---")
-    table.insert(lines, "")
-    vim.list_extend(lines, full)
-
+    vim.list_extend(lines, output)
     vim.cmd("new")
+    vim.cmd("resize 10")
     vim.bo.buftype = "nofile"
     vim.bo.bufhidden = "wipe"
     vim.bo.swapfile = false
@@ -71,18 +66,6 @@ vim.keymap.set("n", "<leader>gs", function()
     vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
 end, { desc = "Git status --short" })
 
-vim.keymap.set("n", "<leader>gl", function()
-    git_scratch("git log --oneline")
-end, { desc = "Git log" })
-
-vim.keymap.set("n", "<leader>gL", function()
-    git_scratch("git log --oneline " .. vim.fn.expand("%"))
-end, { desc = "Git log current file" })
-
-vim.keymap.set("n", "<leader>gb", function()
-    git_scratch("git blame " .. vim.fn.expand("%"))
-end, { desc = "Git blame file" })
-
 vim.keymap.set("n", "<leader>go", function()
     local hash = vim.fn.expand("<cword>")
     if hash and #hash >= 7 then
@@ -90,24 +73,31 @@ vim.keymap.set("n", "<leader>go", function()
     end
 end, { desc = "Git open/show commit" })
 
-vim.keymap.set("n", "<leader>ga", function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local line = vim.api.nvim_get_current_line()
-    local file = line:sub(4) -- file starts after status chars
-    local x, y = line:sub(1, 1), line:sub(2, 2) -- staged vs unstaged
+vim.api.nvim_create_user_command("Git", function(opts)
+    local args = vim.split(opts.args, "%s+", { trimempty = true })
+    local subcmd = args[1] and args[1]:lower() or ""
 
-    if x == " " and (y == "M" or y == "D") then
-        vim.fn.system({ "git", "add", file })
-        print("Staged: " .. file)
-    elseif x == "M" or x == "A" or x == "D" then
-        vim.fn.system({ "git", "restore", "--staged", file })
-        print("Unstaged: " .. file)
-    elseif line:match("^%?%?") then
-        vim.fn.system({ "git", "add", file })
-        print("Staged new: " .. file)
+    if subcmd == "blame" then
+        git_scratch("git blame " .. vim.fn.expand("%"))
+    elseif subcmd == "status" then
+        local cmd = "git status"
+        if #args > 1 then
+            local processed_args = vim.tbl_map(function(arg)
+                return arg == "%" and vim.fn.expand("%") or arg
+            end, args)
+            cmd = cmd .. " " .. table.concat(processed_args, " ", 2)
+        end
+        git_scratch(cmd, "below")
+    elseif subcmd == "log" then
+        local cmd = "git log"
+        if #args > 1 then
+            local processed_args = vim.tbl_map(function(arg)
+                return arg == "%" and vim.fn.expand("%") or arg
+            end, args)
+            cmd = cmd .. " " .. table.concat(processed_args, " ", 2)
+        end
+        git_scratch(cmd)
     else
-        print("No action for: " .. line)
+        print("Unknown Git subcommand: " .. subcmd)
     end
-
-    refresh_git_status(bufnr)
-end, { desc = "Stage/unstage file under cursor" })
+end, { nargs = "*" })
