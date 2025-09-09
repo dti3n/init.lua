@@ -7,9 +7,6 @@ g.mapleader = " "
 -- why? see :h sql-completion
 g.omni_sql_no_default_maps = 1
 
-o.statusline =
-    [[%< %{v:lua.vim.api.nvim_get_mode().mode} | %f %h%w%m%r%=%-14.(%l,%c%V%) %L | %P ]]
-
 o.inccommand = "split"
 o.showmode = false
 
@@ -63,15 +60,6 @@ else
 end
 
 o.fixeol = false
-
--- -- shadafile per project
--- local workspace_path = vim.fn.getcwd()
--- local cache_dir = vim.fn.stdpath("data")
--- local unique_id = vim.fn.fnamemodify(workspace_path, ":t")
---     .. "_"
---     .. vim.fn.sha256(workspace_path):sub(1, 8)
--- local shadafile = cache_dir .. "/myshada/" .. unique_id .. ".shada"
--- vim.opt.shadafile = shadafile
 
 -- colors
 

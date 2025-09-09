@@ -1,6 +1,8 @@
 return {
     "sindrets/diffview.nvim",
-    opts = {},
+    opts = {
+        use_icons = false,
+    },
     keys = {
         { "\\do", "<cmd>DiffviewOpen<cr>" },
         { "\\df", "<cmd>DiffviewToggleFiles<cr>" },

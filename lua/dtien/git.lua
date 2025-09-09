@@ -9,7 +9,6 @@ local function git_scratch(cmd, split_type)
     vim.bo.buftype = "nofile"
     vim.bo.swapfile = false
     vim.bo.bufhidden = "wipe"
-    vim.bo.filetype = "git"
     vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.fn.systemlist(cmd))
 end
 
@@ -96,7 +95,7 @@ vim.api.nvim_create_user_command("Git", function(opts)
             end, args)
             cmd = cmd .. " " .. table.concat(processed_args, " ", 2)
         end
-        git_scratch(cmd)
+        git_scratch(cmd, "below")
     else
         print("Unknown Git subcommand: " .. subcmd)
     end
