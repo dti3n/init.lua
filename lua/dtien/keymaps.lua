@@ -98,10 +98,16 @@ end, { desc = "Buffer Search" })
 vim.keymap.set("n", "<space>c", function()
     vim.ui.input({ prompt = "cmd > " }, function(c)
         if c and c ~= "" then
-            vim.cmd("noswapfile vnew")
+            local cmd = c:gsub("%%", vim.fn.expand("%"))
+            local output = vim.fn.systemlist(cmd)
+            if #output == 0 then
+                vim.notify("command executed with no output")
+                return
+            end
+            vim.cmd("noswapfile new")
             vim.bo.buftype = "nofile"
             vim.bo.bufhidden = "wipe"
-            vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.fn.systemlist(c))
+            vim.api.nvim_buf_set_lines(0, 0, -1, false, output)
         end
     end)
 end)

@@ -8,15 +8,8 @@ return {
         -- },
         build = ":TSUpdate",
         config = function()
-            require("plugins/configs/treesitter")
+            require("custom/configs/treesitter")
         end,
-    },
-
-    {
-        "folke/ts-comments.nvim",
-        opts = {},
-        event = "VeryLazy",
-        enabled = vim.fn.has("nvim-0.10.0") == 1,
     },
 
     {

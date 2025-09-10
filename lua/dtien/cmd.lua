@@ -45,6 +45,24 @@ autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         -- client.server_capabilities.semanticTokensProvider = nil
 
+        if client and client:supports_method("textDocument/completion") then
+            vim.lsp.completion.enable(
+                true,
+                client.id,
+                event.buf,
+                { autotrigger = true }
+            )
+            vim.keymap.set("i", "<C-Space>", function()
+                vim.lsp.completion.get()
+            end)
+            vim.keymap.set("i", "<CR>", function()
+                if vim.fn.pumvisible() == 1 then
+                    return "<C-y>"
+                end
+                return "<CR>"
+            end, { expr = true, silent = true })
+        end
+
         local diagnostic_opts = { float = { border = "single" } }
         vim.diagnostic.config(diagnostic_opts)
 
@@ -55,41 +73,16 @@ autocmd("LspAttach", {
             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "" })
         end
 
-        local inmap = function(keys, func, desc)
-            if desc then
-                desc = "LSP: " .. desc
-            end
-            vim.keymap.set(
-                { "i", "n" },
-                keys,
-                func,
-                { buffer = event.buf, desc = "" }
-            )
-        end
-
-        nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-        nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+        -- :help lsp-defaults
 
         nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
         nmap("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
         nmap("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
 
-        nmap("K", function()
-            vim.lsp.buf.hover({ border = "single" })
-        end, "Hover Documentation")
-
-        inmap("<C-h>", function()
-            vim.lsp.buf.signature_help({ border = "single" })
-        end, "Signature Documentation")
-
         nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
         nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 
-        nmap(
-            "<leader>ws",
-            vim.lsp.buf.workspace_symbol,
-            "[W]orkspace [A]dd Folder"
-        )
+        nmap("<leader>ws", vim.lsp.buf.workspace_symbol, "[W]orkspace [S]ymbol")
         nmap(
             "<leader>wa",
             vim.lsp.buf.add_workspace_folder,
@@ -111,32 +104,5 @@ autocmd("LspAttach", {
                 vim.lsp.buf.formatting()
             end
         end, { desc = "Format current buffer with LSP" })
-
-        -- doing both format & range format
-        vim.keymap.set(
-            { "n", "v" },
-            "\\f",
-            vim.lsp.buf.format,
-            { silent = true, buffer = bufnr }
-        )
-
-        -- if client and client.server_capabilities.documentHighlightProvider then
-        --     vim.api.nvim_buf_create_user_command(
-        --         event.buf,
-        --         "DocumentHl",
-        --         function(_)
-        --             vim.cmd(
-        --                 [[autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()]]
-        --             )
-        --             vim.cmd(
-        --                 [[autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()]]
-        --             )
-        --             vim.cmd(
-        --                 [[autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()]]
-        --             )
-        --         end,
-        --         { desc = "Enable Document Highlight" }
-        --     )
-        -- end
     end,
 })

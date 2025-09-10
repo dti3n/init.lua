@@ -7,6 +7,9 @@ g.mapleader = " "
 -- why? see :h sql-completion
 g.omni_sql_no_default_maps = 1
 
+o.statusline =
+    [[%< %{v:lua.vim.api.nvim_get_mode().mode} | %f %h%w%m%r%=%-14.(%l,%c%V%) %L | %P ]]
+
 o.inccommand = "split"
 o.showmode = false
 
@@ -53,7 +56,7 @@ o.path:append("**") -- see :help starstar
 
 if vim.fn.executable("rg") == 1 then
     o.grepprg =
-        'rg --vimgrep --hidden --color=never --glob="!.git" --glob="!**/node_modules/**" --glob="!**/dist/**" --glob="!**/vendor/**" --glob="!*.log"'
+        'rg --vimgrep --smart-case --hidden --color=never --glob="!.git" --glob="!**/node_modules/**" --glob="!**/dist/**" --glob="!**/vendor/**" --glob="!*.log"'
 else
     o.grepprg =
         'grep -HRIn $* . --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=vendor --exclude="*.log"'
@@ -69,7 +72,7 @@ end
 
 vim.cmd("colorscheme retrobox")
 
-hi("Normal", { bg = "none" })
+hi("Normal", { bg = "none", fg = "#ebdbb2" })
 hi("NormalFloat", { bg = "none" })
 
 hi("Statusline", { bg = "#504945", bold = false })
@@ -77,7 +80,7 @@ hi("SignColumn", { bg = "none" })
 hi("ColorColumn", { bg = "#504945" })
 hi("WinSeparator", { bg = "none" })
 
-hi("DiffAdd", { bold = true, fg = "none", bg = "#2e4b2e" })
-hi("DiffDelete", { bold = true, fg = "none", bg = "#4c1e15" })
-hi("DiffChange", { bold = true, fg = "none", bg = "#45565c" })
-hi("DiffText", { bold = true, fg = "none", bg = "#996d74" })
+-- hi("DiffAdd", { bold = false, fg = "none", bg = "#2e4b2e" })
+-- hi("DiffDelete", { bold = false, fg = "none", bg = "#4c1e15" })
+-- hi("DiffChange", { bold = false, fg = "none", bg = "#45565c" })
+-- hi("DiffText", { bold = false, fg = "none", bg = "#996d74" })

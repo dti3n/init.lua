@@ -177,9 +177,9 @@ local function edit()
     end
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 
-    local width = math.floor(vim.o.columns * 0.4)
-    local height = math.floor(vim.o.lines * 0.2)
-    local row = math.floor((vim.o.lines - height) / 2 - 4)
+    local width = math.floor(vim.o.columns * 0.6)
+    local height = math.floor(vim.o.lines * 0.4)
+    local row = math.floor((vim.o.lines - height) / 2)
     local col = math.floor((vim.o.columns - width) / 2)
 
     local win = vim.api.nvim_open_win(buf, true, {
@@ -251,6 +251,7 @@ end
 vim.api.nvim_create_user_command("Bookmarks", edit, {})
 vim.api.nvim_create_user_command("ClearBookmarks", clear, {})
 
+vim.keymap.set("n", "<C-e>", edit, { desc = "edit bookmarks" })
 vim.keymap.set("n", "<leader>m", add, { desc = "add bookmark" })
 for i = 1, 9 do
     vim.keymap.set("n", "<leader>" .. i, function()
