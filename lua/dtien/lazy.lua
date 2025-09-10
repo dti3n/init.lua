@@ -12,7 +12,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins.custom", {
+require("lazy").setup("custom.plugins", {
     change_detection = {
         enabled = false,
         notify = false,

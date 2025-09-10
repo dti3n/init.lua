@@ -8,7 +8,7 @@ return {
         -- },
         build = ":TSUpdate",
         config = function()
-            require("plugins/configs/treesitter")
+            require("custom/configs/treesitter")
         end,
     },
 

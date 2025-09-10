@@ -1,4 +1,8 @@
 {
+    "shebang": {
+        "prefix": "shebang",
+        "body": "#!/usr/bin/env bash"
+    },
     "datetime": {
         "prefix": "datetime",
         "body": [
