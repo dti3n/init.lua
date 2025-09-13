@@ -45,7 +45,7 @@ autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         -- client.server_capabilities.semanticTokensProvider = nil
 
-        if client and client:supports_method("textDocument/completion") then
+        if client ~= nil and client:supports_method("textDocument/completion") then
             vim.lsp.completion.enable(
                 true,
                 client.id,

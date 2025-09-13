@@ -1,11 +1,4 @@
 local o = vim.opt
-local g = vim.g
-
--- need to put this at top
-g.mapleader = " "
-
--- why? see :h sql-completion
-g.omni_sql_no_default_maps = 1
 
 o.inccommand = "split"
 o.showmode = false

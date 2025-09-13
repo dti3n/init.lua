@@ -1,8 +1,0 @@
-require("dtien.options")
-require("dtien.netrw")
-require("dtien.keymaps")
-require("dtien.lazy")
-require("dtien.cmd")
-require("dtien.git")
-require("dtien.find")
-require("dtien.bookmark")
