@@ -21,12 +21,7 @@ autocmd("FileType", {
 
     callback = function(desc)
         local bind = function(lhs, rhs)
-            vim.keymap.set(
-                "n",
-                lhs,
-                rhs,
-                { remap = true, buffer = true, silent = true }
-            )
+            vim.keymap.set("n", lhs, rhs, { remap = true, buffer = true, silent = true })
         end
 
         -- edit new file

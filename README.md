@@ -1,3 +1,3 @@
 ## nvim-config
 
-> note: neovim nightly build
+> nightly build

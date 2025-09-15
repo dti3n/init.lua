@@ -7,8 +7,7 @@ g.mapleader = " "
 -- why? see :h sql-completion
 g.omni_sql_no_default_maps = 1
 
-o.statusline =
-    [[%< %{v:lua.vim.api.nvim_get_mode().mode} | %f %h%w%m%r%=%-14.(%l,%c%V%) %L | %P ]]
+o.statusline = [[%< %f %h%w%m%r%=%-14.(%l,%c%V%) %L | %P ]]
 
 o.inccommand = "split"
 o.showmode = false
@@ -34,25 +33,50 @@ o.smartcase = true
 
 o.swapfile = false
 o.backup = false
-o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 o.undofile = true
 
-o.termguicolors = true
-
 o.completeopt = "menuone,preview,noselect"
-o.shortmess = vim.o.shortmess .. "c"
 
 o.signcolumn = "yes"
-
 o.scrolloff = 8
 
 o.colorcolumn = "80"
 o.textwidth = 80 -- see :help gq
 
-o.updatetime = 100
+o.fixeol = false
 
-o.wildignore:append("**/node_modules/**,.git/**,**/dist/**,**/vendor/**,*.log")
 o.path:append("**") -- see :help starstar
+
+o.wildignore = {
+    "*.o",
+    "*.obj",
+    "*.pyc",
+    "*.class",
+    "*.swp",
+    "*.swo",
+    "*.swn",
+    "*.bak",
+    "*.tmp",
+    "*.temp",
+    "*.log",
+    "*.cache",
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/vendor/**",
+    "*.git/**",
+    "*.hg/**",
+    "*.svn/**",
+    "*.jpg",
+    "*.png",
+    "*.gif",
+    "*.pdf",
+    "*.zip",
+    "*.tar.gz",
+    "__pycache__/**",
+    "*.egg-info/**",
+    "*.DS_Store",
+}
 
 if vim.fn.executable("rg") == 1 then
     o.grepprg =
@@ -62,24 +86,18 @@ else
         'grep -HRIn $* . --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=vendor --exclude="*.log"'
 end
 
-o.fixeol = false
-
 -- colors
 
 local hi = function(group, opts)
     vim.api.nvim_set_hl(0, group, opts)
 end
-
 vim.cmd("colorscheme retrobox")
-
 hi("Normal", { bg = "none", fg = "#ebdbb2" })
 hi("NormalFloat", { bg = "none" })
-
 hi("Statusline", { bg = "#504945", bold = false })
 hi("SignColumn", { bg = "none" })
 hi("ColorColumn", { bg = "#504945" })
 hi("WinSeparator", { bg = "none" })
-
 -- hi("DiffAdd", { bold = false, fg = "none", bg = "#2e4b2e" })
 -- hi("DiffDelete", { bold = false, fg = "none", bg = "#4c1e15" })
 -- hi("DiffChange", { bold = false, fg = "none", bg = "#45565c" })

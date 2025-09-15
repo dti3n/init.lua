@@ -42,7 +42,7 @@ vim.opt.findfunc = "v:lua.CustomFind"
 
 -- autocommands for cmdline completion + cache reset
 local augroup = vim.api.nvim_create_augroup
-local cmd_group = augroup("CmdAuthcompleteGroup", { clear = true })
+local cmd_group = augroup("CmdAutocompleteGroup", { clear = true })
 vim.api.nvim_create_autocmd("CmdlineEnter", {
     group = cmd_autocomplete_group,
     pattern = ":",
@@ -60,20 +60,16 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
         vim.opt.pumheight = 0
     end,
 })
-vim.api.nvim_create_autocmd("CmdlineChanged", {
-    group = cmd_autocomplete_group,
-    pattern = ":",
-    callback = function()
-        local function should_enable_autocomplete()
-            local cmdline_cmd = vim.fn.split(vim.fn.getcmdline(), " ")[1]
-            return (
-                cmdline_cmd == "find"
-                or cmdline_cmd == "sf"
-                or cmdline_cmd == "sfind"
-            )
-        end
-        if should_enable_autocomplete() then
-            vim.fn.wildtrigger()
-        end
-    end,
-})
+-- vim.api.nvim_create_autocmd("CmdlineChanged", {
+--     group = cmd_autocomplete_group,
+--     pattern = ":",
+--     callback = function()
+--         local function should_enable_autocomplete()
+--             local cmdline_cmd = vim.fn.split(vim.fn.getcmdline(), " ")[1]
+--             return (cmdline_cmd == "find" or cmdline_cmd == "sf" or cmdline_cmd == "sfind")
+--         end
+--         if should_enable_autocomplete() then
+--             vim.fn.wildtrigger() -- requires v0.12.0
+--         end
+--     end,
+-- })
