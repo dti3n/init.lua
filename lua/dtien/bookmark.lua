@@ -217,16 +217,13 @@ local function edit()
         end
     end, { buffer = buf, noremap = true, silent = true })
 
-    -- q / :w to close
-    for _, key in ipairs({ "q", ":w" }) do
-        vim.keymap.set("n", key, function()
-            if vim.api.nvim_win_is_valid(win) then
-                vim.api.nvim_win_close(win, true)
-            end
-            state.win = nil
-            state.buf = nil
-        end, { buffer = buf, noremap = true, silent = true })
-    end
+    vim.keymap.set("n", "q", function()
+        if vim.api.nvim_win_is_valid(win) then
+            vim.api.nvim_win_close(win, true)
+        end
+        state.win = nil
+        state.buf = nil
+    end, { buffer = buf, noremap = true, silent = true })
 
     -- autosave when buffer is closed
     vim.api.nvim_create_autocmd("BufWipeout", {

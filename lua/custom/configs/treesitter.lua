@@ -1,14 +1,12 @@
 -- require("nvim-treesitter").install({
---     "vimdoc",
---     "jsdoc",
---     "lua",
 --     "javascript",
 --     "typescript",
 --     "tsx",
+--     "jsdoc",
+--     "bash",
 --     "go",
 --     "ruby",
 --     "php",
---     "bash",
 --     "html",
 --     "embedded_template",
 -- })

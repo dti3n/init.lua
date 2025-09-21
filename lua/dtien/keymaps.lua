@@ -75,7 +75,6 @@ vim.keymap.set("n", "<down>", "gj")
 vim.keymap.set("n", "<C-j>", "<CMD>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<CMD>cprev<CR>zz")
 
-vim.keymap.set("n", "<leader>f", ":<C-u>find<space>")
 vim.keymap.set("n", "<leader>ps", function()
     vim.ui.input({ prompt = "ps > " }, function(pattern)
         if pattern then
@@ -93,6 +92,18 @@ vim.keymap.set("n", "<leader>bs", function()
     end)
 end, { desc = "Buffer Search" })
 
+-- remove trailing whitespace and keep cursor position
+vim.keymap.set({ "n", "v" }, "\\tr", function()
+    local curpos = vim.api.nvim_win_get_cursor(0)
+    local mode = vim.api.nvim_get_mode().mode
+    if mode:match("[vV]") then
+        vim.cmd([[keeppatterns '<,'>s/\s\+$//e]])
+    else
+        vim.cmd([[keeppatterns %s/\s\+$//e]])
+    end
+    vim.api.nvim_win_set_cursor(0, curpos)
+end, { silent = true })
+
 -- runs command then sends output to the scratch buffer
 vim.keymap.set("n", "<space>c", function()
     vim.ui.input({ prompt = "cmd > " }, function(c)
@@ -104,9 +115,17 @@ vim.keymap.set("n", "<space>c", function()
                 return
             end
             vim.cmd("noswapfile new")
-            vim.bo.buftype = "nofile"
-            vim.bo.bufhidden = "wipe"
-            vim.api.nvim_buf_set_lines(0, 0, -1, false, output)
+            local bufnr = vim.api.nvim_get_current_buf()
+            vim.bo[bufnr].buftype = "nofile"
+            vim.bo[bufnr].bufhidden = "wipe"
+            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, output)
+            if cmd:match("^git%s") then
+                if cmd:match("^git%s+show") or cmd:match("^git%s+diff") then
+                    vim.bo[bufnr].filetype = "diff"
+                else
+                    vim.bo[bufnr].filetype = "git"
+                end
+            end
         end
     end)
 end)
