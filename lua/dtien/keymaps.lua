@@ -114,7 +114,7 @@ vim.keymap.set("n", "<space>c", function()
                 vim.notify("command executed with no output")
                 return
             end
-            vim.cmd("noswapfile new")
+            vim.cmd("noswapfile tabnew")
             local bufnr = vim.api.nvim_get_current_buf()
             vim.bo[bufnr].buftype = "nofile"
             vim.bo[bufnr].bufhidden = "wipe"
