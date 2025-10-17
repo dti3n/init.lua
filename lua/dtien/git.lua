@@ -20,48 +20,48 @@ local function git_scratch(git_cmd, cmd)
     vim.api.nvim_buf_set_name(0, git_cmd)
 end
 
-vim.keymap.set("n", "<leader>gs", function()
-    git_scratch("git status")
-end, { desc = "Git status" })
-
-vim.keymap.set("n", "<leader>gS", function()
-    git_scratch("git status --short")
-end, { desc = "Git status --short" })
-
-vim.keymap.set("n", "<leader>gl", function()
-    git_scratch("git log --pretty=format:'%h%x09%an%x09%ad%x09%s'")
-end, { desc = "Git log" })
-
-vim.keymap.set({ "n", "v" }, "<leader>gL", function()
-    local file = vim.fn.expand("%")
-    local cmd = "git log --pretty=format:'%h%x09%an%x09%ad%x09%s' " .. file
-    local mode = vim.api.nvim_get_mode().mode
-    if mode:match("[vV]") then
-        local start_line = vim.fn.line("'<")
-        local end_line = vim.fn.line("'>")
-        cmd = string.format("git log -L %d,%d:%s", start_line, end_line, file)
-    end
-    git_scratch(cmd, "new", "git")
-end, { desc = "Git log (normal: --oneline, visual: -L selected lines)" })
-
-vim.keymap.set({ "n", "v" }, "<leader>gb", function()
-    local cmd = "git blame " .. vim.fn.expand("%")
-    local mode = vim.api.nvim_get_mode().mode
-    if mode:match("[vV]") then
-        local start_line = vim.fn.line("'<")
-        local end_line = vim.fn.line("'>")
-        local file = vim.fn.expand("%")
-        cmd = string.format("git blame -L %d,%d %s", start_line, end_line, file)
-    end
-    git_scratch(cmd, "tabnew")
-end, { desc = "Git blame (normal: full file, visual: -L selected lines)" })
-
-vim.keymap.set("n", "<leader>go", function()
-    local hash = vim.fn.expand("<cword>")
-    if hash and #hash >= 7 then
-        git_scratch("git show " .. hash, "tabnew")
-    end
-end, { desc = "Git open/show commit" })
+-- vim.keymap.set("n", "<leader>gs", function()
+--     git_scratch("git status")
+-- end, { desc = "Git status" })
+--
+-- vim.keymap.set("n", "<leader>gS", function()
+--     git_scratch("git status --short")
+-- end, { desc = "Git status --short" })
+--
+-- vim.keymap.set("n", "<leader>gl", function()
+--     git_scratch("git log --pretty=format:'%h%x09%an%x09%ad%x09%s'")
+-- end, { desc = "Git log" })
+--
+-- vim.keymap.set({ "n", "v" }, "<leader>gL", function()
+--     local file = vim.fn.expand("%")
+--     local cmd = "git log --pretty=format:'%h%x09%an%x09%ad%x09%s' " .. file
+--     local mode = vim.api.nvim_get_mode().mode
+--     if mode:match("[vV]") then
+--         local start_line = vim.fn.line("'<")
+--         local end_line = vim.fn.line("'>")
+--         cmd = string.format("git log -L %d,%d:%s", start_line, end_line, file)
+--     end
+--     git_scratch(cmd, "new", "git")
+-- end, { desc = "Git log (normal: --oneline, visual: -L selected lines)" })
+--
+-- vim.keymap.set({ "n", "v" }, "<leader>gb", function()
+--     local cmd = "git blame " .. vim.fn.expand("%")
+--     local mode = vim.api.nvim_get_mode().mode
+--     if mode:match("[vV]") then
+--         local start_line = vim.fn.line("'<")
+--         local end_line = vim.fn.line("'>")
+--         local file = vim.fn.expand("%")
+--         cmd = string.format("git blame -L %d,%d %s", start_line, end_line, file)
+--     end
+--     git_scratch(cmd, "tabnew")
+-- end, { desc = "Git blame (normal: full file, visual: -L selected lines)" })
+--
+-- vim.keymap.set("n", "<leader>go", function()
+--     local hash = vim.fn.expand("<cword>")
+--     if hash and #hash >= 7 then
+--         git_scratch("git show " .. hash, "tabnew")
+--     end
+-- end, { desc = "Git open/show commit" })
 
 vim.keymap.set("n", "<leader>gp", function()
     local repo_root = vim.fn.system("git rev-parse --show-toplevel"):gsub("\n", "")
