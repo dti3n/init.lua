@@ -1,3 +1,6 @@
+test:
+	nvim --headless -c "lua ~/.config/nvim/init.lua"
+
 format:
 	stylua .
 
