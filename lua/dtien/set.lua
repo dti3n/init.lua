@@ -93,7 +93,7 @@ local hi = function(group, opts)
 end
 vim.cmd("colorscheme retrobox")
 hi("Normal", { bg = "none", fg = "#ebdbb2" })
-hi("NormalFloat", { bg = "none" })
+-- hi("NormalFloat", { bg = "none" })
 hi("Statusline", { bg = "#504945", bold = false })
 hi("SignColumn", { bg = "none" })
 hi("ColorColumn", { bg = "#504945" })
