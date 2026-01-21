@@ -22,6 +22,22 @@ vim.lsp.config("tailwindcss", {
     },
 })
 
+vim.lsp.config("harper_ls", {
+    filetypes = {
+        "gitcommit",
+        "markdown",
+    },
+    settings = {
+        ["harper-ls"] = {
+            linters = {
+                SentenceCapitalization = false,
+                UseTitleCase = false,
+                SpellCheck = false,
+            },
+        },
+    },
+})
+
 require("mason").setup({})
 require("mason-lspconfig").setup({})
 
