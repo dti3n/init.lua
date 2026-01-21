@@ -22,8 +22,32 @@ vim.lsp.config("tailwindcss", {
     },
 })
 
+vim.lsp.config("harper_ls", {
+    filetypes = {
+        "gitcommit",
+        "markdown",
+    },
+    settings = {
+        ["harper-ls"] = {
+            linters = {
+                SentenceCapitalization = false,
+                UseTitleCase = false,
+                SpellCheck = true,
+            },
+        },
+    },
+})
+
 require("mason").setup({})
 require("mason-lspconfig").setup({})
+
+vim.api.nvim_create_user_command("HarperOn", function()
+    vim.lsp.enable("harper_ls")
+end, { desc = "LSP enable harper_ls" })
+
+vim.api.nvim_create_user_command("HarperOff", function()
+    vim.lsp.enable("harper_ls", false)
+end, { desc = "LSP disable harper_ls" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("custom-lsp-config", {}),
