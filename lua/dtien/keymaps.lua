@@ -18,8 +18,8 @@ vim.keymap.set("n", "J", "mzJ`z")
 -- vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "=ap", "m`=ap``", { noremap = true, silent = true })
-vim.keymap.set("n", "=ip", "m`=ip``", { noremap = true, silent = true })
+-- vim.keymap.set("n", "=ap", "m`=ap``", { noremap = true, silent = true })
+-- vim.keymap.set("n", "=ip", "m`=ip``", { noremap = true, silent = true })
 
 -- Paste without overwrite paste-register
 vim.keymap.set("x", "<leader>p", [["_dP]])
