@@ -20,9 +20,9 @@ return {
                 layout_config = {
                     width = 0.9,
                     height = 0.9,
-                    horizontal = {
-                        preview_width = 0.4,
-                    },
+                    -- horizontal = {
+                    --     preview_width = 0.4,
+                    -- },
                 },
 
                 preview = {
@@ -69,6 +69,10 @@ return {
 
         vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[F]ind words by [G]rep" })
 
+        vim.keymap.set("n", "<leader>fG", function()
+            builtin.live_grep({ additional_args = { "--case-sensitive" } })
+        end, { desc = "[F]ind words by [G]rep" })
+
         vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
 
         vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "[?] Find recently opened files" })
@@ -90,6 +94,19 @@ return {
                 print("Error during grep: " .. err)
             end
         end, { desc = "[P]roject [S]earch" })
+
+        vim.keymap.set("n", "<leader>pS", function()
+            local ok, err = pcall(function()
+                builtin.grep_string({
+                    search = vim.fn.input("Grep > "),
+                    previewer = true,
+                    additional_args = { "--case-sensitive" },
+                })
+            end)
+            if not ok then
+                print("Error during grep: " .. err)
+            end
+        end, { desc = "[P]roject [S]earch --case-sensitive" })
 
         vim.keymap.set("n", "<leader>fw", function()
             word = vim.fn.expand("<cword>")

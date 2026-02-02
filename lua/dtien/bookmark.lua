@@ -173,8 +173,8 @@ local function edit()
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 
     -- set win
-    local width = math.floor(vim.o.columns * 0.6)
-    local height = math.floor(vim.o.lines * 0.4)
+    local width = math.floor(vim.o.columns * 0.8)
+    local height = math.floor(vim.o.lines * 0.5)
     local row = math.floor((vim.o.lines - height) / 2)
     local col = math.floor((vim.o.columns - width) / 2)
     local win = vim.api.nvim_open_win(buf, true, {

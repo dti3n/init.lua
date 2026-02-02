@@ -23,10 +23,10 @@ vim.lsp.config("tailwindcss", {
 })
 
 vim.lsp.config("harper_ls", {
-    filetypes = {
-        "gitcommit",
-        "markdown",
-    },
+    -- filetypes = {
+    --     "gitcommit",
+    --     "markdown",
+    -- },
     settings = {
         ["harper-ls"] = {
             linters = {
@@ -39,7 +39,11 @@ vim.lsp.config("harper_ls", {
 })
 
 require("mason").setup({})
-require("mason-lspconfig").setup({})
+require("mason-lspconfig").setup({
+    automatic_enable = {
+        exclude = { "harper_ls" },
+    },
+})
 
 vim.api.nvim_create_user_command("HarperOn", function()
     vim.lsp.enable("harper_ls")
@@ -55,6 +59,16 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         -- client.server_capabilities.semanticTokensProvider = nil
 
+        local nmap = function(keys, func, desc)
+            if desc then
+                desc = "LSP: " .. desc
+            end
+            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "" })
+        end
+
+        vim.lsp.document_color.enable(false) -- i dont like this
+        vim.diagnostic.config({ float = { border = "single" } })
+
         if client and client:supports_method("textDocument/completion") then
             vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
             vim.keymap.set("i", "<C-Space>", function()
@@ -68,25 +82,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
             end, { expr = true, silent = true })
         end
 
-        -- local diagnostic_opts = {
-        --     float = { border = "single" },
-        --     underline = {
-        --         severity = { min = vim.diagnostic.severity.WARN },
-        --     },
-        --     virtual_text = {
-        --         severity = { min = vim.diagnostic.severity.WARN },
-        --     },
-        --     signs = true,
-        -- }
-        vim.diagnostic.config({ float = { border = "single" } })
-
-        local nmap = function(keys, func, desc)
-            if desc then
-                desc = "LSP: " .. desc
-            end
-            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "" })
-        end
-
         -- :help lsp-defaults
 
         nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
@@ -96,12 +91,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
         nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
         nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 
+        nmap("K", function()
+            vim.lsp.buf.hover({ border = "single" })
+        end, "LSP Hover")
+
         nmap("<leader>ws", vim.lsp.buf.workspace_symbol, "[W]orkspace [S]ymbol")
         nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
         nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
         nmap("<leader>wl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, "[W]orkspace [L]ist Folders")
+
+        vim.keymap.set("i", "<C-s>", function()
+            vim.lsp.buf.signature_help({ border = "single" })
+        end, { buffer = event.buf, desc = "LSP Signature Help" })
 
         vim.api.nvim_buf_create_user_command(event.buf, "Format", function(_)
             if vim.lsp.buf.format then
