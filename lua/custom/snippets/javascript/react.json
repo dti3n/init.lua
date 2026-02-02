@@ -3,12 +3,12 @@
         "prefix": "rfca",
         "body": [
             "const ${1:${TM_FILENAME_BASE}} = () => {",
-            "  return (",
-            "    <div>${1:first}</div>",
-            "  )",
+            "    return (",
+            "        <div>${1:first}</div>",
+            "    );",
             "}",
             "",
-            "export default ${1:first}",
+            "export default ${1:first};",
             ""
         ],
         "description": ""
@@ -17,12 +17,12 @@
         "prefix": "rfcn",
         "body": [
             "function ${1:${TM_FILENAME_BASE}}() {",
-            "  return (",
-            "    <div>${1:first}</div>",
-            "  )",
+            "    return (",
+            "        <div>${1:first}</div>",
+            "    );",
             "}",
             "",
-            "export default ${1:first}",
+            "export default ${1:first};",
             ""
         ],
         "description": ""

@@ -37,6 +37,9 @@ o.undofile = true
 
 o.completeopt = "menuone,preview,noselect"
 
+-- o.pumborder = "single"
+-- o.winborder = "single"
+
 o.signcolumn = "yes"
 o.scrolloff = 8
 
@@ -87,14 +90,13 @@ else
 end
 
 -- colors
-
 local hi = function(group, opts)
     vim.api.nvim_set_hl(0, group, opts)
 end
 vim.cmd("colorscheme retrobox")
-hi("Normal", { bg = "none", fg = "#ebdbb2" })
+hi("Normal", { bg = "none", fg = "#ebdbb2" }) -- need to set fg or it will base on the terminal's color
 hi("NormalFloat", { bg = "none" })
+hi("Identifier", { fg = "#ebdbb2" })
 hi("Statusline", { bg = "#504945", bold = false })
-hi("SignColumn", { bg = "none" })
 hi("ColorColumn", { bg = "#504945" })
-hi("WinSeparator", { bg = "none" })
+hi("SignColumn", { bg = "none" })
