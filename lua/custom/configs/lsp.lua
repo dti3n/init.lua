@@ -23,10 +23,10 @@ vim.lsp.config("tailwindcss", {
 })
 
 vim.lsp.config("harper_ls", {
-    filetypes = {
-        "gitcommit",
-        "markdown",
-    },
+    -- filetypes = {
+    --     "gitcommit",
+    --     "markdown",
+    -- },
     settings = {
         ["harper-ls"] = {
             linters = {
@@ -39,7 +39,11 @@ vim.lsp.config("harper_ls", {
 })
 
 require("mason").setup({})
-require("mason-lspconfig").setup({})
+require("mason-lspconfig").setup({
+    automatic_enable = {
+        exclude = { "harper_ls" },
+    },
+})
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("custom-lsp-config", {}),

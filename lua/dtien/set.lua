@@ -37,6 +37,9 @@ o.undofile = true
 
 o.completeopt = "menuone,preview,noselect"
 
+o.pumborder = "single"
+o.winborder = "single"
+
 o.signcolumn = "yes"
 o.scrolloff = 8
 
@@ -86,14 +89,14 @@ else
         'grep -HRIn $* . --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=vendor --exclude="*.log"'
 end
 
--- colors
-local hi = function(group, opts)
-    vim.api.nvim_set_hl(0, group, opts)
-end
-vim.cmd("colorscheme retrobox")
-hi("Normal", { bg = "none", fg = "#ebdbb2" })
-hi("NormalFloat", { bg = "none" })
-hi("Statusline", { bg = "#504945", bold = false })
-hi("SignColumn", { bg = "none" })
-hi("ColorColumn", { bg = "#504945" })
-hi("WinSeparator", { bg = "none" })
+-- -- colors
+-- local hi = function(group, opts)
+--     vim.api.nvim_set_hl(0, group, opts)
+-- end
+-- vim.cmd("colorscheme retrobox")
+-- hi("Normal", { bg = "none", fg = "#ebdbb2" })
+-- hi("NormalFloat", { bg = "none" })
+-- hi("Statusline", { bg = "#504945", bold = false })
+-- hi("SignColumn", { bg = "none" })
+-- hi("ColorColumn", { bg = "#504945" })
+-- hi("WinSeparator", { bg = "none" })
