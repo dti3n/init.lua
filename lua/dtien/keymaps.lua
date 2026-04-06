@@ -48,49 +48,60 @@ vim.keymap.set("v", "(", [[:<C-u>normal!`>a)<Esc>`<i(<Esc>]])
 
 -- So gooooood
 vim.keymap.set("n", "<C-t>", "<C-6>")
-vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("t", [[<C-\>]], [[<C-\><C-n>]])
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "\\x", "<cmd>!chmod +x %<CR>")
 
+-- ESC map, needs to see :help i_CTRL-C & i_CTRL-[
+vim.keymap.set({ "n", "i" }, "<C-c>", "<Esc>")
+
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
--- Remove trailing whitespace and keep cursor position
-vim.keymap.set({ "n", "v" }, "\\tr", function()
-    local curpos = vim.api.nvim_win_get_cursor(0)
-    local mode = vim.api.nvim_get_mode().mode
-    if mode:match("[vV]") then
-        vim.cmd([[keeppatterns '<,'>s/\s\+$//e]])
-    else
-        vim.cmd([[keeppatterns %s/\s\+$//e]])
-    end
-    vim.api.nvim_win_set_cursor(0, curpos)
-end, { silent = true })
+-- vim.keymap.set("n", "<C-j>", "<CMD>cnext<CR>zz")
+-- vim.keymap.set("n", "<C-k>", "<CMD>cprev<CR>zz")
 
 vim.keymap.set("n", "<up>", "gk")
 vim.keymap.set("n", "<down>", "gj")
 
-vim.keymap.set("n", "<C-j>", "<CMD>cnext<CR>zz")
-vim.keymap.set("n", "<C-k>", "<CMD>cprev<CR>zz")
+vim.keymap.set("n", "j", function(...)
+    local count = vim.v.count
+    if count == 0 then
+        return "gj"
+    else
+        return "j"
+    end
+end, { expr = true })
 
-vim.keymap.set("n", "<leader>ps", function()
-    vim.ui.input({ prompt = "ps > " }, function(pattern)
+vim.keymap.set("n", "k", function(...)
+    local count = vim.v.count
+    if count == 0 then
+        return "gk"
+    else
+        return "k"
+    end
+end, { expr = true })
+
+-- project grep
+vim.keymap.set("n", "<leader>pg", function()
+    vim.ui.input({ prompt = "pg > " }, function(pattern)
         if pattern then
             vim.cmd("silent grep! '" .. pattern .. "'")
             vim.cmd("copen")
         end
     end)
-end, { desc = "Project Search" })
-vim.keymap.set("n", "<leader>bs", function()
-    vim.ui.input({ prompt = "bs > " }, function(pattern)
+end, { desc = "Project Grep" })
+
+-- buffer grep
+vim.keymap.set("n", "<leader>bg", function()
+    vim.ui.input({ prompt = "bg > " }, function(pattern)
         if pattern then
             vim.cmd("silent grep! '" .. pattern .. "' %")
             vim.cmd("copen")
         end
     end)
-end, { desc = "Buffer Search" })
+end, { desc = "Buffer Grep" })
 
 -- remove trailing whitespace and keep cursor position
 vim.keymap.set({ "n", "v" }, "\\tr", function()

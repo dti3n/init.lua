@@ -9,6 +9,7 @@ usercmd("Nterm", "tabe | term", {})
 usercmd("Vterm", "vsp | vertical resize -12 | term", {})
 usercmd("Hterm", "sp | resize -8 | term", {})
 usercmd("Bd", "up | %bd | e#", {}) -- delete all hidden buffers
+usercmd("JsonPP", "%!jq .", {}) -- json pretty print
 usercmd("YankPath", function(opts)
     local kind = opts.args
     local file_path
