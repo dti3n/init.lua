@@ -5,7 +5,7 @@ return {
         branch = "main",
         lazy = false,
         config = function()
-            require("custom/configs/treesitter")
+            require("dtien/configs/treesitter")
         end,
     },
 }

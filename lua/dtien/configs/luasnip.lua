@@ -2,7 +2,7 @@ local luasnip = require("luasnip")
 luasnip.config.setup({})
 
 require("luasnip.loaders.from_vscode").lazy_load({
-    paths = "~/.config/nvim/lua/custom/snippets",
+    paths = "~/.config/nvim/lua/dtien/snippets",
 })
 
 vim.keymap.set({ "i" }, "<C-k>", function()

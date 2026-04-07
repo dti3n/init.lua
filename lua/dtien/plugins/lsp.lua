@@ -6,7 +6,7 @@ return {
             "mason-org/mason-lspconfig.nvim",
         },
         config = function()
-            require("custom/configs/lsp")
+            require("dtien/configs/lsp")
         end,
     },
 }

@@ -6,6 +6,6 @@ return {
     },
     tag = "v0.2.0",
     config = function()
-        require("custom/configs/telescope")
+        require("dtien/configs/telescope")
     end,
 }
