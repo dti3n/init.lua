@@ -59,8 +59,8 @@ vim.keymap.set({ "n", "i" }, "<C-c>", "<Esc>")
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
--- vim.keymap.set("n", "<C-j>", "<CMD>cnext<CR>zz")
--- vim.keymap.set("n", "<C-k>", "<CMD>cprev<CR>zz")
+vim.keymap.set("n", "<C-j>", "<CMD>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<CMD>cprev<CR>zz")
 
 vim.keymap.set("n", "<up>", "gk")
 vim.keymap.set("n", "<down>", "gj")

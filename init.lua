@@ -1,41 +1,25 @@
--- need to put this at top
 vim.g.mapleader = " "
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+local function gh(repo)
+    return "https://github.com/" .. repo
 end
 
-vim.opt.rtp:prepend(lazypath)
-
-require("lazy").setup("dtien.plugins", {
-    change_detection = {
-        enabled = false,
-        notify = false,
-    },
-    -- ui = {
-    --     icons = {
-    --         cmd = "⌘",
-    --         config = "🛠",
-    --         event = "📅",
-    --         ft = "📂",
-    --         init = "⚙",
-    --         keys = "🗝",
-    --         plugin = "🔌",
-    --         runtime = "💻",
-    --         source = "📄",
-    --         start = "🚀",
-    --         task = "📌",
-    --     },
-    -- },
+vim.pack.add({
+    gh("tpope/vim-fugitive"),
+    gh("neovim/nvim-lspconfig"),
+    gh("mason-org/mason.nvim"),
+    gh("mason-org/mason-lspconfig.nvim"),
+    gh("L3MON4D3/LuaSnip"),
+    gh("nvim-telescope/telescope.nvim"),
+    gh("nvim-lua/plenary.nvim"),
+    gh("nvim-tree/nvim-web-devicons"),
 })
+
+require("dtien/configs/telescope")
+require("dtien/configs/fugitive")
+require("dtien/configs/luasnip")
+require("dtien/configs/lsp")
+require("dtien/configs/treesitter")
 
 require("vim._core.ui2").enable({})
 

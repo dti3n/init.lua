@@ -1,9 +1,6 @@
 local o = vim.opt
 local g = vim.g
 
--- need to put this at top
-g.mapleader = " "
-
 -- :h sql-completion
 g.omni_sql_no_default_maps = 1
 
@@ -35,18 +32,21 @@ o.undofile = true
 
 o.completeopt = "menuone,preview,noselect"
 
--- o.pumborder = "single"
--- o.winborder = "single"
-
 o.signcolumn = "yes"
 o.scrolloff = 8
 
 o.colorcolumn = "80"
 o.textwidth = 80 -- see :help gq
 
-o.fixeol = false
-
 o.path:append("**") -- see :help starstar
+
+-- o.fixeol = false
+
+-- o.pumborder = "single"
+-- o.winborder = "single"
+
+-- o.title = true
+-- o.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
 
 o.wildignore = {
     "*.o",
