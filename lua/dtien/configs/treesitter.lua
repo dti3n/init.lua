@@ -1,22 +1,3 @@
--- require("nvim-treesitter").install({
---     "javascript",
---     "typescript",
---     "tsx",
---     "jsdoc",
---     "bash",
---     "go",
---     "ruby",
---     "php",
---     "html",
---     "embedded_template",
--- })
-
--- Requirements:
--- * v0.11.0 or later (nightly)
--- * tar, curl, gcc
--- * tree-sitter CLI (0.25.0 or later) (can install with mason)
--- * node v23.0.0 or later
-
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("custom-treesitter-config", { clear = true }),
     callback = function(args)

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo " Usage:   $0 <lang>"
+    echo " Example: $0 javascript"
+    echo "          $0 jsx"
+    echo "          $0 python"
+    exit 1
+fi
+
+lang="$1"
+
+LUA_VERSION=5.5 # check lua version before running the script
+ROCKS_BASE="$HOME/.local/share/nvim/rocks/lib/luarocks/rocks-$LUA_VERSION"
+SITE_PARSER="$HOME/.local/share/nvim/site/parser"
+SITE_QUERIES="$HOME/.local/share/nvim/site/queries"
+
+mkdir -p "$SITE_PARSER" "$SITE_QUERIES"
+
+# Find the latest version of the rock
+version_dir=$(find "$ROCKS_BASE/tree-sitter-${lang}" -maxdepth 1 -type d -name '[0-9]*' 2>/dev/null | sort -V | tail -n 1)
+
+if [ -z "$version_dir" ] || [ ! -d "$version_dir" ]; then
+    echo "Could not find rock for: tree-sitter-${lang}"
+    echo "Install it first with:"
+    echo "luarocks --lua-version=$LUA_VERSION --tree=$HOME/.local/share/nvim/rocks install tree-sitter-${lang}"
+    exit 1
+fi
+
+parser_so="$version_dir/parser/${lang}.so"
+queries_dir="$version_dir/queries/${lang}"
+
+if [ -f "$parser_so" ]; then
+    ln -sf "$parser_so" "$SITE_PARSER/${lang}.so"
+    echo "parser: ${lang}.so"
+else
+    echo "no parser/${lang}.so found"
+fi
+
+if [ -d "$queries_dir" ]; then
+    ln -sf "$queries_dir" "$SITE_QUERIES/${lang}"
+    echo "queries: ${lang}"
+else
+    echo "no queries/${lang} found"
+fi
+
+echo "done"
