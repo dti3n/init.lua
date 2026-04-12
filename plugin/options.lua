@@ -79,14 +79,6 @@ o.wildignore = {
     "*.DS_Store",
 }
 
-if vim.fn.executable("rg") == 1 then
-    o.grepprg =
-        'rg --vimgrep --smart-case --hidden --color=never --glob="!.git" --glob="!**/node_modules/**" --glob="!**/dist/**" --glob="!**/vendor/**" --glob="!*.log"'
-else
-    o.grepprg =
-        'grep -HRIn $* . --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist --exclude-dir=vendor --exclude="*.log"'
-end
-
 -- colors
 local hi = function(group, opts)
     vim.api.nvim_set_hl(0, group, opts)

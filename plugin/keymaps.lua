@@ -61,6 +61,8 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 vim.keymap.set("n", "<C-j>", "<CMD>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<CMD>cprev<CR>zz")
+vim.keymap.set("n", "<leader>j", "<CMD>lnext<CR>zz")
+vim.keymap.set("n", "<leader>k", "<CMD>cprev<CR>zz")
 
 vim.keymap.set("n", "<up>", "gk")
 vim.keymap.set("n", "<down>", "gj")
@@ -83,26 +85,6 @@ vim.keymap.set("n", "k", function(...)
     end
 end, { expr = true })
 
--- project grep
-vim.keymap.set("n", "<leader>pg", function()
-    vim.ui.input({ prompt = "pg > " }, function(pattern)
-        if pattern then
-            vim.cmd("silent grep! '" .. pattern .. "'")
-            vim.cmd("copen")
-        end
-    end)
-end, { desc = "Project Grep" })
-
--- buffer grep
-vim.keymap.set("n", "<leader>bg", function()
-    vim.ui.input({ prompt = "bg > " }, function(pattern)
-        if pattern then
-            vim.cmd("silent grep! '" .. pattern .. "' %")
-            vim.cmd("copen")
-        end
-    end)
-end, { desc = "Buffer Grep" })
-
 -- remove trailing whitespace and keep cursor position
 vim.keymap.set({ "n", "v" }, "\\tr", function()
     local curpos = vim.api.nvim_win_get_cursor(0)
@@ -117,10 +99,9 @@ end, { silent = true })
 
 -- runs command then sends output to the scratch buffer
 vim.keymap.set("n", "<space>c", function()
-    vim.ui.input({ prompt = "cmd > " }, function(c)
+    vim.ui.input({ prompt = "command > " }, function(c)
         if c and c ~= "" then
-            local cmd = c:gsub("%%", vim.fn.expand("%"))
-            local output = vim.fn.systemlist(cmd)
+            local output = vim.fn.systemlist(c)
             if #output == 0 then
                 vim.notify("command executed with no output")
                 return
@@ -130,13 +111,6 @@ vim.keymap.set("n", "<space>c", function()
             vim.bo[bufnr].buftype = "nofile"
             vim.bo[bufnr].bufhidden = "wipe"
             vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, output)
-            if cmd:match("^git%s") then
-                if cmd:match("^git%s+show") or cmd:match("^git%s+diff") then
-                    vim.bo[bufnr].filetype = "diff"
-                else
-                    vim.bo[bufnr].filetype = "git"
-                end
-            end
         end
     end)
 end)

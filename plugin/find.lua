@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd("CmdlineEnter", {
     pattern = ":",
     callback = function()
         vim.opt.wildmode = "noselect:lastused,full"
-        vim.opt.pumheight = 8
+        vim.opt.pumheight = 12
         files_cache = {}
     end,
 })
@@ -69,7 +69,7 @@ vim.api.nvim_create_autocmd("CmdlineChanged", {
             return (cmdline_cmd == "find" or cmdline_cmd == "sf" or cmdline_cmd == "sfind")
         end
         if should_enable_autocomplete() then
-            vim.fn.wildtrigger() -- requires v0.12.0
+            vim.fn.wildtrigger()
         end
     end,
 })
