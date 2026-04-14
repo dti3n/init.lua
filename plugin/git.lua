@@ -1,23 +1,38 @@
-local function git_scratch(git_cmd, cmd)
-    if cmd == nil then
-        cmd = "new"
+local function delete_buffer_by_name(name)
+    local full_name = vim.fn.getcwd() .. "/" .. name
+    local bufnr = vim.fn.bufnr(full_name)
+    if bufnr ~= -1 then
+        vim.api.nvim_buf_delete(bufnr, { force = true })
     end
+end
+
+local function git_scratch(git_cmd, cmd)
+    cmd = cmd or "new"
+
+    delete_buffer_by_name(git_cmd)
+
     vim.cmd(cmd)
+
     local bufnr = vim.api.nvim_get_current_buf()
     vim.bo[bufnr].buftype = "nofile"
     vim.bo[bufnr].swapfile = false
     vim.bo[bufnr].bufhidden = "wipe"
-    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.fn.systemlist(git_cmd, cmd))
+
+    vim.api.nvim_buf_set_name(bufnr, git_cmd)
+
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.fn.systemlist(git_cmd))
+
+    local filetype
     if git_cmd:match("git show .*:") then
         local file = git_cmd:match(".*:'(.*)'$")
         filetype = vim.filetype.match({ filename = file }) or "text"
-    elseif cmd:match("git show") or cmd:match("git diff") then
+    elseif git_cmd:match("git show") or git_cmd:match("git diff") then
         filetype = "diff"
     else
         filetype = "git"
     end
+
     vim.bo[bufnr].filetype = filetype
-    vim.api.nvim_buf_set_name(0, git_cmd)
 end
 
 vim.keymap.set("n", "<leader>gs", function()
