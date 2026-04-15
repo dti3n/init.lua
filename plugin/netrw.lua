@@ -18,8 +18,7 @@ local autocmd = vim.api.nvim_create_autocmd
 autocmd("FileType", {
     pattern = "netrw",
     desc = "Better mappings for netrw",
-
-    callback = function(desc)
+    callback = function()
         local bind = function(lhs, rhs)
             vim.keymap.set("n", lhs, rhs, { remap = true, buffer = true, silent = true })
         end

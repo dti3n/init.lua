@@ -2,18 +2,56 @@ local files_cache = {}
 
 local function FindCmd()
     if vim.fn.executable("fdfind") == 1 then
-        return "fdfind . --hidden --color=never --exclude .git --exclude node_modules --exclude dist --exclude vendor --exclude '*.log'"
+        return table.concat({
+            "fdfind",
+            "--type f",
+            "--hidden",
+            "--follow",
+            "--color=never",
+            "--exclude .git",
+        }, " ")
     end
+
+    if vim.fn.executable("fd") == 1 then
+        return table.concat({
+            "fd",
+            "--type f",
+            "--hidden",
+            "--follow",
+            "--color=never",
+            "--exclude .git",
+        }, " ")
+    end
+
     if vim.fn.executable("rg") == 1 then
-        return 'rg --files --hidden --color=never --glob="!.git" --glob="!**/node_modules/**" --glob="!**/dist/**" --glob="!**/vendor/**" --glob="!*.log"'
+        return table.concat({
+            "rg",
+            "--files",
+            "--hidden",
+            "--color=never",
+            '--glob "!**/.git/*"',
+        }, " ")
     end
+
     if vim.fn.executable("find") == 1 then
-        return 'find . -type f -not -path "*/.git/*" -not -path "*/node_modules/*" -not -path "*/dist/*" -not -path "*/vendor/*" -not -name "*.log"'
+        return table.concat({
+            "find .",
+            "-type f",
+            '-not -path "*/.git/*"',
+            '-not -path "*/node_modules/*"',
+            '-not -path "*/dist/*"',
+            '-not -path "*/vendor/*"',
+        }, " ")
     end
+
+    if vim.fn.executable("git") == 1 then
+        return "git ls-files --cached --others --exclude-standard"
+    end
+
     return ""
 end
 
-local function CustomFind(cmd_arg, cmd_complete)
+local function CustomFind(cmd_arg)
     if #files_cache == 0 then
         local cmd = FindCmd()
         if cmd == "" then
@@ -42,7 +80,7 @@ vim.opt.findfunc = "v:lua.CustomFind"
 
 -- autocommands for cmdline completion + cache reset
 local augroup = vim.api.nvim_create_augroup
-local cmd_group = augroup("CmdAutocompleteGroup", { clear = true })
+local cmd_autocomplete_group = augroup("CmdAutocompleteGroup", { clear = true })
 vim.api.nvim_create_autocmd("CmdlineEnter", {
     group = cmd_autocomplete_group,
     pattern = ":",

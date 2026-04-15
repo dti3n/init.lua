@@ -2,8 +2,8 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local usercmd = vim.api.nvim_create_user_command
 
-local my_group = augroup("MyGroup", {})
 local yank_group = augroup("HighlightYank", {})
+local terminal_cursorline_group = augroup("TerminalCursorline", { clear = true })
 
 usercmd("Nterm", "tabe | term", {})
 usercmd("Vterm", "vsp | vertical resize -12 | term", {})
@@ -38,5 +38,31 @@ autocmd("TextYankPost", {
             higroup = "IncSearch",
             timeout = 40,
         })
+    end,
+})
+
+autocmd("TermOpen", {
+    group = terminal_cursorline_group,
+    callback = function(args)
+        local bufnr = args.buf
+        vim.api.nvim_create_autocmd("InsertEnter", {
+            buffer = bufnr,
+            callback = function()
+                vim.opt_local.cursorline = false
+            end,
+        })
+
+        vim.api.nvim_create_autocmd("InsertLeave", {
+            buffer = bufnr,
+            callback = function()
+                vim.opt_local.cursorline = true
+            end,
+        })
+
+        if vim.fn.mode() == "n" then
+            vim.opt_local.cursorline = true
+        else
+            vim.opt_local.cursorline = false
+        end
     end,
 })

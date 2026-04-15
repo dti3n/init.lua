@@ -3,15 +3,15 @@ local state = {
     buf = nil,
 }
 
-local function bookmark_file()
-    local cwd = vim.loop.cwd()
+local function bookmarks_file()
+    local cwd = vim.fn.getcwd()
     local foldername = vim.fn.fnamemodify(cwd, ":t")
     local unique_id = foldername .. "_" .. vim.fn.sha256(cwd):sub(1, 8)
     return vim.fn.stdpath("state") .. "/bookmarks/" .. unique_id .. ".json"
 end
 
 local function read_file()
-    local path = bookmark_file()
+    local path = bookmarks_file()
     local f = io.open(path, "r")
     if not f then
         return nil
@@ -22,7 +22,7 @@ local function read_file()
 end
 
 local function write_file(content)
-    local path = bookmark_file()
+    local path = bookmarks_file()
     vim.fn.mkdir(vim.fn.fnamemodify(path, ":h"), "p")
     local f = io.open(path, "w")
     if not f then

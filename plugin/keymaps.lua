@@ -61,8 +61,8 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 vim.keymap.set("n", "<C-j>", "<CMD>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<CMD>cprev<CR>zz")
-vim.keymap.set("n", "<leader>j", "<CMD>lnext<CR>zz")
-vim.keymap.set("n", "<leader>k", "<CMD>cprev<CR>zz")
+vim.keymap.set("n", "<C-[>", "<CMD>lnext<CR>")
+vim.keymap.set("n", "<C-]>", "<CMD>lprev<CR>")
 
 vim.keymap.set("n", "<up>", "gk")
 vim.keymap.set("n", "<down>", "gj")
@@ -97,20 +97,35 @@ vim.keymap.set({ "n", "v" }, "\\tr", function()
     vim.api.nvim_win_set_cursor(0, curpos)
 end, { silent = true })
 
--- runs command then sends output to the scratch buffer
+-- execute cmd and send output to the scratch buffer
 vim.keymap.set("n", "<space>c", function()
-    vim.ui.input({ prompt = "command > " }, function(c)
+    vim.ui.input({ prompt = "cmd > " }, function(c)
         if c and c ~= "" then
-            local output = vim.fn.systemlist(c)
+            local cmd = c:gsub("%%", vim.fn.expand("%"))
+            local output = vim.fn.systemlist(cmd)
             if #output == 0 then
                 vim.notify("command executed with no output")
                 return
             end
-            vim.cmd("noswapfile tabnew")
+
+            vim.cmd("new")
+
             local bufnr = vim.api.nvim_get_current_buf()
             vim.bo[bufnr].buftype = "nofile"
             vim.bo[bufnr].bufhidden = "wipe"
-            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, output)
+            vim.bo[bufnr].buflisted = false
+            vim.bo[bufnr].swapfile = false
+
+            local header = { "$ " .. cmd, "" }
+            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.list_extend(header, output))
+
+            if cmd:match("^git%s") then
+                if cmd:match("^git%s+show") or cmd:match("^git%s+diff") then
+                    vim.bo[bufnr].filetype = "diff"
+                else
+                    vim.bo[bufnr].filetype = "git"
+                end
+            end
         end
     end)
 end)

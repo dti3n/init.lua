@@ -5,12 +5,7 @@ if vim.fn.executable("rg") == 1 then
         "--smart-case",
         "--hidden",
         "--color=never",
-        '--glob="!.git"',
-        '--glob="!**/.git/**"',
-        '--glob="!**/node_modules/**"',
-        '--glob="!**/dist/**"',
-        '--glob="!**/vendor/**"',
-        '--glob="!*.log"',
+        '--glob "!**/.git/*"',
     }, " ")
 else
     vim.opt.grepprg = table.concat({
@@ -22,32 +17,33 @@ else
         "--exclude-dir=node_modules",
         "--exclude-dir=dist",
         "--exclude-dir=vendor",
-        '--exclude="*.log"',
     }, " ")
 end
 
-local function build_grep_cmd(pattern)
+local function build_grep_cmd(pattern, opts)
     if not pattern or pattern == "" then
         return nil
     end
 
-    local use_regex = false
-    if pattern:sub(1, 1) == "/" then
-        use_regex = true
-        pattern = pattern:sub(2)
-    end
-
     local escaped = vim.fn.shellescape(pattern)
-    if use_regex then
-        return "silent grep! " .. escaped
-    else
-        return "silent grep! -F " .. escaped
-    end
+    local flag = opts and opts.literal and "-F" or ""
+
+    return string.format("silent grep! %s %s", flag, escaped)
 end
 
--- project search
 vim.keymap.set("n", "<leader>ps", function()
-    vim.ui.input({ prompt = "project > " }, function(pattern)
+    vim.ui.input({ prompt = "ps > " }, function(pattern)
+        local cmd = build_grep_cmd(pattern, { literal = true })
+        if not cmd then
+            return
+        end
+        vim.cmd(cmd)
+        vim.cmd("copen")
+    end)
+end, { desc = "Project Search (literal)" })
+
+vim.keymap.set("n", "<leader>pS", function()
+    vim.ui.input({ prompt = "ps:regex > " }, function(pattern)
         local cmd = build_grep_cmd(pattern)
         if not cmd then
             return
@@ -55,17 +51,26 @@ vim.keymap.set("n", "<leader>ps", function()
         vim.cmd(cmd)
         vim.cmd("copen")
     end)
-end, { desc = "Project Search" })
+end, { desc = "Project Search (regex)" })
 
--- buffer search
 vim.keymap.set("n", "<leader>bs", function()
-    vim.ui.input({ prompt = "buffer > " }, function(pattern)
-        local cmd = build_grep_cmd(pattern)
-        if not cmd then
+    vim.ui.input({ prompt = "bs > " }, function(pattern)
+        local base = build_grep_cmd(pattern, { literal = true })
+        if not base then
             return
         end
-
-        vim.cmd(cmd)
+        vim.cmd(base .. " %")
         vim.cmd("copen")
     end)
-end, { desc = "Buffer Search" })
+end, { desc = "Buffer Search (literal)" })
+
+vim.keymap.set("n", "<leader>bS", function()
+    vim.ui.input({ prompt = "bs:regex > " }, function(pattern)
+        local base = build_grep_cmd(pattern)
+        if not base then
+            return
+        end
+        vim.cmd(base .. " %")
+        vim.cmd("copen")
+    end)
+end, { desc = "Buffer Search (regex)" })
