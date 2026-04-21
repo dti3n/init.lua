@@ -1,7 +1,7 @@
 local loader = require("dtien.snippets.loader")
 
 local loaded = {
-    global = nil,
+    global = {},
     by_ft = {},
 }
 
@@ -10,7 +10,7 @@ local snip_module_path = function(x)
 end
 
 local function load_global()
-    if loaded.global then
+    if #loaded.global > 0 then
         return loaded.global
     end
     local ok, snips = pcall(require, snip_module_path(loader.global))

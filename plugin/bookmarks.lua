@@ -77,53 +77,6 @@ local function add()
     vim.notify("Added bookmark: " .. vim.fn.fnamemodify(file, ":."), vim.log.levels.INFO)
 end
 
-local function delete(index)
-    local idx = tonumber(index)
-    if not idx then
-        vim.notify("Invalid bookmark index: " .. tostring(index), vim.log.levels.WARN)
-        return
-    end
-
-    local cache = load()
-    if idx < 1 or idx > #cache then
-        vim.notify("No bookmark at index " .. idx, vim.log.levels.WARN)
-        return
-    end
-
-    local removed = cache[idx].file or "<unknown>"
-    table.remove(cache, idx)
-    save(cache)
-    vim.notify("Removed bookmark: " .. removed, vim.log.levels.INFO)
-end
-
-local function toggle()
-    local file = vim.fn.expand("%:p")
-    if file == "" then
-        return
-    end
-    local cache = load()
-    for i, bm in ipairs(cache) do
-        if bm.file == file then
-            delete(i)
-            return
-        end
-    end
-    add()
-end
-
-local function list()
-    local cache = load()
-    local files = {}
-    if #cache == 0 then
-        vim.notify("No bookmarks found", vim.log.levels.INFO)
-        return files
-    end
-    for i, bm in ipairs(cache) do
-        table.insert(files, string.format("%d. %s", i, vim.fn.fnamemodify(bm.file, ":.")))
-    end
-    return files
-end
-
 local function open(index)
     local cache = load()
     local bm = cache[index]

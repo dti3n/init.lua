@@ -14,5 +14,6 @@ vim.keymap.set("n", "<leader>u", function()
 end)
 
 require("dtien.snippets")
-require("dtien.configs.lsp")
-require("dtien.configs.treesitter")
+require("dtien.git")
+require("dtien.lsp")
+require("dtien.treesitter")

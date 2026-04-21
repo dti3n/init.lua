@@ -38,25 +38,25 @@ vim.lsp.config("harper_ls", {
     },
 })
 
--- vim.lsp.config("lua_ls", {
---     settings = {
---         Lua = {
---             runtime = {
---                 version = "LuaJIT",
---                 path = {
---                     "lua/?.lua",
---                     "lua/?/init.lua",
---                 },
---             },
---             workspace = {
---                 checkThirdParty = false,
---                 library = {
---                     vim.env.VIMRUNTIME,
---                 },
---             },
---         },
---     },
--- })
+vim.lsp.config("lua_ls", {
+    settings = {
+        Lua = {
+            runtime = {
+                version = "LuaJIT",
+                path = {
+                    "lua/?.lua",
+                    "lua/?/init.lua",
+                },
+            },
+            workspace = {
+                checkThirdParty = false,
+                library = {
+                    vim.env.VIMRUNTIME,
+                },
+            },
+        },
+    },
+})
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
