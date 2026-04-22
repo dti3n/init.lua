@@ -30,7 +30,10 @@ o.swapfile = false
 o.backup = false
 o.undofile = true
 
-o.completeopt = "menuone,preview,noselect"
+-- o.autocomplete = false
+-- o.complete = ".^5,w^5,b^5" -- use "o" is kinda messed up the lsp completion
+o.completeopt = "fuzzy,menuone,noselect" -- use popup for extra information
+o.shortmess:append("c")
 
 o.signcolumn = "yes"
 o.scrolloff = 8
@@ -78,16 +81,3 @@ o.wildignore = {
     "*.egg-info/**",
     "*.DS_Store",
 }
-
--- colors
-local hi = function(group, opts)
-    vim.api.nvim_set_hl(0, group, opts)
-end
-vim.cmd("colorscheme retrobox")
-hi("Normal", { bg = "none", fg = "#ebdbb2" }) -- need to set fg or it will base on the terminal's color
-hi("NormalFloat", { bg = "none" })
-hi("Identifier", { fg = "#ebdbb2" })
-hi("Statusline", { bg = "#504945", bold = false })
-hi("ColorColumn", { bg = "#504945" })
-hi("SignColumn", { bg = "none" })
-hi("WinSeparator", { bg = "none" })

@@ -99,9 +99,3 @@ vim.keymap.set("i", "<C-j>", function()
 
     return vim.api.nvim_replace_termcodes("<C-j>", true, true, true)
 end, { expr = true, silent = true })
-
-vim.keymap.set({ "n", "i" }, "<C-x>", function()
-    if vim.snippet.active() then
-        vim.snippet.stop()
-    end
-end)

@@ -54,7 +54,12 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "\\x", "<cmd>!chmod +x %<CR>")
 
 -- ESC map, needs to see :help i_CTRL-C & i_CTRL-[
-vim.keymap.set({ "n", "i" }, "<C-c>", "<Esc>")
+vim.keymap.set({ "i", "s" }, "<C-c>", function()
+    if vim.snippet.active() then
+        vim.snippet.stop()
+    end
+    return "<Esc>"
+end, { expr = true })
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
@@ -108,7 +113,7 @@ vim.keymap.set("n", "<space>c", function()
                 return
             end
 
-            vim.cmd("new")
+            vim.cmd("12new")
 
             local bufnr = vim.api.nvim_get_current_buf()
             vim.bo[bufnr].buftype = "nofile"

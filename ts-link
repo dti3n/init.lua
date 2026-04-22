@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ $# -eq 0 ]; then
     echo " Usage:   $0 <lang>"
@@ -10,7 +10,7 @@ fi
 
 lang="$1"
 
-LUA_VERSION=5.5 # check lua version before running the script
+LUA_VERSION=$(lua -v 2>&1 | grep -oE '[0-9]+\.[0-9]+' | head -n1)
 ROCKS_BASE="$HOME/.local/share/nvim/rocks/lib/luarocks/rocks-$LUA_VERSION"
 SITE_PARSER="$HOME/.local/share/nvim/site/parser"
 SITE_QUERIES="$HOME/.local/share/nvim/site/queries"

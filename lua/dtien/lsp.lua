@@ -90,10 +90,28 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.diagnostic.config({ float = { border = "single" } })
 
         if client and client:supports_method("textDocument/completion") then
+            -- :help lsp-autocompletion
+            -- triggerCharacters mostly are { '"', "'", "`", " ", ".", "(", "[", "]", "!", "/", "-", ":" }
+            -- enhance this to trigger on every characters
+            -- need to place this before the vim.lsp.completion.enable
+            local completion_provider = client.server_capabilities.completionProvider
+            if completion_provider then
+                completion_provider.triggerCharacters = completion_provider.triggerCharacters or {}
+                local tchars = completion_provider.triggerCharacters ---@type string[]
+                local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                for _, c in ipairs(vim.split(chars, "")) do
+                    if not vim.tbl_contains(tchars, c) then
+                        table.insert(tchars, c)
+                    end
+                end
+            end
+
             vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+
             vim.keymap.set("i", "<C-Space>", function()
                 vim.lsp.completion.get()
             end)
+
             vim.keymap.set("i", "<CR>", function()
                 if vim.fn.pumvisible() == 1 then
                     return "<C-y>"

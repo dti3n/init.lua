@@ -14,6 +14,7 @@ vim.keymap.set("n", "<leader>gl", function()
     run({
         "git",
         "log",
+        "-n100",
         "--pretty=format:%h%x09%an%x09%ad%x09%s",
     })
 end)
@@ -29,6 +30,7 @@ vim.keymap.set({ "n", "v" }, "<leader>gL", function()
         run({
             "git",
             "log",
+            "-n100",
             "--pretty=format:%h%x09%an%x09%ad%x09%s",
             file,
         })
