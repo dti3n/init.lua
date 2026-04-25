@@ -25,7 +25,13 @@ vim.keymap.set({ "n", "v" }, "<leader>gL", function()
     if mode:match("[vV]") then
         local start_line = vim.fn.line("'<")
         local end_line = vim.fn.line("'>")
-        run({ "git", "log", "-L", string.format("%d,%d:%s", start_line, end_line, file) })
+        run({
+            "git",
+            "log",
+            "-n100",
+            "-L",
+            string.format("%d,%d:%s", start_line, end_line, file),
+        })
     else
         run({
             "git",
@@ -52,8 +58,7 @@ end)
 vim.keymap.set("n", "<leader>gp", function()
     local file = vim.fn.expand("%")
     local input = vim.fn.input("git-preview > ")
-    if input == "" then
-        return
+    if input and input:match("^%x+$") then
+        run({ "git", "show", input .. ":" .. file }, "tabnew")
     end
-    run({ "git", "show", input .. ":" .. file }, "tabnew")
 end)

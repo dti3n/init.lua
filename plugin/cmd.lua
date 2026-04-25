@@ -2,8 +2,8 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local usercmd = vim.api.nvim_create_user_command
 
-local yank_group = augroup("HighlightYank", {})
-local terminal_cursorline_group = augroup("TerminalCursorline", { clear = true })
+local yank_group = augroup("dtien.highlight_yank", {})
+local terminal_cursorline_group = augroup("dtien.terminal_cursorline", {})
 
 usercmd("Nterm", "tabe | term", {})
 usercmd("Vterm", "vsp | vertical resize -12 | term", {})

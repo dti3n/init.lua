@@ -15,7 +15,8 @@ local function is_staged_line(bufnr, row)
         local line = vim.api.nvim_buf_get_lines(bufnr, i - 1, i, false)[1]
         if line:match("^Staged") then
             return true
-        elseif line:match("^Unstaged") or line:match("^Untracked") then
+        end
+        if line:match("^Unstaged") then
             return false
         end
     end
@@ -23,9 +24,31 @@ local function is_staged_line(bufnr, row)
 end
 
 local function attach_mappings(bufnr)
-    vim.keymap.set("n", "-", function()
+    vim.keymap.set({ "n", "v" }, "-", function()
         local row = vim.api.nvim_win_get_cursor(0)[1]
         local line = vim.api.nvim_buf_get_lines(0, row - 1, row, false)[1]
+
+        if line == "Staged" then
+            local result = vim.fn.system({ "git", "restore", "--staged", "--", ":/" })
+            if vim.v.shell_error ~= 0 then
+                vim.notify("Failed to unstage all:\n" .. result, vim.log.levels.ERROR)
+            else
+                vim.notify("unstaged all", vim.log.levels.INFO)
+                M.run_git_status()
+            end
+            return
+        end
+
+        if line == "Unstaged" then
+            local result = vim.fn.system({ "git", "add", "-A" })
+            if vim.v.shell_error ~= 0 then
+                vim.notify("Failed to stage all:\n" .. result, vim.log.levels.ERROR)
+            else
+                vim.notify("staged all", vim.log.levels.INFO)
+                M.run_git_status()
+            end
+            return
+        end
 
         local status_char = status_char_from_line(line)
         local filepath = filepath_from_line(line)
@@ -54,6 +77,11 @@ local function attach_mappings(bufnr)
             vim.notify(filepath .. (is_staged and " -> unstaged" or " -> staged"), vim.log.levels.INFO)
             M.run_git_status()
         end
+
+        local mode = vim.api.nvim_get_mode().mode
+        if mode:match("[vV\22]") then
+            vim.cmd("normal! <Esc>")
+        end
     end, { buffer = bufnr, silent = true, desc = "Git: stage/unstage" })
 
     vim.keymap.set("n", "<CR>", function()
@@ -81,18 +109,18 @@ local function attach_mappings(bufnr)
         vim.cmd("startinsert")
     end, { buffer = bufnr, silent = true, desc = "Git: commit" })
 
-    vim.keymap.set("n", "cva", function()
-        vim.cmd("terminal git commit --amend")
-        vim.cmd("startinsert")
-    end, { buffer = bufnr, silent = true, desc = "Git: commit --amend" })
-
-    vim.keymap.set("n", "ce", function()
-        vim.cmd("terminal git commit --amend --no-edit")
-        vim.cmd("startinsert")
-    end, { buffer = bufnr, silent = true, desc = "Git: commit --amend --no-edit" })
+    -- vim.keymap.set("n", "cva", function()
+    --     vim.cmd("terminal git commit --amend")
+    --     vim.cmd("startinsert")
+    -- end, { buffer = bufnr, silent = true, desc = "Git: commit --amend" })
+    --
+    -- vim.keymap.set("n", "ce", function()
+    --     vim.cmd("terminal git commit --amend --no-edit")
+    --     vim.cmd("startinsert")
+    -- end, { buffer = bufnr, silent = true, desc = "Git: commit --amend --no-edit" })
 end
 
-local function build_buf_lines(staged, unstaged, untracked)
+local function build_buf_lines(staged, unstaged)
     local lines = {}
 
     local branch = vim.fn.systemlist("git branch --show-current")[1] or ""
@@ -116,8 +144,9 @@ local function build_buf_lines(staged, unstaged, untracked)
     table.insert(lines, "")
     table.insert(lines, "Unstaged")
 
-    local has_unstaged = #unstaged > 0
-    if has_unstaged then
+    if #unstaged == 0 then
+        table.insert(lines, "(none)")
+    else
         for _, f in ipairs(unstaged) do
             if f.status == "R" and f.old and f.new then
                 table.insert(lines, f.status .. " " .. f.old .. " -> " .. f.new)
@@ -125,20 +154,6 @@ local function build_buf_lines(staged, unstaged, untracked)
                 table.insert(lines, f.status .. " " .. f.new)
             end
         end
-    end
-
-    if #untracked > 0 then
-        if has_unstaged then
-            table.insert(lines, "")
-        end
-        table.insert(lines, "Untracked")
-        for _, f in ipairs(untracked) do
-            table.insert(lines, "? " .. f.new)
-        end
-    end
-
-    if #unstaged == 0 and #untracked == 0 then
-        table.insert(lines, "(none)")
     end
 
     return lines
@@ -160,7 +175,7 @@ M.run_git_status = function()
         return
     end
 
-    local staged, unstaged, untracked = {}, {}, {}
+    local staged, unstaged = {}, {}
 
     for _, line in ipairs(status_out) do
         local x = line:sub(1, 1)
@@ -180,14 +195,14 @@ M.run_git_status = function()
 
         if y ~= " " then
             if x == "?" and y == "?" then
-                table.insert(untracked, { status = "?", new = new_path })
+                table.insert(unstaged, { status = "?", new = new_path })
             else
                 table.insert(unstaged, { status = y, old = old_path, new = new_path })
             end
         end
     end
 
-    local lines = build_buf_lines(staged, unstaged, untracked)
+    local lines = build_buf_lines(staged, unstaged)
     vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
     vim.bo[bufnr].modified = false
     attach_mappings(bufnr)

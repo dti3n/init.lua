@@ -31,6 +31,8 @@ M.get_or_create_buf = function(name, open_cmd)
     vim.bo[bufnr].swapfile = false
     vim.bo[bufnr].modified = false
 
+    vim.opt_local.cursorline = true
+
     vim.api.nvim_buf_set_name(bufnr, name)
     return bufnr
 end
