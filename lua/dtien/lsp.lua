@@ -74,7 +74,7 @@ vim.api.nvim_create_user_command("HarperOff", function()
 end, { desc = "LSP disable harper_ls" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("custom-lsp-config", {}),
+    group = vim.api.nvim_create_augroup("dtien.lsp.config", {}),
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         -- client.server_capabilities.semanticTokensProvider = nil
@@ -90,6 +90,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.diagnostic.config({ float = { border = "single" } })
 
         if client and client:supports_method("textDocument/completion") then
+            vim.opt_local.complete = "o"
+
             -- :help lsp-autocompletion
             -- triggerCharacters mostly are { '"', "'", "`", " ", ".", "(", "[", "]", "!", "/", "-", ":" }
             -- enhance this to trigger on every characters

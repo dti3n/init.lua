@@ -80,9 +80,9 @@ vim.opt.findfunc = "v:lua.CustomFind"
 
 -- autocommands for cmdline completion + cache reset
 local augroup = vim.api.nvim_create_augroup
-local cmd_autocomplete_group = augroup("CmdAutocompleteGroup", { clear = true })
+local cmdline_autocomplete_group = augroup("dtien.cmdline_autocomplete", { clear = true })
 vim.api.nvim_create_autocmd("CmdlineEnter", {
-    group = cmd_autocomplete_group,
+    group = cmdline_autocomplete_group,
     pattern = ":",
     callback = function()
         vim.opt.wildmode = "noselect:lastused,full"
@@ -91,7 +91,7 @@ vim.api.nvim_create_autocmd("CmdlineEnter", {
     end,
 })
 vim.api.nvim_create_autocmd("CmdlineLeave", {
-    group = cmd_autocomplete_group,
+    group = cmdline_autocomplete_group,
     pattern = ":",
     callback = function()
         vim.opt.wildmode = "full"
@@ -99,7 +99,7 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
     end,
 })
 vim.api.nvim_create_autocmd("CmdlineChanged", {
-    group = cmd_autocomplete_group,
+    group = cmdline_autocomplete_group,
     pattern = ":",
     callback = function()
         local function should_enable_autocomplete()

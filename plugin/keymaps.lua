@@ -10,14 +10,12 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize -3<CR>")
 vim.keymap.set("n", "<C-Up>", ":resize +3<CR>")
 vim.keymap.set("n", "<C-Down>", ":resize -3<CR>")
 
--- Keep cursor position when <J>
-vim.keymap.set("n", "J", "mzJ`z")
-
 -- Keep cursor in the middle
--- vim.keymap.set("n", "n", "nzzzv", { noremap = true })
--- vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
+-- vim.keymap.set("n", "J", "mzJ`z")
+-- vim.keymap.set("n", "n", "nzzzv", { noremap = true })
+-- vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
 -- vim.keymap.set("n", "=ap", "m`=ap``", { noremap = true, silent = true })
 -- vim.keymap.set("n", "=ip", "m`=ip``", { noremap = true, silent = true })
 
@@ -54,15 +52,11 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "\\x", "<cmd>!chmod +x %<CR>")
 
 -- ESC map, needs to see :help i_CTRL-C & i_CTRL-[
-vim.keymap.set({ "i", "s" }, "<C-c>", function()
-    if vim.snippet.active() then
-        vim.snippet.stop()
-    end
-    return "<Esc>"
-end, { expr = true })
+vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+vim.keymap.set("n", "<leader>Q", vim.diagnostic.setqflist)
 
 vim.keymap.set("n", "<C-j>", "<CMD>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<CMD>cprev<CR>zz")
@@ -72,22 +66,12 @@ vim.keymap.set("n", "<C-]>", "<CMD>lprev<CR>")
 vim.keymap.set("n", "<up>", "gk")
 vim.keymap.set("n", "<down>", "gj")
 
-vim.keymap.set("n", "j", function(...)
-    local count = vim.v.count
-    if count == 0 then
-        return "gj"
-    else
-        return "j"
-    end
+vim.keymap.set("n", "j", function()
+    return vim.v.count == 0 and "gj" or "j"
 end, { expr = true })
 
-vim.keymap.set("n", "k", function(...)
-    local count = vim.v.count
-    if count == 0 then
-        return "gk"
-    else
-        return "k"
-    end
+vim.keymap.set("n", "k", function()
+    return vim.v.count == 0 and "gk" or "k"
 end, { expr = true })
 
 -- remove trailing whitespace and keep cursor position

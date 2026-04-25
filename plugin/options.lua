@@ -4,6 +4,8 @@ local g = vim.g
 -- :h sql-completion
 g.omni_sql_no_default_maps = 1
 
+o.statusline = [[%<%f %h%w%m%r %=%8.(%l,%c%V%) | %P]]
+
 o.inccommand = "split"
 o.showmode = false
 
@@ -31,8 +33,8 @@ o.backup = false
 o.undofile = true
 
 -- o.autocomplete = false
--- o.complete = ".^5,w^5,b^5" -- use "o" is kinda messed up the lsp completion
-o.completeopt = "fuzzy,menuone,noselect" -- use popup for extra information
+-- o.complete = ".^5,w^5,b^5"
+o.completeopt = "fuzzy,menuone,noselect,popup"
 o.shortmess:append("c")
 
 o.signcolumn = "yes"
