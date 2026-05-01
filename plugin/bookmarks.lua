@@ -6,7 +6,7 @@ local state = {
 local function bookmarks_file()
     local cwd = vim.fn.getcwd()
     local foldername = vim.fn.fnamemodify(cwd, ":t")
-    local unique_id = foldername .. "_" .. vim.fn.sha256(cwd):sub(1, 8)
+    local unique_id = foldername .. "-" .. vim.fn.sha256(cwd):sub(1, 8)
     return vim.fn.stdpath("state") .. "/bookmarks/" .. unique_id .. ".json"
 end
 

@@ -1,3 +1,9 @@
+vim.pack.add({
+    "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/mason-org/mason.nvim",
+    "https://github.com/mason-org/mason-lspconfig.nvim",
+})
+
 -- see :h vim.lsp.config
 vim.lsp.config("ts_ls", {
     root_markers = {
@@ -90,23 +96,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.diagnostic.config({ float = { border = "single" } })
 
         if client and client:supports_method("textDocument/completion") then
-            vim.opt_local.complete = "o"
+            -- vim.opt_local.complete = "o"
 
-            -- :help lsp-autocompletion
-            -- triggerCharacters mostly are { '"', "'", "`", " ", ".", "(", "[", "]", "!", "/", "-", ":" }
-            -- enhance this to trigger on every characters
-            -- need to place this before the vim.lsp.completion.enable
-            local completion_provider = client.server_capabilities.completionProvider
-            if completion_provider then
-                completion_provider.triggerCharacters = completion_provider.triggerCharacters or {}
-                local tchars = completion_provider.triggerCharacters ---@type string[]
-                local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                for _, c in ipairs(vim.split(chars, "")) do
-                    if not vim.tbl_contains(tchars, c) then
-                        table.insert(tchars, c)
-                    end
-                end
-            end
+            -- -- :help lsp-autocompletion
+            -- -- triggerCharacters mostly are { '"', "'", "`", " ", ".", "(", "[", "]", "!", "/", "-", ":" }
+            -- -- enhance this to trigger on every characters
+            -- -- need to place this before the vim.lsp.completion.enable
+            -- local completion_provider = client.server_capabilities.completionProvider
+            -- if completion_provider then
+            --     completion_provider.triggerCharacters = completion_provider.triggerCharacters or {}
+            --     local tchars = completion_provider.triggerCharacters ---@type string[]
+            --     local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            --     for _, c in ipairs(vim.split(chars, "")) do
+            --         if not vim.tbl_contains(tchars, c) then
+            --             table.insert(tchars, c)
+            --         end
+            --     end
+            -- end
 
             vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
 
