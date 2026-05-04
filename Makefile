@@ -11,11 +11,13 @@ cleanup:
 	echo 'cleaned up done'
 
 commit-push:
+	stylua .
 	git add .
 	git commit -m "automated commit $(shell date +'%Y-%m-%d %H:%M:%S')"
 	git push origin master
 
 amend-push:
+	stylua .
 	git add .
 	git commit --amend -m "automated commit $(shell date +'%Y-%m-%d %H:%M:%S')"
 	git push origin master --force

@@ -23,8 +23,10 @@ vim.keymap.set({ "n", "v" }, "<leader>gL", function()
     local file = vim.fn.expand("%")
     local mode = vim.api.nvim_get_mode().mode
     if mode:match("[vV]") then
-        local start_line = vim.fn.line("'<")
-        local end_line = vim.fn.line("'>")
+        local start_pos = vim.fn.getpos("v")
+        local end_pos = vim.fn.getpos(".")
+        local start_line = math.min(start_pos[2], end_pos[2])
+        local end_line = math.max(start_pos[2], end_pos[2])
         run({
             "git",
             "log",
@@ -47,8 +49,10 @@ vim.keymap.set({ "n", "v" }, "<leader>gb", function()
     local file = vim.fn.expand("%")
     local mode = vim.api.nvim_get_mode().mode
     if mode:match("[vV]") then
-        local start_line = vim.fn.line("'<")
-        local end_line = vim.fn.line("'>")
+        local start_pos = vim.fn.getpos("v")
+        local end_pos = vim.fn.getpos(".")
+        local start_line = math.min(start_pos[2], end_pos[2])
+        local end_line = math.max(start_pos[2], end_pos[2])
         run({ "git", "blame", "-L", string.format("%d,%d", start_line, end_line), file }, "tabnew")
     else
         run({ "git", "blame", file }, "tabnew")

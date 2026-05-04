@@ -77,11 +77,6 @@ local function attach_mappings(bufnr)
             vim.notify(filepath .. (is_staged and " -> unstaged" or " -> staged"), vim.log.levels.INFO)
             M.run_git_status()
         end
-
-        local mode = vim.api.nvim_get_mode().mode
-        if mode:match("[vV\22]") then
-            vim.cmd("normal! <Esc>")
-        end
     end, { buffer = bufnr, silent = true, desc = "Git: stage/unstage" })
 
     vim.keymap.set("n", "<CR>", function()
