@@ -105,8 +105,8 @@ vim.keymap.set("n", "<space>c", function()
             vim.bo[bufnr].buflisted = false
             vim.bo[bufnr].swapfile = false
 
-            local header = { "$ " .. cmd, "" }
-            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.list_extend(header, output))
+            vim.api.nvim_buf_set_name(bufnr, "$ " .. cmd)
+            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, output)
 
             if cmd:match("^git%s") then
                 if cmd:match("^git%s+show") or cmd:match("^git%s+diff") then

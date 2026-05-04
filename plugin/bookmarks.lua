@@ -3,11 +3,31 @@ local state = {
     buf = nil,
 }
 
-local function bookmarks_file()
+local settings = {
+    bookmark_branch = true,
+}
+
+local MARK_REGEX = "^(%-?%d+):(%-?%d+):(.-)$"
+
+local function project_key()
     local cwd = vim.fn.getcwd()
     local foldername = vim.fn.fnamemodify(cwd, ":t")
-    local unique_id = foldername .. "-" .. vim.fn.sha256(cwd):sub(1, 8)
-    return vim.fn.stdpath("state") .. "/bookmarks/" .. unique_id .. ".json"
+    local id = vim.fn.sha256(cwd):sub(1, 8)
+    return id .. "-" .. foldername
+end
+
+local function branch_key()
+    local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD 2>/dev/null"):gsub("%s+$", "")
+    if branch ~= "" and branch ~= "HEAD" then
+        return project_key() .. "-" .. branch
+    end
+    return project_key()
+end
+
+local function bookmarks_file()
+    local key = settings.bookmark_branch and branch_key() or project_key()
+    local bookmarks_dir = vim.fn.stdpath("state") .. "/bookmarks"
+    return bookmarks_dir .. "/" .. key .. ".json"
 end
 
 local function read_file()
@@ -26,6 +46,7 @@ local function write_file(content)
     vim.fn.mkdir(vim.fn.fnamemodify(path, ":h"), "p")
     local f = io.open(path, "w")
     if not f then
+        vim.notify("Failed to write bookmarks", vim.log.levels.ERROR)
         return false
     end
     f:write(content)
@@ -47,7 +68,7 @@ end
 
 local function save(cache)
     local ok, encoded = pcall(vim.json.encode, cache)
-    if ok then
+    if ok and #cache > 0 then
         write_file(encoded)
     end
 end
@@ -55,24 +76,32 @@ end
 local function add()
     local file = vim.fn.expand("%:p")
     if file == "" then
+        vim.notify("No file to bookmark", vim.log.levels.WARN)
         return
     end
+
+    local l = vim.fn.line(".")
+    local c = vim.fn.col(".")
+
     local cache = load()
     for _, bm in ipairs(cache) do
         if bm.file == file then
-            -- update the line/col if re-add
-            bm.line = vim.fn.line(".")
-            bm.col = vim.fn.col(".")
-            save(cache)
-            vim.notify("Added bookmark: " .. vim.fn.fnamemodify(file, ":."), vim.log.levels.INFO)
+            if bm.line ~= l or bm.col ~= c then
+                bm.line = l
+                bm.col = c
+                save(cache)
+                vim.notify("Updated bookmark: " .. vim.fn.fnamemodify(file, ":."), vim.log.levels.INFO)
+            end
             return
         end
     end
+
     table.insert(cache, {
         file = file,
-        line = vim.fn.line("."),
-        col = vim.fn.col("."),
+        line = l,
+        col = c,
     })
+
     save(cache)
     vim.notify("Added bookmark: " .. vim.fn.fnamemodify(file, ":."), vim.log.levels.INFO)
 end
@@ -86,16 +115,21 @@ local function open(index)
     end
     vim.cmd("edit " .. vim.fn.fnameescape(bm.file))
     if bm.line and bm.line > 0 then
-        local l = bm.line or 0
-        local c = bm.col and bm.col - 1 or 0
-        vim.api.nvim_win_set_cursor(0, { l, c })
-        vim.cmd("normal! zz")
+        local ok = pcall(vim.api.nvim_win_set_cursor, 0, { bm.line, math.max(0, bm.col - 1) })
+        if ok then
+            vim.cmd("normal! zz")
+        end
     end
 end
 
 local function clear()
     save({})
-    vim.notify("Cleared all bookmarks for this project", vim.log.levels.INFO)
+    vim.notify("Cleared all bookmarks", vim.log.levels.INFO)
+end
+
+local function format_bookmark(bm)
+    local fname = vim.fn.fnamemodify(bm.file, ":.")
+    return string.format("%d:%d:%s", bm.line or 0, bm.col or 0, fname)
 end
 
 local function edit()
@@ -107,29 +141,21 @@ local function edit()
     end
 
     local cache = load()
-    local buf_name = "Project Bookmarks"
-    local buf = vim.fn.bufnr(buf_name)
-    if buf ~= -1 then
-        vim.api.nvim_buf_delete(buf, { force = true })
-    end
 
-    -- set buf
-    buf = vim.api.nvim_create_buf(false, true)
+    local buf = vim.api.nvim_create_buf(false, true)
     state.buf = buf
+
     local lines = {}
     for _, bm in ipairs(cache) do
-        local fname = vim.fn.fnamemodify(bm.file, ":.") -- relative path
-        local l = bm.line or 0
-        local c = bm.col or 0
-        table.insert(lines, string.format("%s %d:%d", fname, l, c))
+        table.insert(lines, format_bookmark(bm))
     end
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 
-    -- set win
     local width = math.floor(vim.o.columns * 0.8)
     local height = math.floor(vim.o.lines * 0.5)
     local row = math.floor((vim.o.lines - height) / 2)
     local col = math.floor((vim.o.columns - width) / 2)
+
     local win = vim.api.nvim_open_win(buf, true, {
         relative = "editor",
         width = width,
@@ -141,7 +167,6 @@ local function edit()
     })
     state.win = win
 
-    -- set options
     vim.bo[buf].buftype = "nofile"
     vim.bo[buf].filetype = "projectbookmarks"
     vim.bo[buf].swapfile = false
@@ -149,44 +174,44 @@ local function edit()
     vim.wo[win].number = true
     vim.wo[win].wrap = true
 
-    vim.keymap.set("n", "<CR>", function()
-        local line = vim.api.nvim_get_current_line()
-        local path, line_num, col_num = line:match("^(.-)%s+(%d+):(%d+)$")
-        if path and line_num and col_num then
-            if vim.api.nvim_win_is_valid(win) then
-                vim.api.nvim_win_close(win, true)
-            end
-            state.win = nil
-            state.buf = nil
-            vim.cmd("edit " .. vim.fn.fnameescape(path))
-            local ok = pcall(vim.api.nvim_win_set_cursor, 0, {
-                tonumber(line_num),
-                tonumber(col_num) - 1,
-            })
-            if ok then
-                vim.cmd("normal! zz")
-            end
-        else
-            vim.notify("Invalid bookmark format: " .. line, vim.log.levels.WARN)
-        end
-    end, { buffer = buf, noremap = true, silent = true })
-
-    vim.keymap.set("n", "q", function()
+    local function close_window()
         if vim.api.nvim_win_is_valid(win) then
             vim.api.nvim_win_close(win, true)
         end
         state.win = nil
         state.buf = nil
+    end
+
+    vim.keymap.set("n", "<CR>", function()
+        -- local index = vim.fn.line(".")
+        -- close_window()
+        -- open(index)
+        local line = vim.api.nvim_get_current_line()
+        local line_num, col_num, path = line:match(MARK_REGEX)
+        if path and line_num and col_num then
+            close_window()
+            vim.cmd("edit " .. vim.fn.fnameescape(path))
+            local ok = pcall(vim.api.nvim_win_set_cursor, 0, {
+                tonumber(line_num),
+                math.max(0, tonumber(col_num) - 1),
+            })
+            if ok then
+                vim.cmd("normal! zz")
+            end
+        else
+            vim.notify("Invalid bookmark format", vim.log.levels.WARN)
+        end
     end, { buffer = buf, noremap = true, silent = true })
 
-    -- autosave when buffer is closed
+    vim.keymap.set("n", "q", close_window, { buffer = buf, noremap = true, silent = true })
+
     vim.api.nvim_create_autocmd("BufWipeout", {
         buffer = buf,
         callback = function()
             local new_lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
             local new_cache = {}
             for _, line in ipairs(new_lines) do
-                local path, line_num, col_num = line:match("^(.-)%s+(%d+):(%d+)$")
+                local line_num, col_num, path = line:match(MARK_REGEX)
                 if path and path ~= "" then
                     local abs_path = vim.fn.fnamemodify(path, ":p")
                     table.insert(new_cache, {

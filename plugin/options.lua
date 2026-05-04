@@ -47,8 +47,8 @@ o.path:append("**") -- see :help starstar
 
 -- o.fixeol = false
 
--- o.pumborder = "single"
--- o.winborder = "single"
+o.pumborder = "single"
+o.winborder = "single"
 
 -- o.title = true
 -- o.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'

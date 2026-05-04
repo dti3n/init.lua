@@ -64,5 +64,7 @@ autocmd("TermOpen", {
         else
             vim.opt_local.cursorline = false
         end
+
+        vim.cmd("startinsert")
     end,
 })
