@@ -2,14 +2,26 @@ local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local usercmd = vim.api.nvim_create_user_command
 
-local yank_group = augroup("dtien.highlight_yank", {})
-local terminal_cursorline_group = augroup("dtien.terminal_cursorline", {})
+autocmd("TextYankPost", {
+    group = augroup("dtien.highlight_yank", {}),
+    pattern = "*",
+    callback = function()
+        vim.hl.on_yank({
+            higroup = "IncSearch",
+            timeout = 40,
+        })
+    end,
+})
 
-usercmd("Nterm", "tabe | term", {})
-usercmd("Vterm", "vsp | vertical resize -12 | term", {})
-usercmd("Hterm", "sp | resize -8 | term", {})
-usercmd("Bd", "up | %bd | e#", {}) -- delete all hidden buffers
-usercmd("JsonPP", "%!jq .", {}) -- json pretty print
+usercmd("JsonFormat", "%!jq .", {})
+
+-- delete all hidden buffers
+usercmd("Bd", function()
+    local pos = vim.api.nvim_win_get_cursor(0)
+    vim.cmd("up | %bd | e#")
+    vim.api.nvim_win_set_cursor(0, pos)
+end, {})
+
 usercmd("YankPath", function(opts)
     local kind = opts.args
     local file_path
@@ -29,42 +41,3 @@ usercmd("YankPath", function(opts)
     vim.fn.setreg("+", file_path)
     print("Yanked path: " .. file_path .. " to clipboard")
 end, { nargs = "?" })
-
-autocmd("TextYankPost", {
-    group = yank_group,
-    pattern = "*",
-    callback = function()
-        vim.hl.on_yank({
-            higroup = "IncSearch",
-            timeout = 40,
-        })
-    end,
-})
-
-autocmd("TermOpen", {
-    group = terminal_cursorline_group,
-    callback = function(args)
-        local bufnr = args.buf
-        vim.api.nvim_create_autocmd("InsertEnter", {
-            buffer = bufnr,
-            callback = function()
-                vim.opt_local.cursorline = false
-            end,
-        })
-
-        vim.api.nvim_create_autocmd("InsertLeave", {
-            buffer = bufnr,
-            callback = function()
-                vim.opt_local.cursorline = true
-            end,
-        })
-
-        if vim.fn.mode() == "n" then
-            vim.opt_local.cursorline = true
-        else
-            vim.opt_local.cursorline = false
-        end
-
-        vim.cmd("startinsert")
-    end,
-})

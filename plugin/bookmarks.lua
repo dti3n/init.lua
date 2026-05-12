@@ -203,7 +203,7 @@ local function edit()
         end
     end, { buffer = buf, noremap = true, silent = true })
 
-    vim.keymap.set("n", "q", close_window, { buffer = buf, noremap = true, silent = true })
+    vim.keymap.set({ "n", "v" }, "q", close_window, { buffer = buf, noremap = true, silent = true })
 
     vim.api.nvim_create_autocmd("BufWipeout", {
         buffer = buf,

@@ -1,8 +1,12 @@
 local o = vim.opt
 local g = vim.g
 
--- :h sql-completion
-g.omni_sql_no_default_maps = 1
+g.netrw_banner = 0
+g.netrw_altfile = 1
+g.netrw_winsize = 30
+g.netrw_hide = 0
+
+g.omni_sql_no_default_maps = 1 -- :h sql-completion
 
 o.statusline = [[%<%f %h%w%m%r %=%8.(%l,%c%V%) | %P]]
 
@@ -45,7 +49,7 @@ o.textwidth = 80 -- see :help gq
 
 o.path:append("**") -- see :help starstar
 
--- o.fixeol = false
+o.fixeol = false
 
 o.pumborder = "single"
 o.winborder = "single"

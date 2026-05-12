@@ -63,6 +63,36 @@ vim.keymap.set("n", "<leader>gp", function()
     local file = vim.fn.expand("%")
     local input = vim.fn.input("git-preview > ")
     if input and input:match("^%x+$") then
-        run({ "git", "show", input .. ":" .. file }, "tabnew")
+        run({ "git", "show", input .. ":" .. file }, "vnew")
+    end
+end)
+
+vim.keymap.set("n", "<leader>gP", function()
+    local file = vim.fn.expand("%")
+
+    local handle = io.popen("git log -1 --format=%H -- " .. vim.fn.shellescape(file))
+    if handle == nil then
+        return
+    end
+
+    local latest_commit = handle:read("*a"):gsub("\n", "")
+    handle:close()
+
+    if latest_commit and latest_commit ~= "" then
+        local handle2 = io.popen("git log -1 --format=%H " .. latest_commit .. "^ -- " .. vim.fn.shellescape(file))
+        if handle2 == nil then
+            return
+        end
+
+        local parent_commit = handle2:read("*a"):gsub("\n", "")
+        handle2:close()
+
+        if parent_commit and parent_commit ~= "" then
+            vim.cmd("wincmd o")
+            run({ "git", "show", parent_commit .. ":" .. file }, "leftabove vnew")
+            vim.cmd("windo diffthis")
+        else
+            vim.notify("No previous commit found for this file", vim.log.levels.WARN)
+        end
     end
 end)
