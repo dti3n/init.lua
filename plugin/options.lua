@@ -8,7 +8,7 @@ g.netrw_hide = 0
 
 g.omni_sql_no_default_maps = 1 -- :h sql-completion
 
-o.statusline = [[%<%f %h%w%m%r %=%8.(%l,%c%V%) | %P]]
+-- o.statusline = [[%<%f %h%w%m%r %=%8.(%l,%c%V%) | %P]]
 
 o.inccommand = "split"
 o.showmode = false
@@ -51,8 +51,8 @@ o.path:append("**") -- see :help starstar
 
 o.fixeol = false
 
-o.pumborder = "single"
-o.winborder = "single"
+-- o.pumborder = "single"
+-- o.winborder = "single"
 
 -- o.title = true
 -- o.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
