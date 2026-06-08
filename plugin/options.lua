@@ -8,7 +8,7 @@ g.netrw_hide = 0
 
 g.omni_sql_no_default_maps = 1 -- :h sql-completion
 
-o.statusline = [[%<%f %h%w%m%r %=%8.(%l,%c%V%) | %P]]
+-- o.statusline = [[%<%f %h%w%m%r %=%8.(%l,%c%V%) | %P]]
 
 o.inccommand = "split"
 o.showmode = false
