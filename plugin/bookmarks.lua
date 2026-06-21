@@ -208,7 +208,22 @@ local function edit()
     vim.api.nvim_create_autocmd("BufWipeout", {
         buffer = buf,
         callback = function()
+            local original_lines = vim.deepcopy(lines)
             local new_lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+            local changed = #new_lines ~= #original_lines
+            if not changed then
+                for i, line in ipairs(new_lines) do
+                    if line ~= original_lines[i] then
+                        changed = true
+                        break
+                    end
+                end
+            end
+
+            if not changed then
+                return
+            end
+
             local new_cache = {}
             for _, line in ipairs(new_lines) do
                 local line_num, col_num, path = line:match(MARK_REGEX)

@@ -6,7 +6,6 @@ local function set_theme(mode)
     vim.cmd("colorscheme retrobox")
     vim.cmd("set background=" .. mode)
     if mode == "light" then
-        -- hi("Identifier", { fg = "#3c3836" })
         hi("@variable", { fg = "#3c3836" })
         hi("@lsp.type.variable", { link = "@variable" })
     else
@@ -15,8 +14,6 @@ local function set_theme(mode)
         hi("SignColumn", { bg = "none" })
         hi("ColorColumn", { bg = "#504945" })
         hi("WinSeparator", { bg = "none" })
-        -- hi("Operator", { fg = "#fe8019" })
-        -- hi("Identifier", { fg = "#ebdbb2" })
         hi("@variable", { fg = "#ebdbb2" })
         hi("@lsp.type.variable", { link = "@variable" })
     end
@@ -32,3 +29,8 @@ end, {
         return { "light", "dark" }
     end,
 })
+
+vim.api.nvim_create_user_command("ToggleBg", function()
+    local bg = vim.o.background == "dark" and "light" or "dark"
+    set_theme(bg)
+end, {})

@@ -8,8 +8,6 @@ g.netrw_hide = 0
 
 g.omni_sql_no_default_maps = 1 -- :h sql-completion
 
--- o.statusline = [[%<%f %h%w%m%r %=%8.(%l,%c%V%) | %P]]
-
 o.inccommand = "split"
 o.showmode = false
 
@@ -36,26 +34,18 @@ o.swapfile = false
 o.backup = false
 o.undofile = true
 
--- o.autocomplete = false
--- o.complete = ".^5,w^5,b^5"
 o.completeopt = "fuzzy,menuone,noselect,popup"
 o.shortmess:append("c")
 
 o.signcolumn = "yes"
-o.scrolloff = 8
-
 o.colorcolumn = "80"
-o.textwidth = 80 -- see :help gq
+o.textwidth = 80 -- :h gq
 
-o.path:append("**") -- see :help starstar
+o.path:append("**") -- :h starstar
 
 o.fixeol = false
 
--- o.pumborder = "single"
--- o.winborder = "single"
-
--- o.title = true
--- o.titlestring = '%t%( %M%)%( (%{expand("%:~:h")})%)%a (nvim)'
+o.winborder = "single"
 
 o.wildignore = {
     "*.o",

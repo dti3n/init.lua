@@ -103,16 +103,6 @@ local function attach_mappings(bufnr)
         vim.cmd("terminal git commit")
         vim.cmd("startinsert")
     end, { buffer = bufnr, silent = true, desc = "Git: commit" })
-
-    -- vim.keymap.set("n", "cva", function()
-    --     vim.cmd("terminal git commit --amend")
-    --     vim.cmd("startinsert")
-    -- end, { buffer = bufnr, silent = true, desc = "Git: commit --amend" })
-    --
-    -- vim.keymap.set("n", "ce", function()
-    --     vim.cmd("terminal git commit --amend --no-edit")
-    --     vim.cmd("startinsert")
-    -- end, { buffer = bufnr, silent = true, desc = "Git: commit --amend --no-edit" })
 end
 
 local function build_buf_lines(staged, unstaged)

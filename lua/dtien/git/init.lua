@@ -67,32 +67,68 @@ vim.keymap.set("n", "<leader>gp", function()
     end
 end)
 
-vim.keymap.set("n", "<leader>gP", function()
+vim.keymap.set("n", "<leader>gh", function()
     local file = vim.fn.expand("%")
-
-    local handle = io.popen("git log -1 --format=%H -- " .. vim.fn.shellescape(file))
-    if handle == nil then
+    if file == "" then
+        vim.notify("No file open", vim.log.levels.WARN)
         return
     end
 
-    local latest_commit = handle:read("*a"):gsub("\n", "")
-    handle:close()
+    local commits =
+        vim.fn.systemlist({ "git", "log", "--oneline", "--pretty=format:%h%x09%an%x09%ad%x09%s", "--", file })
+    if vim.v.shell_error ~= 0 or #commits == 0 then
+        vim.notify("No git history for " .. file, vim.log.levels.WARN)
+        return
+    end
 
-    if latest_commit and latest_commit ~= "" then
-        local handle2 = io.popen("git log -1 --format=%H " .. latest_commit .. "^ -- " .. vim.fn.shellescape(file))
-        if handle2 == nil then
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, commits)
+    vim.api.nvim_buf_set_name(buf, "git log --oneline -- " .. file)
+    vim.bo[buf].bufhidden = "wipe"
+
+    vim.cmd("new")
+    vim.api.nvim_set_current_buf(buf)
+
+    vim.keymap.set("n", "<CR>", function()
+        local line_nr = vim.api.nvim_win_get_cursor(0)[1]
+        local line = vim.api.nvim_get_current_line()
+        local hash = line:match("^(%x+)")
+        if not hash then
             return
         end
 
-        local parent_commit = handle2:read("*a"):gsub("\n", "")
-        handle2:close()
-
-        if parent_commit and parent_commit ~= "" then
-            vim.cmd("wincmd o")
-            run({ "git", "show", parent_commit .. ":" .. file }, "leftabove vnew")
-            vim.cmd("windo diffthis")
-        else
-            vim.notify("No previous commit found for this file", vim.log.levels.WARN)
+        local parent_line = commits[line_nr + 1]
+        local parent = parent_line and parent_line:match("^(%x+)")
+        if not parent then
+            vim.notify("No previous commit for this file", vim.log.levels.WARN)
+            return
         end
-    end
-end)
+
+        local ft = vim.filetype.match({ filename = file }) or ""
+
+        local left_lines = vim.fn.systemlist({ "git", "show", parent .. ":" .. file })
+        local left_ok = vim.v.shell_error == 0
+
+        local right_lines = vim.fn.systemlist({ "git", "show", hash .. ":" .. file })
+        local right_ok = vim.v.shell_error == 0
+
+        local left_buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_buf_set_name(left_buf, parent .. ":" .. file)
+        vim.api.nvim_buf_set_lines(left_buf, 0, -1, false, left_ok and left_lines or {})
+        vim.bo[left_buf].filetype = ft
+        vim.bo[left_buf].bufhidden = "wipe"
+
+        local right_buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_buf_set_name(right_buf, hash .. ":" .. file)
+        vim.api.nvim_buf_set_lines(right_buf, 0, -1, false, right_ok and right_lines or {})
+        vim.bo[right_buf].filetype = ft
+        vim.bo[right_buf].bufhidden = "wipe"
+
+        vim.cmd("tabnew")
+        vim.api.nvim_set_current_buf(left_buf)
+        vim.cmd("diffthis")
+        vim.cmd("vsplit")
+        vim.api.nvim_set_current_buf(right_buf)
+        vim.cmd("diffthis")
+    end, { buffer = buf, silent = true, desc = "Git: open diff" })
+end, { desc = "Git: diff history" })

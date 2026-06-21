@@ -1,5 +1,11 @@
 -- :help default-mappings (remember to check default keymaps for new version)
 
+-- Keep cursor in the middle
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "n", "nzzzv", { noremap = true })
+vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
+
 -- Move line up and down VISUAL modes
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -9,15 +15,6 @@ vim.keymap.set("n", "<C-Left>", ":vertical resize +3<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize -3<CR>")
 vim.keymap.set("n", "<C-Up>", ":resize +3<CR>")
 vim.keymap.set("n", "<C-Down>", ":resize -3<CR>")
-
--- Keep cursor in the middle
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
--- vim.keymap.set("n", "J", "mzJ`z")
--- vim.keymap.set("n", "n", "nzzzv", { noremap = true })
--- vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
--- vim.keymap.set("n", "=ap", "m`=ap``", { noremap = true, silent = true })
--- vim.keymap.set("n", "=ip", "m`=ip``", { noremap = true, silent = true })
 
 -- Paste without overwrite paste-register
 vim.keymap.set("x", "<leader>p", [["_dP]])
@@ -90,8 +87,7 @@ end, { silent = true })
 vim.keymap.set("n", "<space>c", function()
     vim.ui.input({ prompt = "cmd > " }, function(c)
         if c and c ~= "" then
-            local cmd = c:gsub("%%", vim.fn.expand("%"))
-            local output = vim.fn.systemlist(cmd)
+            local output = vim.fn.systemlist(c)
             if #output == 0 then
                 vim.notify("command executed with no output")
                 return
@@ -105,11 +101,11 @@ vim.keymap.set("n", "<space>c", function()
             vim.bo[bufnr].buflisted = false
             vim.bo[bufnr].swapfile = false
 
-            vim.api.nvim_buf_set_name(bufnr, "$ " .. cmd)
+            vim.api.nvim_buf_set_name(bufnr, "$ " .. c)
             vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, output)
 
-            if cmd:match("^git%s") then
-                if cmd:match("^git%s+show") or cmd:match("^git%s+diff") then
+            if c:match("^git%s") then
+                if c:match("^git%s+show") or c:match("^git%s+diff") then
                     vim.bo[bufnr].filetype = "diff"
                 else
                     vim.bo[bufnr].filetype = "git"
