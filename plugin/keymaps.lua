@@ -49,7 +49,13 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "\\x", "<cmd>!chmod +x %<CR>")
 
 -- ESC map, needs to see :help i_CTRL-C & i_CTRL-[
-vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.keymap.set({ "i", "s" }, "<C-c>", function()
+    if vim.snippet.active() then
+        vim.snippet.stop()
+    end
+
+    return vim.api.nvim_replace_termcodes("<Esc>", true, true, true)
+end, { expr = true })
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)

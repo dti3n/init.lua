@@ -1,10 +1,8 @@
 local o = vim.opt
 local g = vim.g
 
-g.netrw_banner = 0
-g.netrw_altfile = 1
-g.netrw_winsize = 30
-g.netrw_hide = 0
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
 
 g.omni_sql_no_default_maps = 1 -- :h sql-completion
 
@@ -18,8 +16,6 @@ o.tabstop = 4
 o.softtabstop = 4
 o.shiftwidth = 4
 o.expandtab = true
-
-o.smartindent = true
 
 o.splitright = true
 o.splitbelow = true

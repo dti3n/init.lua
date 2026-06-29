@@ -7,7 +7,7 @@ local settings = {
     bookmark_branch = true,
 }
 
-local MARK_REGEX = "^(%-?%d+):(%-?%d+):(.-)$"
+local MARK_REGEX = "^(.-):(%-?%d+):(%-?%d+)$"
 
 local function project_key()
     local cwd = vim.fn.getcwd()
@@ -68,7 +68,7 @@ end
 
 local function save(cache)
     local ok, encoded = pcall(vim.json.encode, cache)
-    if ok and #cache > 0 then
+    if ok then
         write_file(encoded)
     end
 end
@@ -84,17 +84,6 @@ local function add()
     local c = vim.fn.col(".")
 
     local cache = load()
-    for _, bm in ipairs(cache) do
-        if bm.file == file then
-            if bm.line ~= l or bm.col ~= c then
-                bm.line = l
-                bm.col = c
-                save(cache)
-                vim.notify("Updated bookmark: " .. vim.fn.fnamemodify(file, ":."), vim.log.levels.INFO)
-            end
-            return
-        end
-    end
 
     table.insert(cache, {
         file = file,
@@ -129,7 +118,7 @@ end
 
 local function format_bookmark(bm)
     local fname = vim.fn.fnamemodify(bm.file, ":.")
-    return string.format("%d:%d:%s", bm.line or 0, bm.col or 0, fname)
+    return string.format("%s:%d:%d", fname, bm.line or 0, bm.col or 0)
 end
 
 local function edit()
@@ -187,7 +176,7 @@ local function edit()
         -- close_window()
         -- open(index)
         local line = vim.api.nvim_get_current_line()
-        local line_num, col_num, path = line:match(MARK_REGEX)
+        local path, line_num, col_num = line:match(MARK_REGEX)
         if path and line_num and col_num then
             close_window()
             vim.cmd("edit " .. vim.fn.fnameescape(path))
@@ -226,7 +215,7 @@ local function edit()
 
             local new_cache = {}
             for _, line in ipairs(new_lines) do
-                local line_num, col_num, path = line:match(MARK_REGEX)
+                local path, line_num, col_num = line:match(MARK_REGEX)
                 if path and path ~= "" then
                     local abs_path = vim.fn.fnamemodify(path, ":p")
                     table.insert(new_cache, {

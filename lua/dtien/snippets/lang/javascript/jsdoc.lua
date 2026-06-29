@@ -1,11 +1,11 @@
 return {
     {
         trigger = "/**",
-        body = "/**\n * @param$0\n * @returns$1\n */",
+        body = "/**\n * @param {${1:type}} ${2:paramName}\n */",
     },
     {
         trigger = "@type",
-        body = "/** @type ${1:typeName} */",
+        body = "/** @type {${1:typeName}} */",
     },
     {
         trigger = "@param",
@@ -18,5 +18,13 @@ return {
     {
         trigger = "@returns",
         body = "@returns {${1:type}} ${2:description}",
+    },
+    {
+        trigger = "@typedef",
+        body = "/**\n * @typedef {Object} ${1:TypeName}\n * @property {${2:type}} ${3:propName}\n */",
+    },
+    {
+        trigger = "@property",
+        body = "@property {${2:type}} ${3:propName}",
     },
 }

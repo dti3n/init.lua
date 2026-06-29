@@ -40,70 +40,52 @@ local function get_buf_snips()
     return load_for_ft(ft)
 end
 
-local function find_snippet(trigger)
+local function find_snippet(before)
+    local best_body, best_len = nil, 0
     for _, s in ipairs(get_buf_snips()) do
-        if s.trigger == trigger then
+        local trig = s.trigger
+        local len = #trig
+        if len > best_len and before:sub(-len) == trig then
             local body = s.body
             if type(body) == "function" then
                 body = body()
             end
-            return body
+            best_body, best_len = body, len
         end
     end
-    return nil
+    return best_body, best_len
 end
 
 local function try_expand_snippet()
     local row, col = unpack(vim.api.nvim_win_get_cursor(0))
     local line = vim.api.nvim_get_current_line()
-
     local before_cursor = line:sub(1, col)
-    local trigger = before_cursor:match("(%S+)$")
-    if not trigger then
-        return false
-    end
 
-    local body = find_snippet(trigger)
+    local body, trig_len = find_snippet(before_cursor)
     if not body then
         return false
     end
 
     vim.schedule(function()
-        local new_line = before_cursor:sub(1, -#trigger - 1) .. line:sub(col + 1)
-        vim.api.nvim_set_current_line(new_line)
-        vim.api.nvim_win_set_cursor(0, { row, col - #trigger })
+        vim.api.nvim_buf_set_text(0, row - 1, col - trig_len, row - 1, col, {})
+        vim.api.nvim_win_set_cursor(0, { row, col - trig_len })
         vim.snippet.expand(body)
     end)
-
     return true
 end
 
-vim.keymap.set("i", "<C-k>", function()
-    if try_expand_snippet() then
-        return ""
-    end
-
+vim.keymap.set({ "i", "s" }, "<C-k>", function()
     if vim.snippet.active({ direction = 1 }) then
         vim.snippet.jump(1)
-        return ""
+        return
     end
 
-    return vim.api.nvim_replace_termcodes("<C-k>", true, true, true)
-end, { expr = true, silent = true })
+    try_expand_snippet()
+end, { expr = true })
 
-vim.keymap.set("i", "<C-j>", function()
+vim.keymap.set({ "i", "s" }, "<C-j>", function()
     if vim.snippet.active({ direction = -1 }) then
         vim.snippet.jump(-1)
         return ""
     end
-
-    return vim.api.nvim_replace_termcodes("<C-j>", true, true, true)
-end, { expr = true, silent = true })
-
-vim.api.nvim_create_autocmd("InsertLeave", {
-    callback = function()
-        if vim.snippet.active() then
-            vim.snippet.stop()
-        end
-    end,
-})
+end, { expr = true })

@@ -93,7 +93,28 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.lsp.document_color.enable(false)
 
         if client and client:supports_method("textDocument/completion") then
-            vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+            vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = false })
+
+            -- -- :help lsp-autocompletion
+            -- -- triggerCharacters mostly are { '"', "'", "`", " ", ".", "(", "[", "]", "!", "/", "-", ":" }
+            -- -- enhance this to trigger on every characters
+            -- -- need to place this before the vim.lsp.completion.enable
+            --
+            -- -- run this to check (needs to set the `autotrigger` to true)
+            -- -- local client = vim.lsp.get_clients({ name = "tailwindcss" })[1]
+            -- -- vim.print(client.server_capabilities.completionProvider.triggerCharacters)
+            --
+            -- local completion_provider = client.server_capabilities.completionProvider
+            -- if completion_provider then
+            --     completion_provider.triggerCharacters = completion_provider.triggerCharacters or {}
+            --     local tchars = completion_provider.triggerCharacters ---@type string[]
+            --     local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            --     for _, c in ipairs(vim.split(chars, "")) do
+            --         if not vim.tbl_contains(tchars, c) then
+            --             table.insert(tchars, c)
+            --         end
+            --     end
+            -- end
 
             vim.keymap.set("i", "<C-Space>", function()
                 vim.lsp.completion.get()

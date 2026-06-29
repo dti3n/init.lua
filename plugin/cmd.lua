@@ -6,7 +6,7 @@ autocmd("TextYankPost", {
     group = augroup("dtien.highlight_yank", {}),
     pattern = "*",
     callback = function()
-        vim.hl.on_yank({
+        vim.hl.hl_op({
             higroup = "IncSearch",
             timeout = 40,
         })
@@ -20,6 +20,7 @@ usercmd("Bd", function()
     local pos = vim.api.nvim_win_get_cursor(0)
     vim.cmd("up | %bd | e#")
     vim.api.nvim_win_set_cursor(0, pos)
+    vim.cmd("normal! zz")
 end, {})
 
 usercmd("YankPath", function(opts)

@@ -6,8 +6,8 @@ vim.api.nvim_create_autocmd("FileType", {
         if not ok or not parser then
             return
         end
-        pcall(vim.treesitter.start)
+        pcall(vim.treesitter.start, bufnr)
     end,
 })
 
-vim.treesitter.language.register("javascript", { "javascriptreact", "jsx" })
+vim.treesitter.language.register("tsx", { "javascriptreact", "jsx" })
