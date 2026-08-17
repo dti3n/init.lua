@@ -44,7 +44,6 @@ vim.keymap.set("v", "(", [[:<C-u>normal!`>a)<Esc>`<i(<Esc>]])
 -- So gooooood
 vim.keymap.set("n", "<C-t>", "<C-6>")
 vim.keymap.set("t", [[<C-\>]], [[<C-\><C-n>]])
-vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "\\x", "<cmd>!chmod +x %<CR>")
 

@@ -7,7 +7,7 @@ local settings = {
     bookmark_branch = true,
 }
 
-local MARK_REGEX = "^(.-):(%-?%d+):(%-?%d+)$"
+local MARK_REGEX = "^(.-):(%-?%d+):(%-?%d+)%s*(.*)$"
 
 local function project_key()
     local cwd = vim.fn.getcwd()
@@ -84,11 +84,18 @@ local function add()
     local c = vim.fn.col(".")
 
     local cache = load()
+    for _, bm in ipairs(cache) do
+        if bm.file == file and bm.line == l and bm.col == c then
+            vim.notify("Duplicated bookmark", vim.log.levels.INFO)
+            return
+        end
+    end
 
     table.insert(cache, {
         file = file,
         line = l,
         col = c,
+        description = "",
     })
 
     save(cache)
@@ -118,7 +125,12 @@ end
 
 local function format_bookmark(bm)
     local fname = vim.fn.fnamemodify(bm.file, ":.")
-    return string.format("%s:%d:%d", fname, bm.line or 0, bm.col or 0)
+    local desc = bm.description or ""
+    if desc ~= "" then
+        return string.format("%s:%d:%d %s", fname, bm.line or 0, bm.col or 0, desc)
+    else
+        return string.format("%s:%d:%d", fname, bm.line or 0, bm.col or 0)
+    end
 end
 
 local function edit()
@@ -215,13 +227,14 @@ local function edit()
 
             local new_cache = {}
             for _, line in ipairs(new_lines) do
-                local path, line_num, col_num = line:match(MARK_REGEX)
+                local path, line_num, col_num, description = line:match(MARK_REGEX)
                 if path and path ~= "" then
                     local abs_path = vim.fn.fnamemodify(path, ":p")
                     table.insert(new_cache, {
                         file = abs_path,
                         line = tonumber(line_num) or 0,
                         col = tonumber(col_num) or 0,
+                        description = description or "",
                     })
                 end
             end
