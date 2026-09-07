@@ -10,4 +10,4 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.treesitter.language.register("tsx", { "javascriptreact", "jsx" })
+vim.treesitter.language.register("tsx", { "javascriptreact", "jsx", "typescriptreact", "tsx" })
