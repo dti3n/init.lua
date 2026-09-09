@@ -1,7 +1,11 @@
 {
   "plugins": {
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
     "mason-lspconfig.nvim": {
-      "rev": "21c5b3ebeaa0412e28096bb0701434c51c1fbf76",
+      "rev": "40276c4df7e6bdce6801d6c035c6227f9115a855",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -9,7 +13,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "a683e0ddf0cf64c6cd689e18ffb480ade3c162b7",
+      "rev": "da1aff0332774a0f60d52bf972e815dfc226f276",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "vim-dadbod": {
